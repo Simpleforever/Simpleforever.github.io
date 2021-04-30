@@ -2,16 +2,93 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://simpleforever.github.io/2021/01/03/Leetcode%20Notes%E2%80%94%E2%80%94Math/</loc>
+    
+    <lastmod>2021-04-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2020/08/30/Leetcode%20Notes%E2%80%94%E2%80%94Array%20and%20Matrix/</loc>
+    
+    <lastmod>2021-04-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2020/08/18/Leetcode%20Notes%E2%80%94%E2%80%94Linked%20List/</loc>
+    
+    <lastmod>2021-04-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2021/02/23/Leetcode%20Notes%E2%80%94%E2%80%94Dynamic%20Programming/</loc>
+    
+    <lastmod>2021-04-28</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://simpleforever.github.io/2020/07/22/%E5%89%91%E6%8C%87offer%E9%A2%98%E8%A7%A3/</loc>
     
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2020/09/29/Leetcode%20Notes%E2%80%94%E2%80%94Two%20Pointers/</loc>
+    
+    <lastmod>2021-04-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2020/08/15/Leetcode%20Notes%E2%80%94%E2%80%94Stack%20and%20Queue/</loc>
+    
+    <lastmod>2021-04-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2020/07/25/Leetcode%20Notes%E2%80%94%E2%80%94Tree/</loc>
+    
+    <lastmod>2021-04-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2021/04/06/Leetcode%20Notes%E2%80%94%E2%80%94String/</loc>
+    
+    <lastmod>2021-04-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2021/03/09/Leetcode%20Notes%E2%80%94%E2%80%94Bit%20Operation/</loc>
+    
+    <lastmod>2021-04-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2021/03/07/%E7%89%9B%E5%AE%A2%E9%A2%98%E9%9C%B8%E2%80%94%E9%AB%98%E9%A2%91TOP200/</loc>
+    
+    <lastmod>2021-04-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/2021/03/14/Leetcode%20Notes%E2%80%94%E2%80%94Design/</loc>
+    
+    <lastmod>2021-03-14</lastmod>
     
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/2020/12/21/Leetcode%20Notes%E2%80%94%E2%80%94Graph/</loc>
     
-    <lastmod>2021-02-02</lastmod>
+    <lastmod>2021-02-21</lastmod>
     
   </url>
   
@@ -23,9 +100,9 @@
   </url>
   
   <url>
-    <loc>https://simpleforever.github.io/2021/01/03/Leetcode%20Notes%E2%80%94%E2%80%94Math/</loc>
+    <loc>https://simpleforever.github.io/2020/07/18/2020%E7%89%9B%E5%AE%A2%E5%B7%A6%E7%A5%9E%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8/</loc>
     
-    <lastmod>2021-01-19</lastmod>
+    <lastmod>2021-01-18</lastmod>
     
   </url>
   
@@ -58,13 +135,6 @@
   </url>
   
   <url>
-    <loc>https://simpleforever.github.io/2020/07/18/2020%E7%89%9B%E5%AE%A2%E5%B7%A6%E7%A5%9E%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2020-11-05</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://simpleforever.github.io/2020/10/26/Leetcode%20Notes%E2%80%94%E2%80%94HashMap/</loc>
     
     <lastmod>2020-10-30</lastmod>
@@ -79,13 +149,6 @@
   </url>
   
   <url>
-    <loc>https://simpleforever.github.io/2020/09/29/Leetcode%20Notes%E2%80%94%E2%80%94Two%20Pointers/</loc>
-    
-    <lastmod>2020-10-13</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://simpleforever.github.io/2020/09/10/Leetcode%20Notes%E2%80%94%E2%80%94Binary%20Search/</loc>
     
     <lastmod>2020-09-30</lastmod>
@@ -93,37 +156,9 @@
   </url>
   
   <url>
-    <loc>https://simpleforever.github.io/2020/08/30/Leetcode%20Notes%E2%80%94%E2%80%94Array%20and%20Matrix/</loc>
-    
-    <lastmod>2020-09-24</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://simpleforever.github.io/2020/08/18/Leetcode%20Notes%E2%80%94%E2%80%94Linked%20List/</loc>
-    
-    <lastmod>2020-09-13</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://simpleforever.github.io/2020/08/11/Leetcode%20Notes%E2%80%94%E2%80%94BST/</loc>
     
     <lastmod>2020-08-19</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://simpleforever.github.io/2020/08/15/Leetcode%20Notes%E2%80%94%E2%80%94Stack%20and%20Queue/</loc>
-    
-    <lastmod>2020-08-18</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://simpleforever.github.io/2020/07/25/Leetcode%20Notes%E2%80%94%E2%80%94Tree/</loc>
-    
-    <lastmod>2020-08-13</lastmod>
     
   </url>
   
@@ -158,7 +193,7 @@
 
   <url>
     <loc>https://simpleforever.github.io/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -166,119 +201,147 @@
   
   <url>
     <loc>https://simpleforever.github.io/tags/Array-and-Matrix/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/BST/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Divide-and-Conquer/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Linked-List/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Greedy/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/HashMap/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Sliding-Window/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Sort/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Stack-and-Queue/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Two-Pointers/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Binary-Search/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Tree/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Search/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Graph/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Math/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/tags/Effective-C/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/tags/Design/</loc>
+    <lastmod>2021-04-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/tags/Bit-Operation/</loc>
+    <lastmod>2021-04-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/tags/String/</loc>
+    <lastmod>2021-04-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://simpleforever.github.io/tags/DP/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -287,21 +350,21 @@
   
   <url>
     <loc>https://simpleforever.github.io/categories/leetcode/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://simpleforever.github.io/categories/CPP-kernal/</loc>
-    <lastmod>2021-02-26</lastmod>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
