@@ -4,6 +4,7 @@
     <title>Leetcode Notes——String</title>
     <url>/2021/04/06/Leetcode%20Notes%E2%80%94%E2%80%94String/</url>
     <content><![CDATA[<p>记录一下自己 leetcode 的刷题记录，本部分为<strong>字符串</strong>篇。部分内容搬运自 <a href="https://leetcode-cn.com/problemset/all/" target="_blank" rel="noopener">Leetcode-cn</a> 大佬题解。</p>
+<a id="more"></a>
 <h1 id="415-字符串相加-easy"><a href="#415-字符串相加-easy" class="headerlink" title="415. 字符串相加[easy]"></a><a href="https://leetcode-cn.com/problems/add-strings/" target="_blank" rel="noopener">415. 字符串相加</a>[easy]</h1><h2 id="解法：双指针模拟"><a href="#解法：双指针模拟" class="headerlink" title="解法：双指针模拟"></a>解法：双指针模拟</h2><p>设定 <code>i</code>，<code>j</code> 两指针分别指向 <code>num1</code>，<code>num2</code> 尾部，模拟人工加法：</p>
 <ul>
 <li><strong>计算进位：</strong> 计算 <code>carry = tmp / 10</code>，代表当前位相加是否产生进位；</li>
