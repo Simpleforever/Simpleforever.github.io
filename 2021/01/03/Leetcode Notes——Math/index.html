@@ -1,0 +1,547 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Orleans">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一下自己 leetcode 的刷题记录，本部分为数学问题篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode Notes——Math">
+<meta property="og:url" content="https://simpleforever.github.io/2021/01/03/Leetcode%20Notes%E2%80%94%E2%80%94Math/index.html">
+<meta property="og:site_name" content="OrleansのBlog">
+<meta property="og:description" content="记录一下自己 leetcode 的刷题记录，本部分为数学问题篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20210104213623.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210119222925.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210412220040.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210430155038.jpeg">
+<meta property="article:published_time" content="2021-01-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-30T07:53:20.000Z">
+<meta property="article:author" content="Orleans">
+<meta property="article:tag" content="Math">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20210104213623.gif">
+  
+  
+  <title>Leetcode Notes——Math - OrleansのBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"simpleforever.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Leetcode Notes——Math">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-03 00:00" pubdate>
+        2021年1月3日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      62 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Leetcode Notes——Math</h1>
+            
+            <div class="markdown-body">
+              <p>记录一下自己 leetcode 的刷题记录，本部分为<strong>数学问题</strong>篇。部分内容搬运自 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problemset/all/">Leetcode-cn</a> 大佬题解。</p>
+<span id="more"></span>
+
+<h1 id="204-计数质数-easy"><a href="#204-计数质数-easy" class="headerlink" title="204. 计数质数[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-primes/">204. 计数质数</a>[easy]</h1><h2 id="解法一：暴力法"><a href="#解法一：暴力法" class="headerlink" title="解法一：暴力法"></a>解法一：暴力法</h2><p>思路：验证某个数是否为质数时，将其对每一个比其小的数进行取余运算，并对取余为零的情况进行计数。由于质数是指在大于 1 的自然数中，除了 1 和它本身以外不再有其他因数的自然数。所以，当计数结果为 1 时，该数为质数。在实际操作中，由于 1 和任意一个数必然取余为零，所以可以直接排除。并当没有取余为零的情况时，其才为质数。</p>
+<p>cpp 代码超时！！！</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">int</span> countPrimes(<span class="hljs-built_in">int</span> n) &#123;<br>       <span class="hljs-built_in">int</span> <span class="hljs-keyword">count</span>=<span class="hljs-number">0</span>;<br>       <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i=<span class="hljs-number">2</span>;i&lt;n;++i)<br>       &#123;<br>           bool sign=<span class="hljs-literal">true</span>;<br>           <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> j=<span class="hljs-number">2</span>;j&lt;i;++j)<br>           &#123;<br>               <span class="hljs-keyword">if</span>(i%j==<span class="hljs-number">0</span>)<br>               &#123;<br>                   sign=<span class="hljs-literal">false</span>;<br>                   <span class="hljs-keyword">break</span>;<br>               &#125;<br>           &#125;<br>           <span class="hljs-keyword">if</span>(sign)<br>                ++<span class="hljs-keyword">count</span>;<br>       &#125;<br>       <span class="hljs-keyword">return</span> <span class="hljs-keyword">count</span>; <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>细究暴力计算的方法，可以发现，假如一个数为 9 ，那么其二分之一（4.5）后的数都可以不用进行计算，因为肯定是有余的 。事实上情况会比这更好一些：对正整数 n ，如果用 2 到 √n 之间(包含边界)的所有整数去除，均无法整除，则 n 为质数。</p>
+<p>并且，可以发现，一切非 2 偶数一定不可能为质数。所以，可以在此处进行另一步的优化。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">countPrimes</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>       <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">3</span>)<br>           <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>       <span class="hljs-comment">//从3开始验算，所以初始值为1（2为质数）</span><br>       <span class="hljs-type">int</span> count=<span class="hljs-number">1</span>;<br>       <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">3</span>;i&lt;n;++i)<br>       &#123;<br>           <span class="hljs-keyword">if</span>(i%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)<br>               <span class="hljs-keyword">continue</span>;<br>           <span class="hljs-type">bool</span> sign=<span class="hljs-literal">true</span>;<br>           <span class="hljs-comment">// 用 j * j &lt;= i 代替 j &lt;= √i 会更好。</span><br>           <span class="hljs-comment">// 因为已经排除了所有偶数，所以每次循环加二将规避偶数会减少循环次数</span><br>           <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">3</span>;j*j&lt;=i;j+=<span class="hljs-number">2</span>)<br>           &#123;<br>               <span class="hljs-keyword">if</span>(i%j==<span class="hljs-number">0</span>)<br>               &#123;<br>                   sign=<span class="hljs-literal">false</span>;<br>                   <span class="hljs-keyword">break</span>;<br>               &#125;<br>           &#125;<br>           <span class="hljs-keyword">if</span>(sign)<br>                ++count;<br>       &#125;<br>       <span class="hljs-keyword">return</span> count; <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：厄拉多塞筛法"><a href="#解法二：厄拉多塞筛法" class="headerlink" title="解法二：厄拉多塞筛法"></a>解法二：厄拉多塞筛法</h2><p>在进行顺序遍历时，每取得一个数（排除0、1），就将它所有的倍数（排除0、1、本身）都清除，那么，剩下的数必为素数。</p>
+<p>使用厄拉多塞筛法进行质数查找的过程如下：</p>
+<p><img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20210104213623.gif" srcset="/img/loading.gif" lazyload></p>
+<p>对此，可以声明一个长度为最大限制数的布尔数组，用布尔值来区别筛选出的数和质数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">countPrimes</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 初始默认所有数为质数</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">signs</span><span class="hljs-params">(n,<span class="hljs-literal">true</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;n;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(signs[i])<br>            &#123;<br>                ++count;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i+i;j&lt;n;j+=i)<br>                    <span class="hljs-comment">// 排除不是质数的数</span><br>                    signs[j]=<span class="hljs-literal">false</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="504-七进制数-easy"><a href="#504-七进制数-easy" class="headerlink" title="504. 七进制数[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/base-7/">504. 七进制数</a>[easy]</h1><h2 id="解法：迭代"><a href="#解法：迭代" class="headerlink" title="解法：迭代"></a>解法：迭代</h2><p>迭代除 7 取余，进制可以推广到 n。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">convertToBase7</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(num==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0&quot;</span>;<br>        string s;<br>        <span class="hljs-type">bool</span> negative=<span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span>(num&lt;<span class="hljs-number">0</span>)<br>        &#123;<br>            num=-num;<br>            negative=<span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">while</span>(num&gt;<span class="hljs-number">0</span>)<br>        &#123;<br>            s=<span class="hljs-built_in">to_string</span>(num%<span class="hljs-number">7</span>)+s;<br>            num/=<span class="hljs-number">7</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> negative?<span class="hljs-string">&quot;-&quot;</span>+s:s;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="405-数字转换为十六进制数"><a href="#405-数字转换为十六进制数" class="headerlink" title="405. 数字转换为十六进制数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/convert-a-number-to-hexadecimal/">405. 数字转换为十六进制数</a></h1><h2 id="解法：移位运算"><a href="#解法：移位运算" class="headerlink" title="解法：移位运算"></a>解法：移位运算</h2><p>int 是 32 位二进制存储，转换成 16 进制就该有 8 位，每次让 num 向右移位 4 位，并和 0xf (二进制的00000000 00000000 00000000 00001111)做与运算，即可得到本四位的十六进制表示。<br>由于负数右移动不能保证最终 num&#x3D;&#x3D;0，因此限制右移动的次数不超过 8。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">toHex</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        string res=<span class="hljs-string">&quot;&quot;</span>;<br>        string hex=<span class="hljs-string">&quot;0123456789abcdef&quot;</span>;<br>        <span class="hljs-type">int</span> cnt=<span class="hljs-number">0</span>;<span class="hljs-comment">//右移动的次数</span><br>        <span class="hljs-comment">// 32位转换成16进制就是八位</span><br>        <span class="hljs-keyword">while</span>(num!=<span class="hljs-number">0</span>&amp;&amp;cnt&lt;<span class="hljs-number">8</span>)<br>        &#123;<br>            ++cnt;<br>            res=hex[num&amp;<span class="hljs-number">0xf</span>]+res;<br>            num&gt;&gt;=<span class="hljs-number">4</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res.<span class="hljs-built_in">empty</span>()?<span class="hljs-string">&quot;0&quot;</span>:res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="168-Excel表列名称-easy"><a href="#168-Excel表列名称-easy" class="headerlink" title="168. Excel表列名称[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/excel-sheet-column-title/">168. Excel表列名称</a>[easy]</h1><h2 id="解法：进制转换"><a href="#解法：进制转换" class="headerlink" title="解法：进制转换"></a>解法：进制转换</h2><p>本质上是进制转换，把 <code>10</code> 进制转为 <code>26</code> 进制表示。详细思路参考 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/excel-sheet-column-title/solution/xiang-xi-tong-su-de-si-lu-fen-xi-by-windliang-2/">windliang</a> 题解。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210119222925.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+
+<h3 id="实现一：非递归"><a href="#实现一：非递归" class="headerlink" title="实现一：非递归"></a>实现一：非递归</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">convertToTitle</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        string res=<span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">while</span>(n&gt;<span class="hljs-number">0</span>)<br>        &#123;<br>            n-=<span class="hljs-number">1</span>;<br>            res+=<span class="hljs-string">&#x27;A&#x27;</span>+(n%<span class="hljs-number">26</span>);<br>            n/=<span class="hljs-number">26</span>;<br>        &#125;<br>        <span class="hljs-built_in">reverse</span>(res.<span class="hljs-built_in">begin</span>(),res.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="实现二：递归"><a href="#实现二：递归" class="headerlink" title="实现二：递归"></a>实现二：递归</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">convertToTitle</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        --n;      <br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">convertToTitle</span>(n/<span class="hljs-number">26</span>)+(<span class="hljs-type">char</span>)(<span class="hljs-string">&#x27;A&#x27;</span>+n%<span class="hljs-number">26</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="172-阶乘后的零-easy"><a href="#172-阶乘后的零-easy" class="headerlink" title="172. 阶乘后的零[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/">172. 阶乘后的零</a>[easy]</h1><h2 id="解法：计算因子5"><a href="#解法：计算因子5" class="headerlink" title="解法：计算因子5"></a>解法：计算因子5</h2><p>尾部的 0 由 2 * 5 得来，2 的数量明显多于 5 的数量，因此只要统计有多少个 5 即可。</p>
+<p>对于一个数 N，它所包含 5 的个数为：N&#x2F;5 + N&#x2F;5^2 + N&#x2F;5^3 + …，其中 N&#x2F;5 表示不大于 N 的数中 5 的倍数贡献一个 5，N&#x2F;5^2 表示不大于 N 的数中 5^2 的倍数再贡献一个 5 …。</p>
+<p>详细解释参考 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/solution/xiang-xi-tong-su-de-si-lu-fen-xi-by-windliang-3/">windliang</a> 题解。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">trailingZeroes</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(n&gt;<span class="hljs-number">0</span>)<br>        &#123;<br>            count+=n/<span class="hljs-number">5</span>;<br>            n/=<span class="hljs-number">5</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>如果统计的是 N! 的二进制表示中最低位 1 的位置，只要统计有多少个 2 即可，该题目出自编程之美2.2。和求解有多少个 5 一样，2 的个数为 N&#x2F;2 + N&#x2F;2^2 + N&#x2F;2^3 + …</p>
+<h1 id="470-用-Rand7-实现-Rand10-medium"><a href="#470-用-Rand7-实现-Rand10-medium" class="headerlink" title="470. 用 Rand7() 实现 Rand10()[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-rand10-using-rand7/">470. 用 Rand7() 实现 Rand10()</a>[medium]</h1><blockquote>
+<p>参考 @kkbill 题解 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-rand10-using-rand7/solution/cong-zui-ji-chu-de-jiang-qi-ru-he-zuo-dao-jun-yun-/">从最基础的讲起如何做到均匀的生成随机数</a>。</p>
+</blockquote>
+<p>这里记录一下结论：</p>
+<ul>
+<li>已知 rand_N() 可以等概率的生成[1, N]范围的随机数。那么：<br>(rand_X() - 1) × Y + rand_Y() &#x3D;&#x3D;&gt; 可以等概率的生成[1, X * Y]范围的随机数。即实现了 rand_XY()。</li>
+<li>只要 <code>rand_N()</code> 中N是2的倍数，就都可以用来实现 <code>rand2()</code>，方法是  <code>rand_N()%2+1</code> 。</li>
+</ul>
+<p>**要实现 <code>rand10()</code>，就需要先实现 <code>rand_N()</code>，并且保证N大于10且是10的倍数。这样再通过<code>rand_N() % 10 + 1</code>**就可以得到[1,10]范围的随机数了。如下：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode"><span class="hljs-comment">(rand7()</span><span class="hljs-number">-1</span>) × <span class="hljs-number">7</span> + ra<span class="hljs-symbol">nd7</span><span class="hljs-comment">()</span>  ==&gt; ra<span class="hljs-symbol">nd49</span><span class="hljs-comment">()</span><br></code></pre></td></tr></table></figure>
+
+<p>但是这样实现的N不是10的倍数啊！这该怎么处理？这里就涉及到了“<strong>拒绝采样</strong>”的知识了，也就是说，如果某个采样结果不在要求的范围内，则丢弃它。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">rand10</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)<br>        &#123;<br>            <span class="hljs-type">int</span> num=(<span class="hljs-built_in">rand7</span>()<span class="hljs-number">-1</span>)*<span class="hljs-number">7</span>+<span class="hljs-built_in">rand7</span>();<span class="hljs-comment">// 等概率生成[1,49]范围的随机数</span><br>            <span class="hljs-keyword">if</span>(num&lt;=<span class="hljs-number">40</span>)<br>                <span class="hljs-comment">// 拒绝采样，并返回[1,10]范围的随机数</span><br>                <span class="hljs-keyword">return</span> num%<span class="hljs-number">10</span>+<span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="9-回文数-easy"><a href="#9-回文数-easy" class="headerlink" title="9. 回文数[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/palindrome-number/">9. 回文数</a>[easy]</h1><h2 id="解法：反转一半数字"><a href="#解法：反转一半数字" class="headerlink" title="解法：反转一半数字"></a>解法：反转一半数字</h2><p>第一个想法是将数字转换为字符串，并检查字符串是否为回文。但是，这需要额外的非常量空间来创建问题描述中所不允许的字符串。</p>
+<p>第二个想法是将数字本身反转，然后将反转后的数字与原始数字进行比较，如果它们是相同的，那么这个数字就是回文。但是，如果反转后的数字大于 INT_MAX，将遇到整数溢出问题。</p>
+<p>按照第二个想法，为了避免数字反转可能导致的溢出问题，考虑只反转 int 数字的一半。毕竟，如果该数字是回文，其后半部分反转后应该与原始数字的前半部分相同。</p>
+<p>首先，应该处理一些临界情况。所有负数都不可能是回文，可以对所有负数返回 false。除了 0 以外，所有个位是 0 的数字不可能是回文，因为最高位不等于 0。所以可以对所有大于 0 且个位是 0 的数字返回 false。</p>
+<p>除此之外，考虑如何反转后半部分的数字。</p>
+<p>对于数字 1221，如果执行 1221 % 10，将得到最后一位数字 1，要得到倒数第二位数字，可以先通过除以 10 把最后一位数字从 1221 中移除，1221 &#x2F; 10 &#x3D; 122，再求出上一步结果除以 10 的余数，122 % 10 &#x3D; 2，就可以得到倒数第二位数字。如果把最后一位数字乘以 10，再加上倒数第二位数字，1 * 10 + 2 &#x3D; 12，就得到了想要的反转后的数字。如果继续这个过程，将得到更多位数的反转数字。</p>
+<p>剩余的问题是，如何知道反转数字的位数已经达到原始数字位数的一半？</p>
+<p>由于整个过程不断将原始数字除以 10，然后给反转后的数字乘上 10，所以，当原始数字小于或等于反转后的数字时，就意味着已经处理了一半位数的数字了。</p>
+<img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210412220040.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>        <span class="hljs-comment">// 特殊情况</span><br>        <span class="hljs-keyword">if</span>(x&lt;<span class="hljs-number">0</span>||(x%<span class="hljs-number">10</span>==<span class="hljs-number">0</span>&amp;&amp;x!=<span class="hljs-number">0</span>))<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-type">int</span> reverseNum=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(x&gt;reverseNum)<br>        &#123;<br>            reverseNum=reverseNum*<span class="hljs-number">10</span>+x%<span class="hljs-number">10</span>;<br>            x/=<span class="hljs-number">10</span>;<br>        &#125;<br>        <span class="hljs-comment">// 当数字长度为奇数时，可以通过 revertedNumber/10 去除处于中位的数字</span><br>        <span class="hljs-keyword">return</span> x==reverseNum||x==reverseNum/<span class="hljs-number">10</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="367-有效的完全平方数-easy"><a href="#367-有效的完全平方数-easy" class="headerlink" title="367. 有效的完全平方数[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-perfect-square/">367. 有效的完全平方数</a>[easy]</h1><h2 id="解法：数学"><a href="#解法：数学" class="headerlink" title="解法：数学"></a>解法：数学</h2><p>1，4&#x3D;1+3，9&#x3D;1+3+5，16&#x3D;1+3+5+7…以此类推，模仿它可以使用一个 while 循环，不断减去一个从 1 开始不断增大的奇数，若最终减成了 0，说明是完全平方数，否则，不是。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPerfectSquare</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-type">int</span> odd=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(num&gt;<span class="hljs-number">0</span>)<br>        &#123;<br>            num-=odd;<br>            odd+=<span class="hljs-number">2</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> num==<span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="326-3的幂-easy"><a href="#326-3的幂-easy" class="headerlink" title="326. 3的幂[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-three/">326. 3的幂</a>[easy]</h1><h2 id="解法一：循环迭代"><a href="#解法一：循环迭代" class="headerlink" title="解法一：循环迭代"></a>解法一：循环迭代</h2><p>找出数字 n 是否是数字 b 的幂的一个简单方法是，n%3 只要余数为 0，就一直将 n 除以 b。</p>
+<p>$$<br>\begin{aligned} n &amp;&#x3D; b^xn &#x3D; b \times b \times \ldots \times b \end{aligned}<br>$$</p>
+<p>因此，应该可以将 <code>n</code> 除以 <code>b</code> x 次，每次都有 0 的余数，最终结果是 1。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPowerOfThree</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">while</span>(n%<span class="hljs-number">3</span>==<span class="hljs-number">0</span>)<br>            n/=<span class="hljs-number">3</span>;<br>        <span class="hljs-keyword">return</span> n==<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：数学"><a href="#解法二：数学" class="headerlink" title="解法二：数学"></a>解法二：数学</h2><p>INT_MAX 为 2147483647，因此 <code>n</code> 的最大值为 1162261467&#x3D;3^19，只需要将 3^19 除以 <code>n</code>。若余数为 <strong>0</strong> 意味着 <code>n</code> 是 3^19 的除数，即是 3 的幂。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPowerOfThree</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> n&gt;<span class="hljs-number">0</span> &amp;&amp; <span class="hljs-number">1162261467</span>%n==<span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="238-除自身以外数组的乘积-medium"><a href="#238-除自身以外数组的乘积-medium" class="headerlink" title="238. 除自身以外数组的乘积[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/product-of-array-except-self/">238. 除自身以外数组的乘积</a>[medium]</h1><h2 id="解法：左右乘积列表"><a href="#解法：左右乘积列表" class="headerlink" title="解法：左右乘积列表"></a>解法：左右乘积列表</h2><h3 id="两个数组"><a href="#两个数组" class="headerlink" title="两个数组"></a>两个数组</h3><p>利用索引左侧所有数字的乘积和右侧所有数字的乘积（即前缀与后缀）相乘得到答案。</p>
+<ul>
+<li>初始化两个空数组 <code>L</code> 和 <code>R</code>。对于给定索引 <code>i</code>，<code>L[i]</code> 代表的是 <code>i</code> 左侧所有数字的乘积，<code>R[i]</code> 代表的是 <code>i</code> 右侧所有数字的乘积。</li>
+<li>我们需要用两个循环来填充 <code>L</code> 和 <code>R</code> 数组的值。对于数组 <code>L</code>，<code>L[0]</code> 应该是 <code>1</code>，因为第一个元素的左边没有元素。对于其他元素：<code>L[i] = L[i-1] * nums[i-1]</code>。</li>
+<li>同理，对于数组 <code>R</code>，<code>R[length-1]</code> 应为 <code>1</code>。<code>length</code> 指的是输入数组的大小。其他元素：<code>R[i] = R[i+1] * nums[i+1]</code>。</li>
+<li>当 <code>R</code> 和 <code>L</code> 数组填充完成，我们只需要在输入数组上迭代，且索引 <code>i</code> 处的值为：<code>L[i] * R[i]</code>。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">productExceptSelf</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">left</span><span class="hljs-params">(len,<span class="hljs-number">0</span>)</span></span>;<br>        left[<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;++i)<br>            left[i]=left[i<span class="hljs-number">-1</span>]*nums[i<span class="hljs-number">-1</span>];<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">right</span><span class="hljs-params">(len,<span class="hljs-number">0</span>)</span></span>;<br>        right[len<span class="hljs-number">-1</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=len<span class="hljs-number">-2</span>;i&gt;=<span class="hljs-number">0</span>;--i)<br>            right[i]=right[i+<span class="hljs-number">1</span>]*nums[i+<span class="hljs-number">1</span>];<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(len,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;++i)<br>            res[i]=left[i]*right[i];<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N)，空间复杂度 O(N)。</p>
+<h3 id="无需额外空间（结果数组除外）"><a href="#无需额外空间（结果数组除外）" class="headerlink" title="无需额外空间（结果数组除外）"></a>无需额外空间（结果数组除外）</h3><p>由于输出数组不算在空间复杂度内，那么可以将 <code>L</code> 或 <code>R</code> 数组用输出数组来计算。先把输出数组当作 <code>L</code> 数组来计算，然后再动态构造 <code>R</code> 数组得到结果。这种方法的唯一变化就是没有构造 <code>R</code> 数组，而是用一个变量来跟踪右边元素的乘积。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">productExceptSelf</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(len,<span class="hljs-number">0</span>)</span></span>;<br>        res[<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;++i)<br>            res[i]=res[i<span class="hljs-number">-1</span>]*nums[i<span class="hljs-number">-1</span>];<br>        <span class="hljs-type">int</span> right=<span class="hljs-number">1</span>;<br>        <span class="hljs-comment">// 注意从 len-1 开始</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=len<span class="hljs-number">-1</span>;i&gt;=<span class="hljs-number">0</span>;--i)<br>        &#123;<br>            res[i]=res[i]*right;<br>            right*=nums[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="7-整数反转-easy"><a href="#7-整数反转-easy" class="headerlink" title="7. 整数反转[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-integer/">7. 整数反转</a>[easy]</h1><h2 id="解法：取模和除法"><a href="#解法：取模和除法" class="headerlink" title="解法：取模和除法"></a>解法：取模和除法</h2><p>首先想一下，怎么去反转一个整数。用栈？或者把整数变成字符串，再去反转这个字符串？这两种方式是可以，但并不好。实际上只要能拿到这个整数的<strong>末尾数字</strong>就可以了。</p>
+<p>以<code>12345</code>为例，先拿到<code>5</code>，再拿到<code>4</code>，之后是<code>3</code>，<code>2</code>，<code>1</code>，按这样的顺序就可以反向拼接一个数字了，也就能达到 <strong>反转</strong> 的效果。</p>
+<p>怎么拿末尾数字呢？好办，用取模运算就可以了。</p>
+<img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210430155038.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>这么看起来，一个循环就搞定了，循环的判断条件是是<code>x&gt;0</code>。但这样不对，因为忽略了 <strong>负数</strong>。循环的判断条件应该是<code>while(x!=0)</code>，无论正数还是负数，按照上面不断的<code>/10</code>这样的操作，最后都会变成<code>0</code>，所以判断终止条件就是<code>!=0</code>。<br>有了取模和除法操作，对于像<code>12300</code>这样的数字，也可以完美的解决掉了。</p>
+<p>接下来考虑溢出：参考 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-integer/solution/tu-jie-7-zheng-shu-fan-zhuan-by-wang_ni_ma/">王尼玛</a> 题解。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(x!=<span class="hljs-number">0</span>)<br>        &#123;<br>            <span class="hljs-type">int</span> end=x%<span class="hljs-number">10</span>;<br>            <span class="hljs-keyword">if</span>(res&gt;<span class="hljs-number">214748364</span> || (res==<span class="hljs-number">214748364</span>&amp;&amp;end&gt;<span class="hljs-number">7</span>))<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">if</span>(res&lt;<span class="hljs-number">-214748364</span> || (res==<span class="hljs-number">214748364</span>&amp;&amp;end&lt;<span class="hljs-number">-8</span>))<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>            res=res*<span class="hljs-number">10</span>+end;<br>            x/=<span class="hljs-number">10</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Math/">Math</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/08/Effective%20C++_Scott%20Meyers/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Effective C++ 阅读笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/21/Leetcode%20Notes%E2%80%94%E2%80%94Graph/">
+                        <span class="hidden-mobile">Leetcode Notes——Graph</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

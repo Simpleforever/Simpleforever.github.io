@@ -1,0 +1,1126 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Orleans">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一下自己 leetcode 的刷题记录，本部分为动态规划篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode Notes——Dynamic Programming">
+<meta property="og:url" content="https://simpleforever.github.io/2021/02/23/Leetcode%20Notes%E2%80%94%E2%80%94Dynamic%20Programming/index.html">
+<meta property="og:site_name" content="OrleansのBlog">
+<meta property="og:description" content="记录一下自己 leetcode 的刷题记录，本部分为动态规划篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210223153058.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210224215247.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210224223912">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210224230729.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210302234700.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210302235342.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307151911.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307154748.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307154808.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307154825.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210309172115.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210309195523.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424103027.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424103731.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424105639.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424105720.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405103421.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405111607.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405142732.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405151526.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424115856.webp">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210223161427">
+<meta property="article:published_time" content="2021-02-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-28T01:54:04.000Z">
+<meta property="article:author" content="Orleans">
+<meta property="article:tag" content="DP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210223153058.png">
+  
+  
+  <title>Leetcode Notes——Dynamic Programming - OrleansのBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"simpleforever.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Leetcode Notes——Dynamic Programming">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-23 00:00" pubdate>
+        2021年2月23日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      32k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      269 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Leetcode Notes——Dynamic Programming</h1>
+            
+            <div class="markdown-body">
+              <p>记录一下自己 leetcode 的刷题记录，本部分为<strong>动态规划</strong>篇。部分内容搬运自 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problemset/all/">Leetcode-cn</a> 大佬题解。</p>
+<span id="more"></span>
+
+<h1 id="动态规划方法论"><a href="#动态规划方法论" class="headerlink" title="动态规划方法论"></a>动态规划方法论</h1><h2 id="动态规划（Dynamic-Programming，DP）"><a href="#动态规划（Dynamic-Programming，DP）" class="headerlink" title="动态规划（Dynamic Programming，DP）"></a>动态规划（Dynamic Programming，DP）</h2><p>如果某一问题有很多重叠子问题，使用动态规划是最有效的。</p>
+<p>所以动态规划中每一个状态一定是由上一个状态推导出来的，<strong>这一点就区分于贪心</strong>，贪心没有状态推导，而是从局部直接选最优的。</p>
+<h2 id="动态规划的解题步骤"><a href="#动态规划的解题步骤" class="headerlink" title="动态规划的解题步骤"></a>动态规划的解题步骤</h2><p><strong>对于动态规划问题，拆解为如下五步曲：</strong></p>
+<ul>
+<li>确定dp数组（dp table）以及下标的含义</li>
+<li>确定递推公式</li>
+<li>dp数组如何初始化</li>
+<li>确定遍历顺序</li>
+<li>举例推导dp数组</li>
+</ul>
+<h1 id="基本动态规划：一维"><a href="#基本动态规划：一维" class="headerlink" title="基本动态规划：一维"></a>基本动态规划：一维</h1><h2 id="509-斐波那契数-easy"><a href="#509-斐波那契数-easy" class="headerlink" title="509. 斐波那契数[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fibonacci-number/">509. 斐波那契数</a>[easy]</h2><h3 id="解法一：递归"><a href="#解法一：递归" class="headerlink" title="解法一：递归"></a>解法一：递归</h3><p>参考 <a href="https://simpleforever.github.io/2020/07/22/%E5%89%91%E6%8C%87offer%E9%A2%98%E8%A7%A3/#7-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97">剑指offer题解—7.斐波那契数列</a>。</p>
+<h3 id="解法二：动态规划"><a href="#解法二：动态规划" class="headerlink" title="解法二：动态规划"></a>解法二：动态规划</h3><p>这里要用一个一维 dp 数组来保存递归的结果。</p>
+<ul>
+<li><p>确定 dp 数组以及下标的含义</p>
+<p>dp[i] 的定义为：第 i 个数的斐波那契数值是 dp[i]</p>
+</li>
+<li><p>确定递推公式</p>
+<p>题目已经把递推公式直接给了：状态转移方程 dp[i] &#x3D; dp[i - 1] + dp[i - 2]</p>
+</li>
+<li><p>dp 数组如何初始化</p>
+<p>题目中把如何初始化也直接给了，即 dp[0] &#x3D; 0，dp[1] &#x3D; 1</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>从递归公式中可以看出，dp[i] 是依赖 dp[i - 1] 和 dp[i - 2]，那么遍历的顺序一定是从前到后遍历的</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>按照递推公式，当 N 为 10 的时候，dp 数组应该是如下的数列：<code>0 1 1 2 3 5 8 13 21 34 55</code></p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> n;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n+<span class="hljs-number">1</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        dp[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;=n;++i)<br>            dp[i]=dp[i<span class="hljs-number">-1</span>]+dp[i<span class="hljs-number">-2</span>];<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(n)。</p>
+<h4 id="「状态压缩」"><a href="#「状态压缩」" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h4><p>根据斐波那契数列的状态转移方程，当前状态只和之前的两个状态有关，所以并不需要那么长的一个 DP table 来存储所有的状态，只要想办法存储之前的两个状态就行了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> n;<br>        <span class="hljs-type">int</span> dp[<span class="hljs-number">2</span>];<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        dp[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;=n;++i)<br>        &#123;<br>            <span class="hljs-type">int</span> sum=dp[<span class="hljs-number">0</span>]+dp[<span class="hljs-number">1</span>];<br>            dp[<span class="hljs-number">0</span>]=dp[<span class="hljs-number">1</span>];<br>            dp[<span class="hljs-number">1</span>]=sum;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(1)。</p>
+<h2 id="70-爬楼梯-easy"><a href="#70-爬楼梯-easy" class="headerlink" title="70. 爬楼梯[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/climbing-stairs/">70. 爬楼梯</a>[easy]</h2><h3 id="解法：动态规划"><a href="#解法：动态规划" class="headerlink" title="解法：动态规划"></a>解法：动态规划</h3><p>爬到第一层楼梯有一种方法，爬到二层楼梯有两种方法。那么第一层楼梯再跨两步就到第三层 ，第二层楼梯再跨一步就到第三层。所以到第三层楼梯的状态可以由到第二层楼梯和到第一层楼梯状态推导出来，因此使用动态规划。</p>
+<p>定义一个一维数组来记录不同楼层的状态。</p>
+<ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>dp[i]：爬到第 i 层楼梯，有 dp[i] 种方法</p>
+</li>
+<li><p>确定递推公式</p>
+<p>从 dp[i] 的定义可以看出，dp[i] 可以有两个方向推出来。首先是 dp[i - 1]，上 i-1层楼梯，有 dp[i - 1] 种方法，那么再跳一个台阶就是dp[i]。还有就是dp[i - 2]，上 i-2 层楼梯，有 dp[i - 2] 种方法，那么再跳两个台阶就是dp[i]。因此dp[i] 就是 dp[i - 1] 与 dp[i - 2] 之和，即 dp[i] &#x3D; dp[i - 1] + dp[i - 2] </p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>不考虑 dp[0] 的初始化，只初始化 dp[1] &#x3D; 1，dp[2] &#x3D; 2，然后从 i &#x3D; 3 开始递推</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>从递推公式中可以看出，遍历顺序一定是从前向后遍历的</p>
+</li>
+<li><p>举例推导dp数组</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">climbStairs</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> n;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n+<span class="hljs-number">1</span>)</span></span>;<br>        dp[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>        dp[<span class="hljs-number">2</span>]=<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">3</span>;i&lt;=n;++i)<span class="hljs-comment">// 注意i是从3开始的</span><br>            dp[i]=dp[i<span class="hljs-number">-1</span>]+dp[i<span class="hljs-number">-2</span>];<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(n)。</p>
+<h4 id="「状态压缩」-1"><a href="#「状态压缩」-1" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">climbStairs</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> n;<br>        <span class="hljs-type">int</span> dp[<span class="hljs-number">3</span>];<br>        dp[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>        dp[<span class="hljs-number">2</span>]=<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">3</span>;i&lt;=n;++i)<br>        &#123;<br>            <span class="hljs-type">int</span> sum=dp[<span class="hljs-number">1</span>]+dp[<span class="hljs-number">2</span>];<br>            dp[<span class="hljs-number">1</span>]=dp[<span class="hljs-number">2</span>];<br>            dp[<span class="hljs-number">2</span>]=sum;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">2</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(1)。</p>
+<h2 id="746-使用最小花费爬楼梯-easy"><a href="#746-使用最小花费爬楼梯-easy" class="headerlink" title="746. 使用最小花费爬楼梯[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/min-cost-climbing-stairs/">746. 使用最小花费爬楼梯</a>[easy]</h2><h3 id="解法：动态规划-1"><a href="#解法：动态规划-1" class="headerlink" title="解法：动态规划"></a>解法：动态规划</h3><h4 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/climbing-stairs/">70. 爬楼梯</a> 的花费版本，最后一步可以理解为<strong>不用花费</strong>。</p>
+<ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>只需要一个一维数组 dp[i]，dp[i] 的定义：第 i 个台阶所花费的最少体力为 dp[i]。</p>
+</li>
+<li><p>确定递推公式</p>
+<p>可以有两个途径得到 dp[i]，一个是 dp[i-1] 一个是 dp[i-2]。选最小的，所以dp[i] &#x3D; min(dp[i - 1], dp[i - 2]) + cost[i]</p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>只初始化 dp[0] 和 dp[1] ，其他的最终都是 dp[0]、dp[1] 推出。</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>因为是模拟台阶，而且dp[i] 由 dp[i-1]、dp[i-2] 推出，所以是从前到后遍历 cost 数组</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>拿示例 2：cost &#x3D; [1, 100, 1, 1, 1, 100, 1, 1, 100, 1] ，来模拟一下 dp 数组的状态变化，如下：</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210223153058.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; cost)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=cost.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=cost[<span class="hljs-number">0</span>];<br>        dp[<span class="hljs-number">1</span>]=cost[<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;n;++i)<br>            dp[i]=<span class="hljs-built_in">min</span>(dp[i<span class="hljs-number">-1</span>],dp[i<span class="hljs-number">-2</span>])+cost[i];<br>        <span class="hljs-comment">// 最后一步可以理解为不用花费，所以取倒数第一步，第二步的最少值</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(dp[n<span class="hljs-number">-1</span>],dp[n<span class="hljs-number">-2</span>]);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(n)。</p>
+<h5 id="「状态压缩」-2"><a href="#「状态压缩」-2" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h5><p>因为 dp[i] 就是由前两位推出来的，那么不需要 dp数组，只需要维护前两个状态变量。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; cost)</span> </span>&#123;<br>        <span class="hljs-type">int</span> dp0=cost[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">int</span> dp1=cost[<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;cost.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">int</span> dpi=<span class="hljs-built_in">min</span>(dp0,dp1)+cost[i];<br>            dp0=dp1;<br>            dp1=dpi;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(dp0,dp1);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(1)。</p>
+<h4 id="思路二"><a href="#思路二" class="headerlink" title="思路二"></a>思路二</h4><p>可以定义 dp[i] 为:第一步是不花费体力，最后一步是花费体力的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; cost)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=cost.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n+<span class="hljs-number">1</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        dp[<span class="hljs-number">1</span>]=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;=n;++i)<br>            dp[i]=<span class="hljs-built_in">min</span>(dp[i<span class="hljs-number">-1</span>]+cost[i<span class="hljs-number">-1</span>],dp[i<span class="hljs-number">-2</span>]+cost[i<span class="hljs-number">-2</span>]);<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="「状态压缩」-3"><a href="#「状态压缩」-3" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minCostClimbingStairs</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; cost)</span> </span>&#123;<br>        <span class="hljs-type">int</span> dp0=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> dp1=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;=cost.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">int</span> dpi=<span class="hljs-built_in">min</span>(dp0+cost[i<span class="hljs-number">-2</span>],dp1+cost[i<span class="hljs-number">-1</span>]);<br>            dp0=dp1;<br>            dp1=dpi;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp1;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="413-等差数列划分-medium"><a href="#413-等差数列划分-medium" class="headerlink" title="413. 等差数列划分[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/arithmetic-slices/">413. 等差数列划分</a>[medium]</h2><h3 id="解法一：暴力"><a href="#解法一：暴力" class="headerlink" title="解法一：暴力"></a>解法一：暴力</h3><p>判断后一对元素的差值是不是跟之前区间中的差值相等。一旦当前区间不满足等差数列了，那就不需要继续判断了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">numberOfArithmeticSlices</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>()&lt;<span class="hljs-number">3</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-2</span>;++i)<br>        &#123;<br>            <span class="hljs-type">int</span> d=nums[i+<span class="hljs-number">1</span>]-nums[i];<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i+<span class="hljs-number">2</span>;j&lt;nums.<span class="hljs-built_in">size</span>();++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(nums[j]-nums[j<span class="hljs-number">-1</span>]==d)<br>                    ++count;<br>                <span class="hljs-keyword">else</span><br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n^2)，空间复杂度 O(1)。</p>
+<h3 id="解法二：动态规划-1"><a href="#解法二：动态规划-1" class="headerlink" title="解法二：动态规划"></a>解法二：动态规划</h3><p>dp[i] 表示以 A[i] 为结尾的等差递增子区间的个数。</p>
+<p>当 A[i] - A[i-1] &#x3D;&#x3D; A[i-1] - A[i-2]，那么 [A[i-2], A[i-1], A[i]] 构成一个等差递增子区间。而且在以 A[i-1] 为结尾的递增子区间的后面再加上一个 A[i]，一样可以构成新的递增子区间。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stylus">dp<span class="hljs-selector-attr">[2]</span> = <span class="hljs-number">1</span><br>    <span class="hljs-selector-attr">[0, 1, 2]</span><br>dp<span class="hljs-selector-attr">[3]</span> = dp<span class="hljs-selector-attr">[2]</span> + <span class="hljs-number">1</span> = <span class="hljs-number">2</span><br>    <span class="hljs-selector-attr">[0, 1, 2, 3]</span>, <span class="hljs-comment">// [0, 1, 2] 之后加一个 3</span><br>    <span class="hljs-selector-attr">[1, 2, 3]</span>     <span class="hljs-comment">// 新的递增子区间</span><br>dp<span class="hljs-selector-attr">[4]</span> = dp<span class="hljs-selector-attr">[3]</span> + <span class="hljs-number">1</span> = <span class="hljs-number">3</span><br>    <span class="hljs-selector-attr">[0, 1, 2, 3, 4]</span>, <span class="hljs-comment">// [0, 1, 2, 3] 之后加一个 4</span><br>    <span class="hljs-selector-attr">[1, 2, 3, 4]</span>,    <span class="hljs-comment">// [1, 2, 3] 之后加一个 4</span><br>    <span class="hljs-selector-attr">[2, 3, 4]</span>        <span class="hljs-comment">// 新的递增子区间</span><br></code></pre></td></tr></table></figure>
+
+<p>综上，在 A[i] - A[i-1] &#x3D;&#x3D; A[i-1] - A[i-2] 时，dp[i] &#x3D; dp[i-1] + 1。</p>
+<p>因为递增子区间不一定以最后一个元素为结尾，可以是任意一个元素结尾，因此需要返回 dp 数组累加的结果。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">numberOfArithmeticSlices</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">3</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;n;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(nums[i]-nums[i<span class="hljs-number">-1</span>]==nums[i<span class="hljs-number">-1</span>]-nums[i<span class="hljs-number">-2</span>])<br>                dp[i]=dp[i<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> &amp;cnt:dp)<br>            count+=cnt;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(n)。</p>
+<h1 id="基本动态规划：二维"><a href="#基本动态规划：二维" class="headerlink" title="基本动态规划：二维"></a>基本动态规划：二维</h1><h2 id="62-不同路径-medium"><a href="#62-不同路径-medium" class="headerlink" title="62. 不同路径[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-paths/">62. 不同路径</a>[medium]</h2><h3 id="解法一：DFS"><a href="#解法一：DFS" class="headerlink" title="解法一：DFS"></a>解法一：DFS</h3><p>用 DFS 来枚举出来有多少种路径。机器人每次只能向下或者向右移动一步，那么其实机器人走过的路径可以抽象为一颗二叉树，而叶子节点就是终点，此时问题就可以转化为求二叉树叶子节点的个数。</p>
+<p>以下代码超时！！！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">uniquePaths</span><span class="hljs-params">(<span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">dfs</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,m,n);<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">//第i行第j列到第m行第n列共有多少种路径</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> i,<span class="hljs-type">int</span> j,<span class="hljs-type">int</span> m,<span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(i&gt;m||j&gt;n) <span class="hljs-comment">// 越界了</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(i==m&amp;&amp;j==n) <span class="hljs-comment">// 找到一种方法，相当于找到了叶子节点</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-comment">//从右边走有多少条路径</span><br>        <span class="hljs-type">int</span> right=<span class="hljs-built_in">dfs</span>(i+<span class="hljs-number">1</span>,j,m,n);<br>        <span class="hljs-comment">//从下边走有多少条路径</span><br>        <span class="hljs-type">int</span> down=<span class="hljs-built_in">dfs</span>(i,j+<span class="hljs-number">1</span>,m,n);<br>        <span class="hljs-comment">//返回总的路径</span><br>        <span class="hljs-keyword">return</span> right+down;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这种会超出时间限制，因为包含了大量的重复计算。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210224215247.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<p>图中红色，黑色等都表示重复的计算，优化方式是把计算过的值用一个 map 存储起来，用的时候先查看是否计算过，如果计算过就直接拿来用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">uniquePaths</span><span class="hljs-params">(<span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        unordered_map&lt;string,<span class="hljs-type">int</span>&gt; cache;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">dfs</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,m,n,cache);<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> i,<span class="hljs-type">int</span> j,<span class="hljs-type">int</span> m,<span class="hljs-type">int</span> n,unordered_map&lt;string,<span class="hljs-type">int</span>&gt; &amp;cache)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(i&gt;m||j&gt;n)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(i==m&amp;&amp;j==n)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        string key=<span class="hljs-built_in">to_string</span>(i)+<span class="hljs-string">&quot;*&quot;</span>+<span class="hljs-built_in">to_string</span>(j);<br>        <span class="hljs-keyword">if</span>(cache.<span class="hljs-built_in">count</span>(key)!=<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> cache[key];<br>        <span class="hljs-type">int</span> right=<span class="hljs-built_in">dfs</span>(i+<span class="hljs-number">1</span>,j,m,n,cache);<br>        <span class="hljs-type">int</span> down=<span class="hljs-built_in">dfs</span>(i,j+<span class="hljs-number">1</span>,m,n,cache);<br>        <span class="hljs-type">int</span> total=right+down;<br>        cache[key]=total;<br>        <span class="hljs-keyword">return</span> total;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="解法二：动态规划-2"><a href="#解法二：动态规划-2" class="headerlink" title="解法二：动态规划"></a>解法二：动态规划</h3><p>机器人从(0 , 0) 位置出发，到(m - 1, n - 1)终点。</p>
+<ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>dp[i] [j] ：表示从(0,0)出发，到(i, j) 有 dp[i] [j] 条不同的路径</p>
+</li>
+<li><p>确定递推公式</p>
+<p>想要求dp[i] [j]，只能有两个方向来推导出来，即 dp[i-1] [j] 和 dp[i] [j-1]。那么 dp[i] [j] &#x3D;  dp[i-1] [j] + dp[i] [j-1]，因为dp[i] [j] 只有这两个方向过来</p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>首先 dp[i] [0] 一定都是 1，因为从(0, 0)的位置到(i, 0)的路径只有一条，dp[0] [j] 同理</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>dp[i] [j] 都是从其上方和左方推导而来，那么从左到右一层一层遍历就可以了</p>
+</li>
+<li><p>举例推导dp数组</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210224223912" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">uniquePaths</span><span class="hljs-params">(<span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(m,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(n,<span class="hljs-number">0</span>));<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;m;++i)<br>            dp[i][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;++j)<br>            dp[<span class="hljs-number">0</span>][j]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;m;++i)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;n;++j)<br>                dp[i][j]=dp[i<span class="hljs-number">-1</span>][j]+dp[i][j<span class="hljs-number">-1</span>];<br>        <span class="hljs-keyword">return</span> dp[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="「状态压缩」-4"><a href="#「状态压缩」-4" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h4><p>上面二维数组的递推公式，当前坐标的值只和左边与上面的值有关，和其他的无关，这样二维数组造成大量的空间浪费，可以把它改为一维数组。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">uniquePaths</span><span class="hljs-params">(<span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;++i)<br>            dp[i]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;m;++i)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;n;++j)<br>                dp[j]+=dp[j<span class="hljs-number">-1</span>];<br>        <span class="hljs-keyword">return</span> dp[n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>一维的dp数组定义为当前行中，每个元素对应的步数。 二维dp数组<code>dp[i][j] = dp[i-1][j] + dp[i][j-1]</code>很好理解，转化为一维数组， 对于第i行来说，<code>dp[j] = dp[j] + dp[j-1]</code>, 等号右边的未赋值之前的dp[j]就是上一行的第j个数据对应的步数，即<code>dp[i-1][j]</code> 等号右边的dp[j-1]是已经更新过的本行的第j-1个数据对应的步数，即<code>dp[i][j-1]</code> 则，本行的<code>dp[j] = 上一行的dp[j] + 本行的dp[j-1]</code>， 所以<code>dp[j] = dp[j] + dp[j-1]</code>，即<code>dp[j] += dp[j-1]</code>。</p>
+<h3 id="解法三：排列组合"><a href="#解法三：排列组合" class="headerlink" title="解法三：排列组合"></a>解法三：排列组合</h3><p>要想到达终点，需要往右走 n-1步，往下走 m-1 步，总共需要走 n+m-2 步。无论往右走还是往下走总的步数是不会变的。也就相当于总共要走 n+m-2 步，往下走 m-1 步总共有多少种走法，很明显这就是一个排列组合问题，即</p>
+<p>$$<br>C_{m+n-2}^{m-1}<br>$$<br>排列组合的计算公式如下：</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210224230729.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">uniquePaths</span><span class="hljs-params">(<span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> N=n+m<span class="hljs-number">-2</span>;<br>        <span class="hljs-type">double</span> res = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;m;++i)<br>            res=res*(N-(m<span class="hljs-number">-1</span>)+i)/i;<br>        <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>)res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="63-不同路径-II-medium"><a href="#63-不同路径-II-medium" class="headerlink" title="63. 不同路径 II[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-paths-ii/">63. 不同路径 II</a>[medium]</h2><h3 id="解法：动态规划-2"><a href="#解法：动态规划-2" class="headerlink" title="解法：动态规划"></a>解法：动态规划</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-paths/">62. 不同路径</a> 的有障碍版。与 62 题的区别只在于，障碍如何处理：</p>
+<ul>
+<li>遇到障碍绕着走，但这种“动态”的想法不符合 DP “状态”的思路</li>
+<li>思考单个点的“状态”：<ul>
+<li>障碍点，是无法抵达的点，是到达方式数为 0 的点</li>
+<li>是无法从它这里走到别的点的点，即无法给其他点“贡献”路径数</li>
+</ul>
+</li>
+</ul>
+<p>因此，标记对应的dp table（dp数组）保持初始值(0)。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">uniquePathsWithObstacles</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;<br>        <span class="hljs-type">int</span> m=obstacleGrid.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> n=obstacleGrid[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>();<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(m,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(n,<span class="hljs-number">0</span>));<br>        <span class="hljs-comment">// 一旦遇到obstacleGrid[i][0] == 1的情况就停止dp[i][0]的赋值1的操作，dp[0][j]同理</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;m&amp;&amp;obstacleGrid[i][<span class="hljs-number">0</span>]==<span class="hljs-number">0</span>;++i)<br>            dp[i][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n&amp;&amp;obstacleGrid[<span class="hljs-number">0</span>][j]==<span class="hljs-number">0</span>;++j)<br>            dp[<span class="hljs-number">0</span>][j]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;m;++i)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;n;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(obstacleGrid[i][j]==<span class="hljs-number">0</span>) <span class="hljs-comment">// 当(i, j)没有障碍的时候，再推导dp[i][j]</span><br>                    dp[i][j]=dp[i<span class="hljs-number">-1</span>][j]+dp[i][j<span class="hljs-number">-1</span>];<br>            &#125;<br>        <span class="hljs-keyword">return</span> dp[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="64-最小路径和-medium"><a href="#64-最小路径和-medium" class="headerlink" title="64. 最小路径和[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-path-sum/">64. 最小路径和</a>[medium]</h2><h3 id="解法：动态规划-3"><a href="#解法：动态规划-3" class="headerlink" title="解法：动态规划"></a>解法：动态规划</h3><ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>dp[i] [j] 表示从左上角开始走到 (i, j) 位置的最小路径和</p>
+</li>
+<li><p>确定递推公式</p>
+<p>走到当前单元格 (i,j) 的最小路径和 &#x3D; **“从左方单元格 (i-1,j) 与从上方单元格 (i,j−1) 走来的两个最小路径和中较小的 ” + 当前单元格值 <code>grid[i][j]</code>**。具体分为以下 4 种情况：</p>
+<ul>
+<li>当左边和上边都不是矩阵边界时： 即当 <code>i!=0,j!=0 </code> 时，<code>dp[i][j]=min(dp[i−1][j],dp[i][j−1])+grid[i][j] </code>；</li>
+<li>当只有左边是矩阵边界时：只能从上面来，即当<code>i!=0,j=0</code> 时，<code>dp[i][j]=dp[i-1][j]+grid[i][j] </code>；</li>
+<li>当只有上边是矩阵边界时：只能从左面来，即当<code>i=0,j!=0</code>时，<code>dp[i][j]=dp[i][j-1]+grid[i][j] </code>；</li>
+<li>当左边和上边都是矩阵边界时： 即当<code>i=0,j=0</code>时，其实就是起点，<code>dp[i][j]=grid[i][j] </code>；</li>
+</ul>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>dp 初始化即可，不需要修改初始 0 值</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>dp[i] [j] 都是从其上方和左方推导而来，那么从左到右一层一层遍历就可以了</p>
+</li>
+<li><p>举例推导dp数组</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minPathSum</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;<br>        <span class="hljs-type">int</span> m=grid.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> n=grid[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>();<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(m,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(n,<span class="hljs-number">0</span>));<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;m;++i)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(i==<span class="hljs-number">0</span>&amp;&amp;j==<span class="hljs-number">0</span>)<br>                    dp[i][j]=grid[i][j];<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i==<span class="hljs-number">0</span>)<br>                    dp[i][j]=dp[i][j<span class="hljs-number">-1</span>]+grid[i][j];<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(j==<span class="hljs-number">0</span>)<br>                    dp[i][j]=dp[i<span class="hljs-number">-1</span>][j]+grid[i][j];<br>                <span class="hljs-keyword">else</span><br>                    dp[i][j]=<span class="hljs-built_in">min</span>(dp[i][j<span class="hljs-number">-1</span>],dp[i<span class="hljs-number">-1</span>][j])+grid[i][j];<br>            &#125;<br>        &#125;    <br>        <span class="hljs-keyword">return</span> dp[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="「状态压缩」-5"><a href="#「状态压缩」-5" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h4><p>因为 dp 矩阵的每一个值只和左边和上面的值相关，可以使用空间压缩将 dp 数组压缩为一维。对于第 i 行，在遍历到第 j 列的时候，因为第 j-1 列已经更新过了，所以 dp[j-1] 代表 dp[i] [j-1]的值，而 dp[j] 待更新，当前存储的值是在第 i-1 行的时候计算的，所以代表 dp[i-1] [j] 的值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minPathSum</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;<br>        <span class="hljs-type">int</span> m=grid.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> n=grid[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;m;++i)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(i==<span class="hljs-number">0</span>&amp;&amp;j==<span class="hljs-number">0</span>)<br>                    dp[j]=grid[i][j];<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i==<span class="hljs-number">0</span>)<br>                    dp[j]=dp[j<span class="hljs-number">-1</span>]+grid[i][j];<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(j==<span class="hljs-number">0</span>)<br>                    dp[j]=dp[j]+grid[i][j];<br>                <span class="hljs-keyword">else</span><br>                    dp[j]=<span class="hljs-built_in">min</span>(dp[j<span class="hljs-number">-1</span>],dp[j])+grid[i][j];<br>            &#125;<br>        &#125;    <br>        <span class="hljs-keyword">return</span> dp[n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="221-最大正方形-medium"><a href="#221-最大正方形-medium" class="headerlink" title="221. 最大正方形[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximal-square/">221. 最大正方形</a>[medium]</h2><h3 id="解法：动态规划-4"><a href="#解法：动态规划-4" class="headerlink" title="解法：动态规划"></a>解法：动态规划</h3><ul>
+<li><p><code>dp</code> 具体定义：<code>dp[i + 1][j + 1]</code> 表示 「以第 <code>i</code> 行、第 <code>j</code> 列为右下角的正方形的最大边长」</p>
+<ul>
+<li>为何不是 <code>dp[i][j]</code><br>任何一个正方形，都「依赖」当前格左、上、左上三个方格的情况，但第一行的上层已经没有格子，第一列左边已经没有格子，需要做特殊 if 判断来处理。为了代码简洁，<strong>假设补充</strong>了多一行全 <code>&#39;0&#39;</code>、多一列全 <code>&#39;0&#39;</code></li>
+</ul>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210302234700.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+</li>
+<li><p>此时 <code>dp</code> 数组的大小也明确为 <code>dp[m + 1][n + 1]</code></p>
+</li>
+<li><p>递推公式：<code>dp(i, j) = min(dp(i - 1, j), dp(i, j - 1), dp(i - 1, j - 1))</code>，即 min(上, 左, 左上) + 1</p>
+<ul>
+<li><p>若某格子值为 <code>1</code>，则以此为<strong>右下角</strong>的正方形的最大边长为：上面的正方形、左面的正方形或左上的正方形中，最小的那个，再加上此格</p>
+</li>
+<li><p>如何理解？</p>
+</li>
+<li><p>阐述简单共识</p>
+<ul>
+<li>若形成正方形（非单 <code>1</code>），以当前为右下角的视角看，则需要：当前格、上、左、左上都是 <code>1</code></li>
+<li>可以换个角度：当前格、上、左、左上都不能受 <code>0</code> 的限制，才能成为正方形</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210302235342.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>上面详解了 三者取最小 的含义：</p>
+<ul>
+<li>图 1：受限于左上的 0</li>
+<li>图 2：受限于上边的 0</li>
+<li>图 3：受限于左边的 0</li>
+<li>数字表示：以此为正方形右下角的最大边长</li>
+<li>黄色表示：格子 <code>?</code> 作为右下角的正方形区域</li>
+</ul>
+</li>
+<li><p>就像 <strong>[木桶的短板理论]</strong> 那样——附近的最小边长，才与 <code>?</code> 的最长边长有关。</p>
+</li>
+</ul>
+</li>
+<li><p>初始值就是将第一列 <code>dp[i][0]</code> 、第一行 <code>dp[0][j]</code> 都赋为 <code>0</code>，相当于已经计算了所有的第一行、第一列的 <code>dp</code> 值</p>
+</li>
+<li><p>题目要求面积。根据 「面积 &#x3D; 边长 x 边长」可知，只需求出 <strong>最大边长</strong> 即可</p>
+<ul>
+<li>定义 <code>maxSide</code> 表示最长边长，每次得出一个 <code>dp</code>，就 <code>maxSide = max(maxSide, dp);</code></li>
+<li>最终返回 <code>return maxSide * maxSide;</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maximalSquare</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;<br>        <span class="hljs-type">int</span> m=matrix.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> n=matrix[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>();<br>        <span class="hljs-comment">// 相当于已经预处理新增第一行、第一列均为0</span><br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(m+<span class="hljs-number">1</span>,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(n+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>));<br>        <span class="hljs-type">int</span> maxSide=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;m;++i)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(matrix[i][j]==<span class="hljs-string">&#x27;1&#x27;</span>)<br>                &#123;<br>                    dp[i+<span class="hljs-number">1</span>][j+<span class="hljs-number">1</span>]=<span class="hljs-built_in">min</span>(<span class="hljs-built_in">min</span>(dp[i][j],dp[i][j+<span class="hljs-number">1</span>]),dp[i+<span class="hljs-number">1</span>][j])+<span class="hljs-number">1</span>;<br>                    maxSide=<span class="hljs-built_in">max</span>(maxSide,dp[i+<span class="hljs-number">1</span>][j+<span class="hljs-number">1</span>]);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxSide*maxSide;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="「状态压缩」-6"><a href="#「状态压缩」-6" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h4><p>其实只需关注”当前格子的周边”，故可二维降一维优化</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maximalSquare</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;<br>        <span class="hljs-type">int</span> m=matrix.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> n=matrix[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>();<br>        <span class="hljs-comment">// 相当于已经预处理新增第一行、第一列均为0</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-type">int</span> maxSide=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> leftOn=<span class="hljs-number">0</span>;<span class="hljs-comment">// 左上角</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;m;++i)<br>        &#123;<br>            leftOn=<span class="hljs-number">0</span>;<span class="hljs-comment">// 遍历每行时，还原回辅助的原值0</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;++j)<br>            &#123;<br>                <span class="hljs-type">int</span> nextLeftOn=dp[j+<span class="hljs-number">1</span>];<br>                <span class="hljs-keyword">if</span>(matrix[i][j]==<span class="hljs-string">&#x27;1&#x27;</span>)<br>                &#123;<br>                    dp[j+<span class="hljs-number">1</span>]=<span class="hljs-built_in">min</span>(<span class="hljs-built_in">min</span>(dp[j],dp[j+<span class="hljs-number">1</span>]),leftOn)+<span class="hljs-number">1</span>;<br>                    maxSide=<span class="hljs-built_in">max</span>(maxSide,dp[j+<span class="hljs-number">1</span>]);<br>                &#125;<br>                <span class="hljs-keyword">else</span> <br>                    dp[j+<span class="hljs-number">1</span>]=<span class="hljs-number">0</span>;<br>                leftOn=nextLeftOn;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxSide*maxSide;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="分割类型题"><a href="#分割类型题" class="headerlink" title="分割类型题"></a>分割类型题</h1><h2 id="343-整数拆分-medium"><a href="#343-整数拆分-medium" class="headerlink" title="343. 整数拆分[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/integer-break/">343. 整数拆分</a>[medium]</h2><h3 id="解法一：暴力递归"><a href="#解法一：暴力递归" class="headerlink" title="解法一：暴力递归"></a>解法一：暴力递归</h3><p>对于给定的一个整数 <code>n</code>，穷举它的每一种分解情况，然后对所有情况，求最大值。<br><code>n</code> 可以拆成如下情况：</p>
+<p><img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307151911.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过上图，得到一个递归表达式：<br>$$<br>F(n)&#x3D;max{i∗F(n−i)}，i&#x3D;1，2，…，n−1<br>$$<br>上述表达式是表明 <code>n - i</code> 需要继续分解的情况，但如果 <code>n - i</code> 比 <code>F(n - i)</code> 要大，显然就不用再继续分解了。故还需要比较 <code>i * (n - i)</code> 与 <code>i * F(n - i)</code> 的大小关系。所以完整的表达式应该为：</p>
+<p>$$<br>F(n)&#x3D;max{i∗F(n−i), i∗(n−i)},i&#x3D;1,2,…,n−1<br>$$<br>以下代码超时！！！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">integerBreak</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;n;++i)<br>            res=<span class="hljs-built_in">max</span>(res,<span class="hljs-built_in">max</span>(i*(n-i),i*<span class="hljs-built_in">integerBreak</span>(n-i)));<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="解法二：记忆化搜索"><a href="#解法二：记忆化搜索" class="headerlink" title="解法二：记忆化搜索"></a>解法二：记忆化搜索</h3><p>暴力搜索在递归的过程中计算了很多<strong>重复值</strong>。如果每次求完一个 F(i)，都将其保存起来，下次再求的时候直接读取保存的值就行了，这显然会节省大量时间。只要用一个数组存放每次的 F(i)，记为 <code>memory</code>，这个数组一般称之为<strong>备忘录数组</strong>。</p>
+<p>Cpp代码超时！！！Java代码不超时。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-comment">// 记忆化搜索-自顶向下</span><br>    <span class="hljs-type">int</span>[] memory;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">integerBreak</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>    memory = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>    <span class="hljs-keyword">return</span> integerBreakHelper(n);<br>&#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">integerBreakHelper</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-comment">// memory的初始值为0，如果它不为0，说明已经计算过了，直接返回即可</span><br>        <span class="hljs-keyword">if</span> (memory[n]!=<span class="hljs-number">0</span>) <br>            <span class="hljs-keyword">return</span> memory[n];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n - <span class="hljs-number">1</span>; i++) <br>            res = Math.max(res, Math.max(i * integerBreakHelper(n - i), i * (n - i)));<br>    	<span class="hljs-comment">// 将每次计算的结果保存到备忘录数组中</span><br>        memory[n] = res;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>记忆化搜索是将目标 F(n) 不断转化为求 F(n-1),F(n - 2),…,F(2),F(1)，过程中将计算过的值存起来，从递归树中看出来这是一个从上到下的过程，一般将之称为 <strong>自顶向下</strong>。</p>
+<p>时间复杂度 O(n^2)，空间复杂度 O(n)。</p>
+<h3 id="解法三：动态规划"><a href="#解法三：动态规划" class="headerlink" title="解法三：动态规划"></a>解法三：动态规划</h3><p>将<code>自顶向下</code>的思路转换为<code>自底向上</code>。</p>
+<p>dp[i]：分拆数字 i，可以得到的最大乘积。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">integerBreak</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        dp[<span class="hljs-number">2</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">3</span>;i&lt;=n;++i)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;i;++j)<br>                dp[i]=<span class="hljs-built_in">max</span>(dp[i],<span class="hljs-built_in">max</span>(j*dp[i-j],j*(i-j)));<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n^2)，空间复杂度 O(n)。</p>
+<h3 id="解法四：贪心"><a href="#解法四：贪心" class="headerlink" title="解法四：贪心"></a>解法四：贪心</h3><img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307154748.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307154808.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210307154825.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">integerBreak</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">3</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">4</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>;<br>        <span class="hljs-comment">// 接下来就是 n &gt;= 5 的时候的逻辑了</span><br>        <span class="hljs-type">int</span> res=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(n&gt;<span class="hljs-number">4</span>)<br>        &#123;<br>            res*=<span class="hljs-number">3</span>;<br>            n-=<span class="hljs-number">3</span>;<br>        &#125;<br>        res*=n;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(1)。</p>
+<h2 id="279-完全平方数-medium"><a href="#279-完全平方数-medium" class="headerlink" title="279. 完全平方数[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/perfect-squares/">279. 完全平方数</a>[medium]</h2><p>见 <a href="https://simpleforever.github.io/2020/11/05/Leetcode%20Notes%E2%80%94%E2%80%94Search/#279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0-medium">Leetcode Notes——Search</a>。</p>
+<h2 id="91-解码方法-medium"><a href="#91-解码方法-medium" class="headerlink" title="91. 解码方法[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/decode-ways/">91. 解码方法</a>[medium]</h2><h3 id="解法一：暴力递归-1"><a href="#解法一：暴力递归-1" class="headerlink" title="解法一：暴力递归"></a>解法一：暴力递归</h3><p>很容易想到递归去解决，将大问题化作小问题。比如 232232323232。对于第一个字母有两种划分方式，即 2|<strong>32232323232</strong> 和 23|<strong>2232323232</strong>。如果分别知道了上边划分的右半部分 32232323232 的解码方式是 ans1 种，2232323232 的解码方式是 ans2 种，那么整体 232232323232 的解码方式就是 ans1 + ans2 种。看一下下边的类比：</p>
+<p>假如从深圳到北京可以经过武汉和上海两条路，而从武汉到北京有 8 条路，从上海到北京有 6 条路。那么从深圳到北京就有 8 + 6 &#x3D; 14 条路。</p>
+<p>以下代码超时！！！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">numDecodings</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">helper</span>(s,<span class="hljs-number">0</span>);<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">helper</span><span class="hljs-params">(string &amp;s,<span class="hljs-type">int</span> start)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-comment">//划分到了最后返回 1</span><br>        <span class="hljs-keyword">if</span>(start==s.<span class="hljs-built_in">size</span>())<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-comment">//开头是 0,0 不对应任何字母，直接返回 0</span><br>        <span class="hljs-keyword">if</span>(s[start]==<span class="hljs-string">&#x27;0&#x27;</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//得到第一种的划分的解码方式</span><br>        <span class="hljs-type">int</span> ans1=<span class="hljs-built_in">helper</span>(s,start+<span class="hljs-number">1</span>);<br>        <span class="hljs-type">int</span> ans2=<span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//判断前两个数字是不是小于等于 26 的</span><br>        <span class="hljs-keyword">if</span>(start&lt;s.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>)<br>        &#123;<br>            <span class="hljs-type">int</span> ten=<span class="hljs-number">10</span>*(s[start]-<span class="hljs-string">&#x27;0&#x27;</span>);<br>            <span class="hljs-type">int</span> one=s[start+<span class="hljs-number">1</span>]-<span class="hljs-string">&#x27;0&#x27;</span>;<br>            <span class="hljs-keyword">if</span>(ten+one&lt;=<span class="hljs-number">26</span>)<br>                <span class="hljs-comment">//得到第二种的划分的解码方式</span><br>                ans2=<span class="hljs-built_in">helper</span>(s,start+<span class="hljs-number">2</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans1+ans2;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="解法二：记忆化搜索-1"><a href="#解法二：记忆化搜索-1" class="headerlink" title="解法二：记忆化搜索"></a>解法二：记忆化搜索</h3><p>解法一的递归中，走完左子树，再走右子树会把一些已经算过的结果重新算，所以可以用 memoization 技术，就是算出一个结果很就保存，第二次算这个的时候直接拿出来就可以了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">numDecodings</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; memory;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">helper</span>(s,<span class="hljs-number">0</span>,memory);<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">helper</span><span class="hljs-params">(string &amp;s,<span class="hljs-type">int</span> start,unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; &amp;memory)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(start==s.<span class="hljs-built_in">size</span>())<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span>(s[start]==<span class="hljs-string">&#x27;0&#x27;</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//判断之前是否计算过</span><br>        <span class="hljs-keyword">if</span>(memory.<span class="hljs-built_in">count</span>(start)!=<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> memory[start];<br>        <span class="hljs-type">int</span> ans1=<span class="hljs-built_in">helper</span>(s,start+<span class="hljs-number">1</span>,memory);<br>        <span class="hljs-type">int</span> ans2=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(start&lt;s.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>)<br>        &#123;<br>            <span class="hljs-type">int</span> ten=<span class="hljs-number">10</span>*(s[start]-<span class="hljs-string">&#x27;0&#x27;</span>);<br>            <span class="hljs-type">int</span> one=s[start+<span class="hljs-number">1</span>]-<span class="hljs-string">&#x27;0&#x27;</span>;<br>            <span class="hljs-keyword">if</span>(ten+one&lt;=<span class="hljs-number">26</span>)<br>                ans2=<span class="hljs-built_in">helper</span>(s,start+<span class="hljs-number">2</span>,memory);<br>        &#125;<br>        <span class="hljs-comment">//将结果保存</span><br>        memory[start]=ans1+ans2;<br>        <span class="hljs-keyword">return</span> ans1+ans2;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="解法三：动态规划-1"><a href="#解法三：动态规划-1" class="headerlink" title="解法三：动态规划"></a>解法三：动态规划</h3><p>将<code>自顶向下</code>的思路转换为<code>自底向上</code>。用一个 dp 数组， dp[i] 代表字符串从 i 开始到结尾的字符串的解码方式。这样得到和递归完全一样的递推式。</p>
+<p>如果 s [i] 和 s [i+1] 组成的数字小于等于 26，那么 dp[i] &#x3D; dp[i+1]+dp[i+2].</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">numDecodings</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=s.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(len+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;   <br>        dp[len]=<span class="hljs-number">1</span>;<span class="hljs-comment">//将递归法的结束条件初始化为 1 </span><br>        <span class="hljs-comment">//最后一个数字不等于 0 就初始化为 1</span><br>        <span class="hljs-keyword">if</span>(s[len<span class="hljs-number">-1</span>]!=<span class="hljs-string">&#x27;0&#x27;</span>)<br>            dp[len<span class="hljs-number">-1</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=len<span class="hljs-number">-2</span>;i&gt;=<span class="hljs-number">0</span>;--i)<br>        &#123;<br>            <span class="hljs-comment">//当前数字时 0 ，直接跳过，0 不代表任何字母</span><br>            <span class="hljs-keyword">if</span>(s[i]==<span class="hljs-string">&#x27;0&#x27;</span>)<br>                <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-type">int</span> ans1=dp[i+<span class="hljs-number">1</span>];<br>            <span class="hljs-comment">//判断两个字母组成的数字是否小于等于 26</span><br>            <span class="hljs-type">int</span> ans2=<span class="hljs-number">0</span>;<br>            <span class="hljs-type">int</span> ten=<span class="hljs-number">10</span>*(s[i]-<span class="hljs-string">&#x27;0&#x27;</span>);<br>            <span class="hljs-type">int</span> one=s[i+<span class="hljs-number">1</span>]-<span class="hljs-string">&#x27;0&#x27;</span>;<br>            <span class="hljs-keyword">if</span>(one+ten&lt;=<span class="hljs-number">26</span>)<br>                ans2=dp[i+<span class="hljs-number">2</span>];<br>            dp[i]=ans1+ans2;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="子序列问题"><a href="#子序列问题" class="headerlink" title="子序列问题"></a>子序列问题</h1><h2 id="300-最长递增子序列-medium"><a href="#300-最长递增子序列-medium" class="headerlink" title="300. 最长递增子序列[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">300. 最长递增子序列</a>[medium]</h2><p>详细思路参考 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/dong-tai-gui-hua-er-fen-cha-zhao-tan-xin-suan-fa-p/">liweiwei1419</a> 题解。</p>
+<h3 id="解法一：动态规划"><a href="#解法一：动态规划" class="headerlink" title="解法一：动态规划"></a>解法一：动态规划</h3><ul>
+<li><p>定义状态：</p>
+<p><code>dp[i]</code> 表示：<strong>以 <code>nums[i]</code></strong> 结尾 的「上升子序列」的长度。注意：这个定义中 <strong><code>nums[i]</code> 必须被选取，且必须是这个子序列的最后一个元素</strong>。</p>
+</li>
+<li><p>状态转移方程：</p>
+<p>如果一个较大的数接在较小的数后面，就会形成一个更长的子序列。只要 <code>nums[i]</code> 严格大于在它位置之前的某个数，那么 <code>nums[i]</code> 就可以接在这个数后面形成一个更长的上升子序列。</p>
+</li>
+</ul>
+<p>$$<br>dp[i] &#x3D; \max_{0 \le j &lt; i, nums[j] &lt; nums[i]} {dp[j] + 1}<br>$$</p>
+<ul>
+<li><p>初始化：</p>
+<p><code>dp[i] = 1</code>，1 个字符显然是长度为 1 的上升子序列。</p>
+</li>
+<li><p>输出：<br>不能返回最后一个状态值，最后一个状态值只表示以 <code>nums[len - 1]</code> 结尾的「上升子序列」的长度，状态数组 <code>dp</code> 的最大值才是题目要求的结果。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(len&lt;<span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-comment">// base case：dp 数组全都初始化为 1</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(len,<span class="hljs-number">1</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;++i)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(nums[j]&lt;nums[i])<br>                    dp[i]=<span class="hljs-built_in">max</span>(dp[i],dp[j]+<span class="hljs-number">1</span>);      <br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> &amp;elem:dp)<br>            res=<span class="hljs-built_in">max</span>(res,elem);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n^2)，空间复杂度 O(n)。</p>
+<h3 id="解法二：贪心-二分查找"><a href="#解法二：贪心-二分查找" class="headerlink" title="解法二：贪心+二分查找"></a>解法二：贪心+二分查找</h3><p>状态设计思想：依然着眼于某个上升子序列的 结尾的元素，如果已<strong>经得到的上升子序列的结尾的数越小，那么遍历的时候后面接上一个数，会有更大的可能构成一个长度更长的上升子序列</strong>。既然结尾越小越好，可以记录<strong>在长度固定的情况下，结尾最小的那个元素的数值</strong>，这样定义以后容易得到「状态转移方程」。</p>
+<ol>
+<li><p><strong>定义新状态</strong></p>
+<p><code>tail[i]</code> 表示：长度为 <code>i + 1</code> 的 <strong>所有</strong> 上升子序列的结尾的最小值。</p>
+<p>说明：</p>
+<ul>
+<li><strong>数组 <code>tail</code> 不是问题中的「最长上升子序列」</strong></li>
+<li><code>tail[0]</code> 表示长度为 1 的所有上升子序列中，结尾最小的元素的数值。以题目中的示例为例 <code>[10, 9, 2, 5, 3, 7, 101, 18]</code> 中，容易发现长度为 <code>2</code>的<strong>所有</strong>上升子序列中，结尾最小的是子序列 <code>[2, 3]</code> ，因此 <code>tail[1] = 3</code></li>
+<li>下标和长度有数值为 <code>1</code> 的偏差</li>
+</ul>
+</li>
+<li><p><strong>状态转移方程</strong></p>
+<p>数组 <code>tail</code> 也是一个严格上升数组。因为只需要维护状态数组 <code>tail</code> 的定义，它的长度就是最长上升子序列的长度。下面说明在遍历中，如何维护状态数组 <code>tail</code> 的定义。</p>
+<ol>
+<li><p>在遍历数组 <code>nums</code> 的过程中，看到一个新数 <code>num</code>，如果这个数 <strong>严格</strong> 大于有序数组 <code>tail</code> 的最后一个元素，就把 <code>num</code> 放在有序数组 <code>tail</code>的后面，否则进入第 2 点。</p>
+<p>注意：这里的大于是「严格大于」，不包括等于的情况。</p>
+</li>
+<li><p>在有序数组 <code>tail</code> 中查找第 1 个等于大于 <code>num</code> 的那个数，试图让它变小；</p>
+<ul>
+<li>如果有序数组 <code>tail</code> 中存在 <strong>等于</strong> <code>num</code> 的元素，什么都不做，因为以 <code>num</code> 结尾的最短的「上升子序列」已经存在；</li>
+<li>如果有序数组 <code>tail</code> 中存在 <strong>大于</strong> <code>num</code> 的元素，找到第 1 个，让它变小，这样就找到了一个 <strong>结尾更小</strong>的<strong>相同长度</strong>的上升子序列。</li>
+</ul>
+</li>
+</ol>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>再看一下数组 <code>tail[i]</code> 的定义：长度为 <code>i + 1</code> 的 <strong>所有</strong> 最长上升子序列的结尾的最小值。因此，在遍历的过程中，试图让一个大的值变小是合理的；</li>
+<li>这一步可以认为是「贪心算法」，总是做出在当前看来最好的选择，当前「最好的选择」是：当前只让让第 1 个严格大于 <code>nums[i]</code>的数变小，变成 <code>nums[i]</code>，这一步操作是「无后效性」的；</li>
+<li>由于是在有序数组中的操作，因此可以使用「二分查找算法」。</li>
+</ul>
+</li>
+<li><p><strong>初始化</strong></p>
+<p>遍历第 1 个数 <code>nums[0]</code>，直接放在有序数组 <code>tail</code> 的开头 <code>tail[0] = nums[0]</code>。</p>
+</li>
+<li><p>有序数组 <code>tail</code> 的长度，就是所求的「最长上升子序列」的长度。</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(len&lt;<span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-comment">// tail 数组的定义：长度为 i + 1 的上升子序列的末尾最小是几</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">tail</span><span class="hljs-params">(len,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-comment">// 遍历第 1 个数，直接放在有序数组 tail 的开头</span><br>        tail[<span class="hljs-number">0</span>]=nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-comment">// end 表示有序数组 tail 的最后一个已经赋值元素的索引</span><br>        <span class="hljs-type">int</span> end=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;++i)<br>        &#123;<br>            <span class="hljs-comment">// 【逻辑 1】比 tail 数组实际有效的末尾的那个元素还大</span><br>            <span class="hljs-keyword">if</span>(nums[i]&gt;tail[end])<br>            &#123;<br>                <span class="hljs-comment">// 直接添加在那个元素的后面，所以 end 先加 1</span><br>                ++end;<br>                tail[end]=nums[i];<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                <span class="hljs-comment">// 使用二分查找法，在有序数组 tail 中找到第 1 个大于等于 nums[i] 的元素，尝试让那个元素更小</span><br>                <span class="hljs-type">int</span> left=<span class="hljs-number">0</span>;<br>                <span class="hljs-type">int</span> right=end;<br>                <span class="hljs-keyword">while</span>(left&lt;right)<br>                &#123;<br>                    <span class="hljs-comment">// 选左中位数不是偶然，而是有原因的，原因请见二分查找专题</span><br>                    <span class="hljs-type">int</span> mid=left+(right-left)/<span class="hljs-number">2</span>;<br>                    <span class="hljs-keyword">if</span>(tail[mid]&lt;nums[i])<br>                        <span class="hljs-comment">// 中位数肯定不是要找的数，把它写在分支的前面</span><br>                        left=mid+<span class="hljs-number">1</span>;<br>                    <span class="hljs-keyword">else</span><br>                        right=mid;<br>                &#125;<br>                <span class="hljs-comment">// 走到这里是因为 【逻辑 1】 的反面，因此一定能找到第 1 个大于等于 nums[i] 的元素</span><br>                <span class="hljs-comment">// 因此，无需再单独判断</span><br>                tail[left]=nums[i];<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// 此时 end 是有序数组 tail 最后一个元素的索引</span><br>        <span class="hljs-comment">// 题目要求返回的是长度，因此 +1 后返回</span><br>        ++end;<br>        <span class="hljs-keyword">return</span> end;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(nlogn)，空间复杂度 O(n)。</p>
+<h2 id="646-最长数对链-medium"><a href="#646-最长数对链-medium" class="headerlink" title="646. 最长数对链[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/">646. 最长数对链</a>[medium]</h2><h3 id="解法一：动态规划-1"><a href="#解法一：动态规划-1" class="headerlink" title="解法一：动态规划"></a>解法一：动态规划</h3><p>排序后，转化为最长上升子序列问题。与 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">300. 最长递增子序列</a> 思路相同。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findLongestChain</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; pairs)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(pairs.<span class="hljs-built_in">begin</span>(),pairs.<span class="hljs-built_in">end</span>(),[](<span class="hljs-type">const</span> vector&lt;<span class="hljs-type">int</span>&gt; &amp;a,<span class="hljs-type">const</span> vector&lt;<span class="hljs-type">int</span>&gt; &amp;b)&#123;<br>            <span class="hljs-built_in">return</span> (a[<span class="hljs-number">0</span>]==b[<span class="hljs-number">0</span>]&amp;&amp;a[<span class="hljs-number">1</span>]&lt;b[<span class="hljs-number">1</span>])||(a[<span class="hljs-number">0</span>]&lt;b[<span class="hljs-number">0</span>]);<br>        &#125;);<br>        <span class="hljs-type">int</span> n=pairs.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n,<span class="hljs-number">1</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;n;++i)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(pairs[j][<span class="hljs-number">1</span>]&lt;pairs[i][<span class="hljs-number">0</span>])<br>                    dp[i]=<span class="hljs-built_in">max</span>(dp[i],dp[j]+<span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> &amp;elem:dp)<br>            res=<span class="hljs-built_in">max</span>(res,elem);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="解法二：贪心"><a href="#解法二：贪心" class="headerlink" title="解法二：贪心"></a>解法二：贪心</h3><p>将 pair 看成区间，问题转化为：删除某些区间，使得剩余的不相交区间最多。与 <a href="https://simpleforever.github.io/2020/10/29/Leetcode%20Notes%E2%80%94%E2%80%94Greedy/#435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4-medium">435. 无重叠区间</a> 思路相同。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findLongestChain</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; pairs)</span> </span>&#123;<br>        <span class="hljs-comment">// 排序：按照结束时间</span><br>        <span class="hljs-built_in">sort</span>(pairs.<span class="hljs-built_in">begin</span>(),pairs.<span class="hljs-built_in">end</span>(),[](<span class="hljs-type">const</span> vector&lt;<span class="hljs-type">int</span>&gt; &amp;a,<span class="hljs-type">const</span> vector&lt;<span class="hljs-type">int</span>&gt; &amp;b)&#123;<br>            <span class="hljs-built_in">return</span> ((a[<span class="hljs-number">1</span>]&lt;b[<span class="hljs-number">1</span>]||a[<span class="hljs-number">1</span>]==b[<span class="hljs-number">1</span>]&amp;&amp;a[<span class="hljs-number">0</span>]&lt;b[<span class="hljs-number">0</span>]));<br>        &#125;);<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> end=pairs[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;pairs.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(pairs[i][<span class="hljs-number">0</span>]&gt;end) <span class="hljs-comment">// 不相交</span><br>            &#123;<br>                ++res;<br>                end=pairs[i][<span class="hljs-number">1</span>];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="376-摆动序列-medium"><a href="#376-摆动序列-medium" class="headerlink" title="376. 摆动序列[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/">376. 摆动序列</a>[medium]</h2><h3 id="解法一：动态规划-2"><a href="#解法一：动态规划-2" class="headerlink" title="解法一：动态规划"></a>解法一：动态规划</h3><p>假设 <code>up[i]</code> 表示 <code>nums[0:i]</code> 中最后两个数字递增的最长摆动序列长度，<code>down[i]</code> 表示 <code>nums[0:i]</code>中最后两个数字递减的最长摆动序列长度，只有一个数字时默认为 <code>1</code>。</p>
+<p>接下来进行分类讨论：</p>
+<ul>
+<li><code>nums[i+1] &gt; nums[i]</code><ul>
+<li>假设 <code>down[i]</code> 表示的最长摆动序列的最远末尾元素下标正好为 <code>i</code>，遇到新的上升元素后，<code>up[i+1] = down[i] + 1</code> ，这是因为 <code>up</code> 一定从 <code>down</code> 中产生（初始除外），并且 <code>down[i]</code>此时最大。</li>
+<li>假设 <code>down[i]</code> 表示的最长摆动序列的最远末尾元素下标小于 <code>i</code>，设为 <code>j</code>，那么 <code>nums[j:i]</code> 一定是递增的，因为若完全递减，最远元素下标等于 <code>i</code>，若波动，那么 <code>down[i] &gt; down[j]</code>。由于 <code>nums[j:i]</code> 递增，<code>down[j:i]</code> 一直等于 <code>down[j]</code> ，依然满足 <code>up[i+1] = down[i] + 1</code>。</li>
+</ul>
+</li>
+<li><code>nums[i+1] &lt; nums[i]</code>，类似第一种情况</li>
+<li><code>nums[i+1] = nums[i]</code>，新的元素不能用于任何序列，保持不变</li>
+</ul>
+<p><code>nums=[1,7,4,9,2,5]</code> 时，演示如下：</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210309172115.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+
+<p>注意到 <code>down</code> 和 <code>up</code> 只和前一个状态有关，所以我们可以优化存储，分别用一个变量即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">wiggleMaxLength</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(len==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> up=<span class="hljs-number">1</span>,down=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(nums[i]&gt;nums[i<span class="hljs-number">-1</span>])<br>                up=down+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nums[i]&lt;nums[i<span class="hljs-number">-1</span>])<br>                down=up+<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(up,down);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="解法二：贪心-1"><a href="#解法二：贪心-1" class="headerlink" title="解法二：贪心"></a>解法二：贪心</h3><p>只需要统计数组的峰值数量，详细思路参考 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/solution/376-bai-dong-xu-lie-tan-xin-jing-dian-ti-vyxt/">代码随想录</a> 题解。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">wiggleMaxLength</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(len==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> preDiff=<span class="hljs-number">0</span>;<span class="hljs-comment">// 前一对差值</span><br>        <span class="hljs-type">int</span> curDiff=<span class="hljs-number">0</span>;<span class="hljs-comment">// 当前一对差值</span><br>        <span class="hljs-type">int</span> res=<span class="hljs-number">1</span>;<span class="hljs-comment">// 记录峰值个数，序列默认序列最右边有一个峰值</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;++i)<br>        &#123;<br>            curDiff=nums[i]-nums[i<span class="hljs-number">-1</span>];<br>            <span class="hljs-comment">// 出现峰值</span><br>            <span class="hljs-keyword">if</span>((curDiff&gt;<span class="hljs-number">0</span>&amp;&amp;preDiff&lt;=<span class="hljs-number">0</span>)||(curDiff&lt;<span class="hljs-number">0</span>&amp;&amp;preDiff&gt;=<span class="hljs-number">0</span>))<br>            &#123;<br>                ++res;<br>                preDiff=curDiff;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="1143-最长公共子序列-medium"><a href="#1143-最长公共子序列-medium" class="headerlink" title="1143. 最长公共子序列[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-common-subsequence/">1143. 最长公共子序列</a>[medium]</h2><h3 id="解法：动态规划-5"><a href="#解法：动态规划-5" class="headerlink" title="解法：动态规划"></a>解法：动态规划</h3><ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>dp[i] [j]：长度为[0, i - 1]的字符串text1与长度为[0, j - 1]的字符串text2的最长公共子序列为dp[i] [j]</p>
+</li>
+<li><p>确定递推公式</p>
+<p>主要就是两大情况：</p>
+<ul>
+<li>如果text1[i - 1] 与 text2[j - 1]相同，那么找到了一个公共元素，所以dp[i] [j] &#x3D; dp[i - 1] [j - 1] + 1</li>
+<li>如果text1[i - 1] 与 text2[j - 1]不相同，那就看看text1[0, i - 2]与text2[0, j - 1]的最长公共子序列 和 text1[0, i - 1]与text2[0, j - 2]的最长公共子序列，取最大的，即：dp[i] [j] &#x3D; max(dp[i - 1] [j], dp[i] [j - 1])</li>
+</ul>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>test1[0, i-1]和空串的最长公共子序列自然是0，所以dp[i] [0] &#x3D; 0，同理dp[0] [j]也是0。其他下标都是随着递推公式逐步覆盖，初始为多少都可以，那么就统一初始为0</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>从递推公式，可以看出，有三个方向可以推出dp[i] [j]，那么为了在递推的过程中，这三个方向都是经过计算的数值，所以要从前向后，从上到下来遍历这个矩阵</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>以输入：text1 &#x3D; “abcde”, text2 &#x3D; “ace” 为例，dp状态如图：</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic2/20210309195523.jpeg" srcset="/img/loading.gif" lazyload style="zoom: 33%;" /></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(string text1, string text2)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len1=text1.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> len2=text2.<span class="hljs-built_in">size</span>();<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(len1+<span class="hljs-number">1</span>,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(len2+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>));<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=len1;++i)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;=len2;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(text1[i<span class="hljs-number">-1</span>]==text2[j<span class="hljs-number">-1</span>])<br>                    dp[i][j]=dp[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>;<br>                <span class="hljs-keyword">else</span><br>                    dp[i][j]=<span class="hljs-built_in">max</span>(dp[i<span class="hljs-number">-1</span>][j],dp[i][j<span class="hljs-number">-1</span>]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[len1][len2];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="32-最长有效括号-hard"><a href="#32-最长有效括号-hard" class="headerlink" title="32. 最长有效括号[hard]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-valid-parentheses/">32. 最长有效括号</a>[hard]</h2><h3 id="解法一：动态规划-3"><a href="#解法一：动态规划-3" class="headerlink" title="解法一：动态规划"></a>解法一：动态规划</h3><p>结合题目，有最长这个字眼，可以考虑尝试使用动态规划进行分析。这是一个 最值型 动态规划的题目。</p>
+<p>动态规划题目分析的 4 个步骤：</p>
+<ul>
+<li><p>确定状态</p>
+<ul>
+<li>研究最优策略的最后一步</li>
+<li>化为子问题</li>
+</ul>
+</li>
+<li><p>转移方程</p>
+<p>根据子问题定义得到</p>
+</li>
+<li><p>初始条件和边界情况</p>
+</li>
+<li><p>计算顺序</p>
+</li>
+</ul>
+<p>首先，定义一个 dp 数组，其中第 i 个元素表示以下标为 i 的字符结尾的最长有效子字符串的长度。</p>
+<p><strong>确定状态</strong>：</p>
+<p>对于最优的策略，一定有最后一个元素 s[i]。</p>
+<p>所以，先看第 i 个位置，这个位置的元素 s[i] 可能有如下两种情况：</p>
+<ul>
+<li><p>s[i]&#x3D;&#x3D;′(′ :</p>
+<p>这时，s[i] 无法和其之前的元素组成有效的括号对，所以，dp[i] &#x3D; 0</p>
+</li>
+<li><p>s[i]&#x3D;&#x3D;′)′ :</p>
+<p>这时，需要看其前面对元素来判断是否有有效括号</p>
+<ul>
+<li><p>情况1：s[i - 1] &#x3D;&#x3D; ‘(‘</p>
+<p>即 s[i] 和 s[i−1] 组成一对有效括号，有效括号长度新增长度2，i 位置对最长有效括号长度为 <strong>其之前2个位置的最长括号长度加上当前位置新增的2</strong>，我们无需知道 i−2 位置对字符是否可以组成有效括号对。</p>
+<p>那么有：dp[i]&#x3D;dp[i−2]+2</p>
+<img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424103027.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+</li>
+<li><p>情况2：s[i - 1] &#x3D;&#x3D; ‘)’</p>
+<p>这种情况下，如果前面有和 s[i] 组成有效括号对的字符，即形如 ( (….) )，这样的话，就要求 s[i - 1] 位置必然是有效的括号对，否则 s[i] 无法和前面对字符组成有效括号对。</p>
+<p>这时，我们只需要找到和 s[i] 配对的位置，并判断其是否是 ( 即可。和其配对的位置为：i−dp[i−1]−1。</p>
+<p>如果：s[i−dp[i−1]−1]&#x3D;&#x3D; ′( ′ ：</p>
+<p>有效括号长度新增长度2，i 位置对最长有效括号长度为 <strong>i-1位置的最长括号长度加上当前位置新增的2</strong>，那么有：</p>
+<p>dp[i]&#x3D;dp[i−1]+2</p>
+<p>值得注意的是，i−dp[i−1]−1 和 i 组成了有效括号对，这将是一段独立的有效括号序列，如果之前的子序列是形如 (…) 这种序列，那么当前位置的最长有效括号长度还需要加上这一段。所以：</p>
+<p>dp[i]&#x3D;dp[i−1]+dp[i−dp[i−1]−2]+2</p>
+<img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424103731.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></li>
+</ul>
+</li>
+</ul>
+<p><strong>子问题</strong>：</p>
+<p>根据上面的分析，得到了如下两个计算公式：</p>
+<p>dp[i]&#x3D;dp[i−2]+2</p>
+<p>dp[i]&#x3D;dp[i−1]+dp[i−dp[i−1]−2]+2</p>
+<p>那么，求 dp[i] 就变成了求 dp[i−1]、 dp[i−2]、dp[i−dp[i−1]−2] 的子问题。</p>
+<p>这样状态也明确了：</p>
+<p><strong>设 dp 数组，其中第 i 个元素表示以下标为 i 的字符结尾的最长有效子字符串的长度</strong>。</p>
+<p><strong>转移方程：</strong></p>
+<p>子问题明确后，转移方程直接由子问题得到：</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs prolog">if s[i] == <span class="hljs-string">&#x27;(&#x27;</span> :<br>    dp[i] = <span class="hljs-number">0</span><br>if s[i] == <span class="hljs-string">&#x27;)&#x27;</span> :<br>    if s[i - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;(&#x27;</span> :<br>        dp[i] = dp[i - <span class="hljs-number">2</span>] + <span class="hljs-number">2</span> #要保证i - <span class="hljs-number">2</span> &gt;= <span class="hljs-number">0</span><br><br>    if s[i - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;)&#x27;</span> and s[i - dp[i - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;(&#x27;</span> :<br>        dp[i] = dp[i - <span class="hljs-number">1</span>] + dp[i - dp[i - <span class="hljs-number">1</span>] - <span class="hljs-number">2</span>] + <span class="hljs-number">2</span> #要保证i - dp[i - <span class="hljs-number">1</span>] - <span class="hljs-number">2</span> &gt;= <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>初始条件和边界情况：</strong></p>
+<p>初始条件： dp[i]&#x3D;0</p>
+<p>边界情况：需要保证计算过程中：i−2&gt;&#x3D;0 和 i−dp[i−1]−2&gt;&#x3D;0</p>
+<p><strong>计算顺序：</strong></p>
+<p>无论第一个字符是什么，都有：dp[0]&#x3D;0</p>
+<p>然后依次计算：dp[1],dp[2],…,dp[n−1]</p>
+<p>结果是： max(dp[i])</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">longestValidParentheses</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len=s.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> maxLen=<span class="hljs-number">0</span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(len,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(s[i]==<span class="hljs-string">&#x27;(&#x27;</span>)<br>                dp[i]=<span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                <span class="hljs-keyword">if</span>(s[i<span class="hljs-number">-1</span>]==<span class="hljs-string">&#x27;(&#x27;</span>)<br>                &#123;<br>                    <span class="hljs-keyword">if</span>(i<span class="hljs-number">-2</span>&gt;=<span class="hljs-number">0</span>)<br>                        dp[i]=dp[i<span class="hljs-number">-2</span>]+<span class="hljs-number">2</span>;<br>                    <span class="hljs-keyword">else</span><br>                        dp[i]=<span class="hljs-number">2</span>;<br>                &#125;<br>                <span class="hljs-keyword">else</span><br>                &#123;<br>                    <span class="hljs-keyword">if</span>(dp[i<span class="hljs-number">-1</span>]&gt;<span class="hljs-number">0</span>)<br>                    &#123;<br>                        <span class="hljs-type">int</span> index=i-dp[i<span class="hljs-number">-1</span>]<span class="hljs-number">-1</span>;<br>                        <span class="hljs-keyword">if</span>(index&gt;=<span class="hljs-number">0</span> &amp;&amp; s[index]==<span class="hljs-string">&#x27;(&#x27;</span>)<br>                        &#123;<br>                            dp[i]=dp[i<span class="hljs-number">-1</span>]+<span class="hljs-number">2</span>;<br>                            <span class="hljs-keyword">if</span>(index<span class="hljs-number">-1</span>&gt;=<span class="hljs-number">0</span>)<br>                                dp[i]+=dp[index<span class="hljs-number">-1</span>];<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>            maxLen=<span class="hljs-built_in">max</span>(maxLen,dp[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxLen;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="解法二：栈"><a href="#解法二：栈" class="headerlink" title="解法二：栈"></a>解法二：栈</h3><p><strong>起初的想法：</strong></p>
+<ul>
+<li><p>从左往右扫描，已扫描的左括号等待被匹配，用一个栈暂存起来。</p>
+</li>
+<li><p>题目是求长度，存左括号的索引即可，没必要存符号本身。</p>
+</li>
+<li><p>当扫描到右括号，它匹配「最近一个」左括号，栈顶被匹配而出栈，有效长度 &#x3D; 当前索引-出栈的索引+1，并挑战一下全局的最大</p>
+</li>
+<li><p>如图，当遍历到索引为 6 的右括号时，此时栈中的左括号匹配光了，但左边有一整段长度为 6 的有效子串，没有被计算，让索引 6 减 0？不对。或许让 5 减 -1？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424105639.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<p><strong>修改思路：</strong></p>
+<ul>
+<li><p>在栈中预置 -1 作为一个“参照物”，并改变计算方式：当前索引 - 出栈后新的栈顶索引。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424105720.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>当遍历到索引 5 的右括号，此时栈顶为 2，出栈，栈顶变为 -1，有效长度为 5 - (-1) &#x3D; 6。如果像之前那样，5 找不到 -1 减。</p>
+</li>
+<li><p>当遍历到索引 6 的右括号，它不是需要入栈的左括号，又匹配不到左括号，好似废物，怎么利用它呢？</p>
+</li>
+<li><p>它后面可能也出现这么一段有效长度，它要成为 -1 那样的“参照物”。它之前出现的有效长度都求过了，-1 的使命已经完成了，要被替代。</p>
+</li>
+<li><p>所以照常让 -1 出栈。不同的是，此时栈空了，让索引 6 入栈当 “参照物”。</p>
+</li>
+</ul>
+<p><strong>总结：两种索引会入栈</strong></p>
+<ol>
+<li>等待被匹配的左括号索引。</li>
+<li>充当「参照物」的右括号索引。因为：当左括号匹配光时，栈需要留一个垫底的参照物，用于计算一段连续的有效长度。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">longestValidParentheses</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> maxLen=<span class="hljs-number">0</span>;<br>        stack&lt;<span class="hljs-type">int</span>&gt; st;<br>        st.<span class="hljs-built_in">push</span>(<span class="hljs-number">-1</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;s.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(s[i]==<span class="hljs-string">&#x27;(&#x27;</span>)<span class="hljs-comment">// 左括号的索引，入栈</span><br>                st.<span class="hljs-built_in">push</span>(i);<br>            <span class="hljs-keyword">else</span><span class="hljs-comment">// 遍历到右括号</span><br>            &#123;<br>                <span class="hljs-comment">// 栈顶的左括号被匹配，出栈</span><br>                st.<span class="hljs-built_in">pop</span>();<br>                <span class="hljs-keyword">if</span>(st.<span class="hljs-built_in">empty</span>())<span class="hljs-comment">// 栈空了</span><br>                    <span class="hljs-comment">// 入栈充当参照</span><br>                    st.<span class="hljs-built_in">push</span>(i);<br>                <span class="hljs-keyword">else</span><span class="hljs-comment">// 栈未空</span><br>                    <span class="hljs-comment">// 挑战最大值</span><br>                    maxLen=<span class="hljs-built_in">max</span>(maxLen,i-st.<span class="hljs-built_in">top</span>());<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxLen;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h1><blockquote>
+<p>b站大雪菜—<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qt411Z7nE">背包九讲专题</a></p>
+</blockquote>
+<h2 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/1374/">AcWing 2. 01背包问题（状态转移方程讲解）</a></p>
+</blockquote>
+<h3 id="416-分割等和子集-medium"><a href="#416-分割等和子集-medium" class="headerlink" title="416. 分割等和子集[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">416. 分割等和子集</a>[medium]</h3><blockquote>
+<p>另一个题解：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/0-1-bei-bao-wen-ti-xiang-jie-zhen-dui-ben-ti-de-yo/">动态规划（转换为 0-1 背包问题）</a></p>
+</blockquote>
+<p>首先，本题要求集合里能否出现总和为 sum &#x2F; 2 的子集，那么来一一对应一下本题，看看背包问题如何来解决。</p>
+<p>只有确定了如下四点，才能把 01背包问题套到本题上来。</p>
+<ul>
+<li>背包的体积为 sum &#x2F; 2</li>
+<li>背包要放入的商品（集合里的元素）重量为元素的数值，价值也为元素的数值</li>
+<li>背包如何正好装满，说明找到了总和为 sum &#x2F; 2 的子集</li>
+<li>背包中每一个元素不可重复放入</li>
+</ul>
+<p>动规五部曲分析如下：</p>
+<ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>01背包中，dp[i] 表示：容量为 i 的背包，所背的物品价值可以最大为 dp[i]。</p>
+<p>套到本题，dp[i] 表示：背包总容量是 i，最大可以凑成 i 的子集总和为 dp[i]。</p>
+</li>
+<li><p>确定递推公式</p>
+<p>01背包的递推公式为：dp[j] &#x3D; max(dp[j], dp[j - weight[i]] + value[i])；</p>
+<p>本题，相当于背包里放入数值，那么物品 i 的重量是nums[i]，其价值也是 nums[i]。</p>
+<p>所以递推公式：dp[j] &#x3D; max(dp[j], dp[j - nums[i]] + nums[i]);</p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>从dp[i]的定义来看，首先dp[0]一定是0。如果题目给的价值都是正整数那么非 0 下标都初始化为 0 就可以了，如果题目给的价值有负数，那么非 0 下标就要初始化为负无穷。<strong>这样才能让dp数组在递归公式的过程中取得最大的价值，而不是被初始值覆盖了</strong>。本题题目中只包含正整数的非空数组，所以非 0 下标的元素初始化为 0 就可以了。</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>如果使用一维 dp 数组，物品遍历的 for 循环放在外层，遍历背包的 for 循环放在内层，且内层 for 循环倒叙遍历！</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>dp[i] 的数值一定是小于等于 i 的。<strong>如果 dp[i]&#x3D;i 说明，集合中的子集总和正好可以凑成总和 i</strong>。</p>
+<p>输入[1,5,11,5] 为例，如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405103421.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后 dp[11]&#x3D;11，说明可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">canPartition</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num:nums)<br>            sum+=num;<br>        <span class="hljs-keyword">if</span>(sum%<span class="hljs-number">2</span>==<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-type">int</span> target=sum/<span class="hljs-number">2</span>;<br>        <span class="hljs-comment">// dp[i]中的i表示背包内总和</span><br>        <span class="hljs-comment">// 题目中说：每个数组中的元素不会超过 100，数组的大小不会超过 200</span><br>        <span class="hljs-comment">// 总和不会大于20000，背包最大只需要其中一半，所以10001大小就可以了</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-number">10001</span>,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-comment">// 开始 01背包 </span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>();++i)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=target;j&gt;=nums[i];--j)<br>                dp[j]=<span class="hljs-built_in">max</span>(dp[j],dp[j-nums[i]]+nums[i]);<br>        <span class="hljs-comment">// 集合中的元素正好可以凑成总和target </span><br>        <span class="hljs-keyword">if</span>(dp[target]==target)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1049-最后一块石头的重量-II-medium"><a href="#1049-最后一块石头的重量-II-medium" class="headerlink" title="1049. 最后一块石头的重量 II[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/last-stone-weight-ii/">1049. 最后一块石头的重量 II</a>[medium]</h3><p>本题其实就是尽量让石头分成重量相同的两堆，相撞之后剩下的石头最小，<strong>这样就化解成01背包问题了</strong>。思路与 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">416. 分割等和子集</a> 基本一致。物品的重量为 stones[i]，物品的价值也为stones[i]。</p>
+<ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p><strong>dp[j] 表示容量（这里说容量更形象，其实就是重量）为 j 的背包，最多可以背 dp[j] 这么重的石头</strong>。</p>
+</li>
+<li><p>确定递推公式</p>
+<p>01背包的递推公式为：dp[j] &#x3D; max(dp[j], dp[j - weight[i]] + value[i]);</p>
+<p>本题则是：dp[j] &#x3D; max(dp[j], dp[j - stones[i]] + stones[i])；</p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>既然 dp[j] 中的 j 表示容量，那么最大容量（重量）是多少呢，就是所有石头的重量和。</p>
+<p>因为提示中给出1&lt;&#x3D;stones.length&lt;&#x3D; 30，1&lt;&#x3D;stones[i]&lt;&#x3D;1000，所以最大重量就是30 * 1000 。而要求的target其实只是最大重量的一半，所以dp数组开到15000大小就可以了。当然也可以把石头遍历一遍，计算出石头总重量 然后除 2，得到dp数组的大小。</p>
+<p>因为重量都不会是负数，所以 dp[j] 都初始化为 0 就可以了，这样在递推公式中 dp[j] 才不会初始值所覆盖。</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>如果使用一维dp数组，物品遍历的for循环放在外层，遍历背包的for循环放在内层，且内层for循环倒叙遍历！</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>举例，输入：[2,4,1,1]，此时target &#x3D; (2 + 4 + 1 + 1)&#x2F;2 &#x3D; 4 ，dp数组状态图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405111607.webp" srcset="/img/loading.gif" lazyload></p>
+<p>最后dp[target]里是容量为target的背包所能背的最大重量。那么分成两堆石头，一堆石头的总重量是dp[target]，另一堆就是 sum - dp[target]。</p>
+<p><strong>在计算target的时候，target &#x3D; sum &#x2F; 2 因为是向下取整，所以sum - dp[target] 一定是大于等于dp[target]的</strong>。那么相撞之后剩下的最小石头重量就是 (sum - dp[target]) - dp[target]。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lastStoneWeightII</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; stones)</span> </span>&#123;<br>        <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num:stones)<br>            sum+=num;<br>        <span class="hljs-type">int</span> target=sum/<span class="hljs-number">2</span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-number">15001</span>,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;stones.<span class="hljs-built_in">size</span>();++i)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=target;j&gt;=stones[i];--j)<br>                dp[j]=<span class="hljs-built_in">max</span>(dp[j],dp[j-stones[i]]+stones[i]);<br>        <span class="hljs-keyword">return</span> sum-dp[target]-dp[target];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="494-目标和-medium"><a href="#494-目标和-medium" class="headerlink" title="494. 目标和[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/target-sum/">494. 目标和</a>[medium]</h3><h4 id="解法一：暴力搜索"><a href="#解法一：暴力搜索" class="headerlink" title="解法一：暴力搜索"></a>解法一：暴力搜索</h4><p>暴力解法就是 dfs 了，这道题而言，暴力解法是完全可以的，而且不会超时，因为题目中说了数组长度不会超过20，20个数字的序列，组合方式撑死了 2^20 种，算下来才1024 × 1024。也就是说，可以把数组中每个数字前面都用负号和正号，然后进行组合的求和，并判断这个和是否会等于 S，然后就标记，最后统计出等于 S 的组合个数就好了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findTargetSumWays</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> S)</span> </span>&#123;<br>        <span class="hljs-built_in">dfs</span>(nums,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,S);<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt; &amp;nums,<span class="hljs-type">int</span> index,<span class="hljs-type">int</span> sum,<span class="hljs-type">int</span> S)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(index==nums.<span class="hljs-built_in">size</span>())<br>        &#123;<br>            <span class="hljs-keyword">if</span>(sum==S)<br>                ++count;<br>        &#125;<br>        <span class="hljs-keyword">else</span><br>        &#123;<br>            <span class="hljs-built_in">dfs</span>(nums,index+<span class="hljs-number">1</span>,sum+nums[index],S);<br>            <span class="hljs-built_in">dfs</span>(nums,index+<span class="hljs-number">1</span>,sum-nums[index],S);<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(2^N)，空间复杂度 O(N)。</p>
+<h4 id="解法二：动态规划-3"><a href="#解法二：动态规划-3" class="headerlink" title="解法二：动态规划"></a>解法二：动态规划</h4><p>本题要如何使表达式结果为 S，既然为 S，那么就一定有 left组合 - right组合 &#x3D; S。left + right 等于 sum，而 sum 是固定的。公式来了， left - (sum - left) &#x3D; S-&gt;  left &#x3D; (S+ sum)&#x2F;2 。S 是固定的，sum 是固定的，left 就可以求出来。此时问题就是在集合 nums 中找出和为 left 的组合。<strong>转化为，装满容量为 left 背包，有几种方法</strong>。</p>
+<ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>dp[j] 表示：填满 j（包括 j）这么大容积的包，有 dp[j] 种方法</p>
+</li>
+<li><p>确定递推公式</p>
+<p>不考虑 nums[i] 的情况下，填满容量为 j - nums[i] 的背包，有 dp[j - nums[i]] 种方法。那么只要搞到 nums[i] 的话，凑成 dp[j] 就有 dp[j - nums[i]] 种方法。</p>
+<p>举一个例子，nums[i] &#x3D; 2：dp[3]，填满背包容量为3的话，有 dp[3] 种方法。那么只需要搞到一个2（nums[i]），就有 dp[3] 种方法可以凑齐容量为 5 的背包。那么需要把这些方法累加起来就可以了，dp[i] +&#x3D; dp[j - nums[j]]。</p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>在初始化的时候 dp[0]  一定要初始化为 1，因为 dp[0] 是在公式中一切递推结果的起源，如果 dp[0] 是 0 的话，递归结果将都是0。dp[0]&#x3D;1，理论上也很好解释，装满容量为 0 的背包，有 1 种方法，就是装 0 件物品。dp[j]其他下标对应的数值应该初始化为 0，从递归公式也可以看出，dp[j] 要保证是 0 的初始值，才能正确的由 dp[j - nums[i]] 推导出来。</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>对于01背包问题一维 dp 的遍历，nums 放在外循环，target 在内循环，且内循环倒序。</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>输入：nums: [1, 1, 1, 1, 1], S: 3。left&#x3D; (S + sum) &#x2F; 2 &#x3D;  (3 + 5) &#x2F; 2 &#x3D; 4。dp数组状态变化如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405142732.webp" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findTargetSumWays</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> S)</span> </span>&#123;<br>        <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num:nums)<br>            sum+=num;<br>        <span class="hljs-keyword">if</span>(S&gt;sum||S&lt;-sum||(sum+S)%<span class="hljs-number">2</span>==<span class="hljs-number">1</span>)<br>            <span class="hljs-comment">// 此时没有方案</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> left=(sum+S)/<span class="hljs-number">2</span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(left+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>();++i)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=left;j&gt;=nums[i];--j)<br>                dp[j]+=dp[j-nums[i]];<br>        <span class="hljs-keyword">return</span> dp[left];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N*sum)，空间复杂度 O(sum)。</p>
+<h3 id="474-一和零-medium"><a href="#474-一和零-medium" class="headerlink" title="474. 一和零[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ones-and-zeroes/">474. 一和零</a>[medium]</h3><p>思路：把总共的 0 和 1 的个数视为背包的容量，每一个字符串视为装进背包的物品。这道题就可以使用 01背包问题的思路完成，这里的目标值是能放进背包的字符串的数量。动态规划的思路是：物品一个一个尝试，容量一点一点尝试，每个物品分类讨论的标准是：选与不选。</p>
+<ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p><code>dp[i][j]</code> 表示最多有 i 个 0 和 j 个 1 的 strs 的最大子集的大小。</p>
+</li>
+<li><p>确定递推公式</p>
+<p><code>dp[i][j]</code> 可以由前一个 strs 里的字符串推导出来，strs里的字符串有 zeroNum 个 0，oneNum 个 1。<code>dp[i][j]</code> 就可以是 <code>dp[i-zeroNum][j-oneNum]+1</code> 。然后在遍历的过程中，取 <code>dp[i][j]</code> 的最大值。所以递推公式：<code>dp[i][j] = max(dp[i][j],dp[i-zeroNum][j-oneNum]+1)</code>。对比一下01背包的递推公式，字符串的zeroNum和oneNum相当于物品的重量（weight[i]），字符串本身的个数相当于物品的价值（value[i]）。这就是一个典型的01背包，只不过物品的重量有了两个维度而已。</p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>01背包的 dp 数组初始化为 0 就可以。因为物品价值不会是负数，初始为 0，保证递推的时候 <code>dp[i][j]</code> 不会被初始值覆盖。</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>与 01 背包遍历次序相同，物品就是 strs 里的字符串，背包容量就是题目描述中的 m 和 n。</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>以输入：[“10”,”0001”,”111001”,”1”,”0”]，m &#x3D; 3，n &#x3D; 3为例，最后dp数组的状态如下所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210405151526.webp" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findMaxForm</span><span class="hljs-params">(vector&lt;string&gt;&amp; strs, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(m+<span class="hljs-number">1</span>,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(n+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>));<br>        <span class="hljs-keyword">for</span>(string str:strs)<br>        &#123;<br>            <span class="hljs-type">int</span> zeroNum=<span class="hljs-number">0</span>,oneNum=<span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c:str)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(c==<span class="hljs-string">&#x27;0&#x27;</span>)<br>                    ++zeroNum;<br>                <span class="hljs-keyword">else</span><br>                    ++oneNum;<br>            &#125;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=m;i&gt;=zeroNum;--i)<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=n;j&gt;=oneNum;--j)<br>                    dp[i][j]=<span class="hljs-built_in">max</span>(dp[i][j],dp[i-zeroNum][j-oneNum]+<span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[m][n];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h2><h3 id="322-零钱兑换-medium"><a href="#322-零钱兑换-medium" class="headerlink" title="322. 零钱兑换[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/coin-change/">322. 零钱兑换</a>[medium]</h3><h4 id="解法一：动态规划-4"><a href="#解法一：动态规划-4" class="headerlink" title="解法一：动态规划"></a>解法一：动态规划</h4><ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p><strong>dp[j]：凑足总额为j所需钱币的最少个数为dp[j]</strong></p>
+</li>
+<li><p>确定递推公式</p>
+<p>得到dp[j]（考虑coins[i]），只有一个来源，dp[j - coins[i]]（没有考虑coins[i]）。</p>
+<p>凑足总额为 j - coins[i] 的最少个数为 dp[j - coins[i]]，那么只需要加上一个钱币 coins[i] 即 dp[j - coins[i]] + 1 就是dp[j]（考虑coins[i]）</p>
+<p>所以 dp[j] 要取所有 dp[j - coins[i]] + 1 中最小的。</p>
+<p>递推公式：dp[j] &#x3D;  min(dp[j - coins[i]] + 1, dp[j])</p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>首先凑足总金额为 0 所需钱币的个数一定是 0，那么dp[0] &#x3D; 0;</p>
+<p>其他下标对应的数值呢？</p>
+<p>考虑到递推公式的特性，dp[j] 必须初始化为一个最大的数，否则就会在 min(dp[j - coins[i]] + 1, dp[j]) 比较的过程中被初始值覆盖。</p>
+<p>所以下标非 0 的元素都是应该是最大值。</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>本题求钱币最小个数，那么钱币有顺序和没有顺序都可以，都不影响钱币的最小个数。</p>
+<p>所以本题的两个for循环的关系是：外层for循环遍历物品，内层for遍历背包或者外层for遍历背包，内层for循环遍历物品都是可以的！</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>以输入：coins &#x3D; [1, 2, 5], amount &#x3D; 5为例</p>
+<img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210424115856.webp" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+
+<p>dp[amount]为最终结果。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; coins, <span class="hljs-type">int</span> amount)</span> </span>&#123;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(amount+<span class="hljs-number">1</span>,INT_MAX)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;coins.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=coins[i];j&lt;=amount;++j)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(dp[j-coins[i]]!=INT_MAX)<br>                    dp[j]=<span class="hljs-built_in">min</span>(dp[j],dp[j-coins[i]]+<span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(dp[amount]==INT_MAX)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">return</span> dp[amount];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h4><blockquote>
+<p>参考 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-shi-yong-wan-quan-bei-bao-wen-ti-/">liweiwei1419</a> 题解。</p>
+</blockquote>
+<h1 id="打家劫舍"><a href="#打家劫舍" class="headerlink" title="打家劫舍"></a>打家劫舍</h1><h2 id="198-打家劫舍-medium"><a href="#198-打家劫舍-medium" class="headerlink" title="198. 打家劫舍[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">198. 打家劫舍</a>[medium]</h2><h3 id="解法：动态规划-6"><a href="#解法：动态规划-6" class="headerlink" title="解法：动态规划"></a>解法：动态规划</h3><ul>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+<p>dp[i]：考虑下标 i（包括i）以内的房屋，最多可以偷窃的金额为 dp[i]</p>
+</li>
+<li><p>确定递推公式</p>
+<p>决定 dp[i] 的因素就是第 i 房间偷还是不偷。</p>
+<ul>
+<li>如果偷第 i 房间，那么dp[i] &#x3D; dp[i - 2] + nums[i] ，即：第 i-1房一定是不考虑的，找出 下标i-2（包括i-2）以内的房屋，最多可以偷窃的金额为 dp[i-2] 加上第 i 房间偷到的钱。</li>
+<li>如果不偷第 i 房间，那么dp[i] &#x3D; dp[i - 1]，即考虑 i-1 房</li>
+<li>然后 dp[i] 取最大值，即 dp[i] &#x3D; max(dp[i - 2] + nums[i], dp[i - 1])</li>
+</ul>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>从递推公式可以看出，递推公式的基础就是dp[0] 和 dp[1]，从 dp[i] 的定义上来讲，dp[0] 一定是 nums[0]，dp[1]就是 nums[0] 和 nums[1] 的最大值即：dp[1] &#x3D; max(nums[0], nums[1])</p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>dp[i] 是根据 dp[i - 2] 和 dp[i - 1] 推导出来的，那么一定是从前到后遍历</p>
+</li>
+<li><p>举例推导dp数组</p>
+<p>以示例二，输入 [2,7,9,3,1] 为例，红框 dp[nums.size() - 1] 为结果：</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/img/20210223161427" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=nums[<span class="hljs-number">0</span>];<br>        dp[<span class="hljs-number">1</span>]=<span class="hljs-built_in">max</span>(nums[<span class="hljs-number">0</span>],nums[<span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;n;++i)<br>            dp[i]=<span class="hljs-built_in">max</span>(dp[i<span class="hljs-number">-2</span>]+nums[i],dp[i<span class="hljs-number">-1</span>]);<br>        <span class="hljs-keyword">return</span> dp[n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="「状态压缩」-7"><a href="#「状态压缩」-7" class="headerlink" title="「状态压缩」"></a>「<strong>状态压缩</strong>」</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>];      <br>        <span class="hljs-type">int</span> dp0=nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">int</span> dp1=<span class="hljs-built_in">max</span>(nums[<span class="hljs-number">0</span>],nums[<span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;n;++i)<br>        &#123;<br>            <span class="hljs-type">int</span> dpi=<span class="hljs-built_in">max</span>(dp0+nums[i],dp1);<br>            dp0=dp1;<br>            dp1=dpi;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp1;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/DP/">DP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/07/%E7%89%9B%E5%AE%A2%E9%A2%98%E9%9C%B8%E2%80%94%E9%AB%98%E9%A2%91TOP200/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">牛客题霸—高频TOP200</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/08/Effective%20C++_Scott%20Meyers/">
+                        <span class="hidden-mobile">Effective C++ 阅读笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

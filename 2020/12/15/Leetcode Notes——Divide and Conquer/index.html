@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Orleans">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一下自己 leetcode 的刷题记录，本部分为分治算法篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode Notes——Divide and Conquer">
+<meta property="og:url" content="https://simpleforever.github.io/2020/12/15/Leetcode%20Notes%E2%80%94%E2%80%94Divide%20and%20Conquer/index.html">
+<meta property="og:site_name" content="OrleansのBlog">
+<meta property="og:description" content="记录一下自己 leetcode 的刷题记录，本部分为分治算法篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-21T12:47:16.117Z">
+<meta property="article:author" content="Orleans">
+<meta property="article:tag" content="Divide and Conquer">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Leetcode Notes——Divide and Conquer - OrleansのBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"simpleforever.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Leetcode Notes——Divide and Conquer">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-15 00:00" pubdate>
+        2020年12月15日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      60 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Leetcode Notes——Divide and Conquer</h1>
+            
+            <div class="markdown-body">
+              <p>记录一下自己 leetcode 的刷题记录，本部分为<strong>分治算法</strong>篇。部分内容搬运自 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problemset/all/">Leetcode-cn</a> 大佬题解。</p>
+<span id="more"></span>
+
+<h1 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h1><p>分治问题由“分”（divide）和“治”（conquer）两部分组成，通过把原问题分为子问题，再将子问题进行处理合并，从而实现对原问题的求解。</p>
+<p>归并排序就是典型的分治问题，其中“分”即为把大数组平均分成两个小数组，通过递归实现，最终会得到多个长度为 1 的子数组;“治”即为把已经排好序的两个小数组合成为一个排好序的大数组，从长度为 1 的子数组开始，最终合成一个大数组。</p>
+<p>另外，自上而下的分治可以和 memoization 结合，避免重复遍历相同的子问题。如果方便推<br>导，也可以换用自下而上的动态规划方法求解。</p>
+<h1 id="241-为运算表达式设计优先级-medium"><a href="#241-为运算表达式设计优先级-medium" class="headerlink" title="241. 为运算表达式设计优先级[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/different-ways-to-add-parentheses/">241. 为运算表达式设计优先级</a>[medium]</h1><h2 id="解法一：分治算法"><a href="#解法一：分治算法" class="headerlink" title="解法一：分治算法"></a>解法一：分治算法</h2><p>对于一个形如 <code>x op y</code>（<code>op</code> 为运算符，<code>x</code> 和 <code>y</code> 为数）的算式而言，<strong>它的结果组合取决于 <code>x</code> 和 <code>y</code> 的结果组合数</strong>，而 <code>x</code> 和 <code>y</code> 又可以写成形如 <code>x op y</code> 的算式。</p>
+<p>因此，该问题的子问题就是 <code>x op y</code> 中的 <code>x</code> 和 <code>y</code>：<strong>以运算符分隔的左右两侧算式解</strong>。</p>
+<p>然后进行 <strong>分治算法三步走</strong>：</p>
+<ul>
+<li>分解：按运算符分成左右两部分，分别求解；</li>
+<li>解决：实现一个递归函数，输入算式，返回算式解；</li>
+<li>合并：根据运算符合并左右两部分的解，得出最终解。</li>
+</ul>
+<p><code>substr</code>：第一个参数为起始位置，第二个参数为长度。如果不设置长度的话，默认为到最尾部。<code>string substr (size_t pos = 0, size_t len = npos) const;</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">diffWaysToCompute</span><span class="hljs-params">(string input)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; res;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;input.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">char</span> ch=input[i];<br>            <span class="hljs-comment">// 分解：遇到运算符，计算左右两侧的结果集</span><br>            <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;+&#x27;</span>||ch==<span class="hljs-string">&#x27;-&#x27;</span>||ch==<span class="hljs-string">&#x27;*&#x27;</span>)<br>            &#123;<br>                <span class="hljs-comment">// 解决：diffWaysToCompute 递归函数求出子问题的解</span><br>                <span class="hljs-comment">// </span><br>                vector&lt;<span class="hljs-type">int</span>&gt; left=<span class="hljs-built_in">diffWaysToCompute</span>(input.<span class="hljs-built_in">substr</span>(<span class="hljs-number">0</span>,i));<span class="hljs-comment">// 符号左边的组合</span><br>                vector&lt;<span class="hljs-type">int</span>&gt; right=<span class="hljs-built_in">diffWaysToCompute</span>(input.<span class="hljs-built_in">substr</span>(i+<span class="hljs-number">1</span>));<span class="hljs-comment">// 符号右边的组合</span><br>                <span class="hljs-comment">// 合并：根据运算符合并子问题的解</span><br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;x:left)<br>                &#123;<br>                    <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;y:right)<br>                    &#123;<br>                        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;+&#x27;</span>)<br>                            res.<span class="hljs-built_in">push_back</span>(x+y);<br>                        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;-&#x27;</span>)<br>                            res.<span class="hljs-built_in">push_back</span>(x-y);<br>                        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;*&#x27;</span>)<br>                            res.<span class="hljs-built_in">push_back</span>(x*y);<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// input 只是一个数字</span><br>        <span class="hljs-keyword">if</span>(res.<span class="hljs-built_in">empty</span>())<br>            res.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">stoi</span>(input));<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="memoization-优化"><a href="#memoization-优化" class="headerlink" title="memoization 优化"></a><code>memoization</code> 优化</h3><p>由于递归是两个分支，所以会有一些解进行了重复计算，可以使用 <code>memoization</code> 技术，用 HashMap 来保存已经计算过的情况，提升运算速度，以空间换时间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">diffWaysToCompute</span><span class="hljs-params">(string input)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果已经有当前解了，直接返回</span><br>        <span class="hljs-keyword">if</span>(m.<span class="hljs-built_in">count</span>(input)!=<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> m[input];<br>        vector&lt;<span class="hljs-type">int</span>&gt; res;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;input.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">char</span> ch=input[i];<br>            <span class="hljs-comment">// 分解：遇到运算符，计算左右两侧的结果集</span><br>            <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;+&#x27;</span>||ch==<span class="hljs-string">&#x27;-&#x27;</span>||ch==<span class="hljs-string">&#x27;*&#x27;</span>)<br>            &#123;<br>                <span class="hljs-comment">// 解决：diffWaysToCompute 递归函数求出子问题的解</span><br>                <span class="hljs-comment">// </span><br>                vector&lt;<span class="hljs-type">int</span>&gt; left=<span class="hljs-built_in">diffWaysToCompute</span>(input.<span class="hljs-built_in">substr</span>(<span class="hljs-number">0</span>,i));<span class="hljs-comment">// 符号左边的组合</span><br>                vector&lt;<span class="hljs-type">int</span>&gt; right=<span class="hljs-built_in">diffWaysToCompute</span>(input.<span class="hljs-built_in">substr</span>(i+<span class="hljs-number">1</span>));<span class="hljs-comment">// 符号右边的组合</span><br>                <span class="hljs-comment">// 合并：根据运算符合并子问题的解</span><br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;x:left)<br>                &#123;<br>                    <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;y:right)<br>                    &#123;<br>                        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;+&#x27;</span>)<br>                            res.<span class="hljs-built_in">push_back</span>(x+y);<br>                        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;-&#x27;</span>)<br>                            res.<span class="hljs-built_in">push_back</span>(x-y);<br>                        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;*&#x27;</span>)<br>                            res.<span class="hljs-built_in">push_back</span>(x*y);<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// input 只是一个数字</span><br>        <span class="hljs-keyword">if</span>(res.<span class="hljs-built_in">empty</span>())<br>            res.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">stoi</span>(input));<br>        <span class="hljs-comment">// 存到 map</span><br>        m[input]=res;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    unordered_map&lt;string,vector&lt;<span class="hljs-type">int</span>&gt;&gt; m;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：动态规划"><a href="#解法二：动态规划" class="headerlink" title="解法二：动态规划"></a>解法二：动态规划</h2><p>为了比较好定义 <code>dp</code> 数组的含义，先做一个预处理，把每个数字提前转为 <code>int</code> 然后存起来，同时把运算符也都存起来。这样就有了两个 <code>list</code>，一个保存了所有数字，一个保存了所有运算符。</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">2 *<span class="hljs-number"> 3 </span>-<span class="hljs-number"> 4 </span>* 5<br>存起来的数字是 numList = [2<span class="hljs-number"> 3 </span>4 5]，<br>存起来的运算符是 opList = [*, -, *]。<br></code></pre></td></tr></table></figure>
+
+<p><code>dp[i][j]</code> 也比较好定义了，含义是第 <code>i</code> 到第 <code>j</code> 个数字（从 <code>0</code> 开始计数）范围内的表达式的所有解。</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tap">举个例子，2 *<span class="hljs-number"> 3 </span>-<span class="hljs-number"> 4 </span>*<span class="hljs-number"> 5 </span><br>dp[1][3] 就代表第一个数字<span class="hljs-number"> 3 </span>到第三个数字<span class="hljs-number"> 5 </span>范围内的表达式<span class="hljs-number"> 3 </span>-<span class="hljs-number"> 4 </span>*<span class="hljs-number"> 5 </span>的所有解。<br></code></pre></td></tr></table></figure>
+
+<p>初始条件的话，也很简单了，就是范围内只有一个数字。</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">2 * 3 - 4 * 5 <br>dp<span class="hljs-comment">[0]</span><span class="hljs-comment">[0]</span> = <span class="hljs-comment">[2]</span>，dp<span class="hljs-comment">[1]</span><span class="hljs-comment">[1]</span> = <span class="hljs-comment">[3]</span>，dp<span class="hljs-comment">[2]</span><span class="hljs-comment">[2]</span> = <span class="hljs-comment">[4]</span>，dp<span class="hljs-comment">[3]</span><span class="hljs-comment">[3]</span> = <span class="hljs-comment">[5]</span>。<br></code></pre></td></tr></table></figure>
+
+<p>有了一个数字的所有解，然后两个数字的所有解就可以求出来。有了两个数字的所有解，然后三个数字的所有解可以把三个数字分成两部分，将两部分的解两两组合起来即可。</p>
+<p>两部分之间的运算符的话，因为表达式是一个数字一个运算符，所以运算符的下标就是左部分最后一个数字的下标。看下边的例子。</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs tap">2 *<span class="hljs-number"> 3 </span>-<span class="hljs-number"> 4 </span>* 5<br>存起来的数字是 numList = [2<span class="hljs-number"> 3 </span>4 5]，<br>存起来的运算符是 opList = [*, -, *]。<br><br>假设求 dp[1][3]<br>也就是计算<span class="hljs-number"> 3 </span>-<span class="hljs-number"> 4 </span>*<span class="hljs-number"> 5 </span>的解<br>分成<span class="hljs-number"> 3 </span>和<span class="hljs-number"> 4 </span>*<span class="hljs-number"> 5 </span>两部分，3 对应的下标是<span class="hljs-number"> 1 </span>，对应的运算符就是 opList[1] = &#x27;-&#x27; 。<br>也就是计算<span class="hljs-number"> 3 </span>-<span class="hljs-number"> 20 </span>= -17<br>    <br>分成<span class="hljs-number"> 3 </span>-<span class="hljs-number"> 4 </span>和<span class="hljs-number"> 5 </span>两部分，4 的下标是<span class="hljs-number"> 2 </span>，对应的运算符就是 opList[2] = &#x27;*&#x27;。<br>也就是计算 -1 *<span class="hljs-number"> 5 </span>= -5<br>    <br>所以 dp[1][3] = [-17 -5]<br></code></pre></td></tr></table></figure>
+
+<p>四个、五个… 都可以分成两部分，然后通过之前的解求出来。</p>
+<p>直到包含了所有数字的解求出来，假设数字总个数是 <code>n</code>，<code>dp[0][n-1]</code> 就是最后返回的了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">diffWaysToCompute</span><span class="hljs-params">(string input)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; numVec;<br>        vector&lt;<span class="hljs-type">char</span>&gt; opVec;<br>        <span class="hljs-type">int</span> num=<span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 预处理</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;input.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">char</span> ch=input[i];<br>            <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;+&#x27;</span>||ch==<span class="hljs-string">&#x27;-&#x27;</span>||ch==<span class="hljs-string">&#x27;*&#x27;</span>)<br>            &#123;<br>                opVec.<span class="hljs-built_in">push_back</span>(ch);<br>                numVec.<span class="hljs-built_in">push_back</span>(num);<br>                num=<span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            num=num*<span class="hljs-number">10</span>+ch-<span class="hljs-string">&#x27;0&#x27;</span>;<br>        &#125;<br>        <span class="hljs-comment">// 存最后一个数字</span><br>        numVec.<span class="hljs-built_in">push_back</span>(num);<br>        <span class="hljs-type">int</span> cnt=numVec.<span class="hljs-built_in">size</span>();<span class="hljs-comment">// 数字的个数</span><br>        vector&lt;vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&gt; <span class="hljs-built_in">dp</span>(cnt, vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;(cnt, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;()));<br>        <span class="hljs-comment">// 一个数字</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;cnt;++i)<br>        &#123;<br>            vector&lt;<span class="hljs-type">int</span>&gt; res;<br>            res.<span class="hljs-built_in">push_back</span>(numVec[i]);<br>            dp[i][i]=res;<br>        &#125;<br>        <span class="hljs-comment">// 2 个数字到 N 个数字</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> n=<span class="hljs-number">2</span>;n&lt;=cnt;++n)<br>        &#123;<br>            <span class="hljs-comment">// 开始下标</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;cnt;++i)<br>            &#123;<br>                <span class="hljs-comment">// 结束下标</span><br>                <span class="hljs-type">int</span> j=i+n<span class="hljs-number">-1</span>;<br>                <span class="hljs-keyword">if</span>(j&gt;=cnt)<br>                    <span class="hljs-keyword">break</span>;<br>                vector&lt;<span class="hljs-type">int</span>&gt; res;<br>                <span class="hljs-comment">// 分成 i ~ s 和 s+1 ~ j 两部分</span><br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> s=i;s&lt;j;++s)<br>                &#123;<br>                    vector&lt;<span class="hljs-type">int</span>&gt; left=dp[i][s];<br>                    vector&lt;<span class="hljs-type">int</span>&gt; right=dp[s+<span class="hljs-number">1</span>][j];<br>                    <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;x:left)<br>                    &#123;<br>                        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;y:right)<br>                        &#123;<br>                            <span class="hljs-comment">// 第 s 个数字下标对应是第 s 个运算符</span><br>                            <span class="hljs-type">char</span> op=opVec[s];<br>                            res.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">calculate</span>(x,op,y));<br>                        &#125;<br>                    &#125;<br>                &#125;<br>                dp[i][j]=res;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][cnt<span class="hljs-number">-1</span>];<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">char</span> op,<span class="hljs-type">int</span> y)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(op==<span class="hljs-string">&#x27;+&#x27;</span>)<br>            <span class="hljs-keyword">return</span> x+y;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op==<span class="hljs-string">&#x27;-&#x27;</span>)<br>            <span class="hljs-keyword">return</span> x-y;<br>        <span class="hljs-keyword">else</span> <br>            <span class="hljs-keyword">return</span> x*y;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="169-多数元素-easy"><a href="#169-多数元素-easy" class="headerlink" title="169. 多数元素[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/majority-element/">169. 多数元素</a>[easy]</h1><h2 id="解法一：哈希表"><a href="#解法一：哈希表" class="headerlink" title="解法一：哈希表"></a>解法一：哈希表</h2><h3 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h3><p>使用哈希表存储每个元素以及出现的次数。用一个循环遍历数组 <code>nums</code> 并将数组中的每个元素加入哈希表中。在这之后，遍历哈希表中的所有键值对，返回超过二分之一数组大小的键。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; counts;       <br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> num:nums)       <br>            ++counts[num];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> kv:counts)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(kv.second&gt;nums.<span class="hljs-built_in">size</span>()/<span class="hljs-number">2</span>)<br>                <span class="hljs-keyword">return</span> kv.first;<br>        &#125;    <br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="思路二"><a href="#思路二" class="headerlink" title="思路二"></a>思路二</h3><p>在遍历数组 <code>nums</code> 时候使用打擂台的方法，维护最大的值，这样省去了最后对哈希表的遍历。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; counts;<br>        <span class="hljs-type">int</span> cnt=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> majority=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> num:nums)<br>        &#123;<br>            ++counts[num];<br>            <span class="hljs-keyword">if</span>(counts[num]&gt;cnt)<br>            &#123;<br>                majority=num;<br>                cnt=counts[num];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> majority;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(n)。</p>
+<h2 id="解法二：排序"><a href="#解法二：排序" class="headerlink" title="解法二：排序"></a>解法二：排序</h2><p>将将数组 <code>nums</code> 中的所有元素按照单调递增或单调递减的顺序排序，那么下标为 ⌊ n&#x2F;2 ⌋ 的元素（下标从 <code>0</code> 开始）一定是众数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(),nums.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-keyword">return</span> nums[nums.<span class="hljs-built_in">size</span>()/<span class="hljs-number">2</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(nlogn)，空间复杂度 O(logn)。</p>
+<h2 id="解法三：分治算法"><a href="#解法三：分治算法" class="headerlink" title="解法三：分治算法"></a>解法三：分治算法</h2><p>如果数 <code>a</code> 是数组 <code>nums</code> 的众数，将 <code>nums</code> 分成两部分，那么 <code>a</code> 必定是至少一部分的众数。这样以来，就可以使用分治法解决这个问题：将数组分成左右两部分，分别求出左半部分的众数 <code>a1</code> 以及右半部分的众数 <code>a2</code>，随后在 <code>a1</code> 和 <code>a2</code> 中选出正确的众数。</p>
+<p>使用递归求解，直到所有的子问题都是长度为 <code>1</code> 的数组。长度为 <code>1</code> 的子数组中唯一的数显然是众数，直接返回即可。如果回溯后某区间的长度大于 <code>1</code>，必须将左右子区间的值合并。如果它们的众数相同，那么显然这一段区间的众数是它们相同的值。否则，需要比较两个众数在整个区间内出现的次数来决定该区间的众数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">majorrityRange</span>(nums,<span class="hljs-number">0</span>,nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);<br>    &#125;<br><br><span class="hljs-keyword">private</span>: <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorrityRange</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt; &amp;nums,<span class="hljs-type">int</span> lo,<span class="hljs-type">int</span> hi)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(lo==hi)<br>            <span class="hljs-keyword">return</span> nums[lo];<br>        <span class="hljs-type">int</span> mid=lo+(hi-lo)/<span class="hljs-number">2</span>;<br>        <span class="hljs-type">int</span> left=<span class="hljs-built_in">majorrityRange</span>(nums,lo,mid);<br>        <span class="hljs-type">int</span> right=<span class="hljs-built_in">majorrityRange</span>(nums,mid+<span class="hljs-number">1</span>,hi);<br>        <span class="hljs-keyword">if</span>(left==right)<br>            <span class="hljs-keyword">return</span> left;<br>        <span class="hljs-type">int</span> leftCount=<span class="hljs-built_in">countRange</span>(nums,left,lo,hi);<br>        <span class="hljs-type">int</span> rightCount=<span class="hljs-built_in">countRange</span>(nums,right,lo,hi);<br>        <span class="hljs-keyword">return</span> leftCount&gt;=rightCount?left:right;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">countRange</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt; &amp;nums,<span class="hljs-type">int</span> num,<span class="hljs-type">int</span> lo,<span class="hljs-type">int</span> hi)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=lo;i&lt;=hi;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(nums[i]==num)<br>                ++count;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(nlogn)，空间复杂度 O(logn)。</p>
+<h2 id="解法四：摩尔投票算法"><a href="#解法四：摩尔投票算法" class="headerlink" title="解法四：摩尔投票算法"></a>解法四：摩尔投票算法</h2><p>如果把众数记为 +1，把其他数记为 -1，将它们全部加起来，显然和大于 <code>0</code>，从结果本身可以看出众数比其他数多。</p>
+<p>摩尔投票算法步骤：</p>
+<ul>
+<li>维护一个候选众数 <code>candidate</code> 和它出现的次数 <code>count</code>。初始时 <code>candidate</code> 可以为任意值，<code>count</code> 为 <code>0</code>；</li>
+<li>遍历数组 <code>nums</code> 中的所有元素，对于每个元素 <code>x</code>，在判断 <code>x</code> 之前，如果 <code>count</code> 的值为 <code>0</code>，先将 <code>x</code> 的值赋予 <code>candidate</code>，随后判断 <code>x</code>：<ul>
+<li>如果 <code>x</code> 与 <code>candidate</code> 相等，那么计数器 <code>count</code> 的值增加 <code>1</code>；</li>
+<li>如果 <code>x</code> 与 <code>candidate</code> 不等，那么计数器 <code>count</code> 的值减少 <code>1</code>。</li>
+</ul>
+</li>
+<li>在遍历完成后，<code>candidate</code> 即为整个数组的众数。</li>
+</ul>
+<p>为何这行得通呢？<br>投票法是遇到相同的则 <code>票数 + 1</code>，遇到不同的则 <code>票数 - 1</code>。且“多数元素”的个数 <code>&gt; ⌊ n/2 ⌋</code>，其余元素的个数总和 <code>&lt;= ⌊ n/2 ⌋</code>。因此“多数元素”的个数 <code>-</code> 其余元素的个数总和的结果肯定 <code>&gt;= 1</code>。这就相当于每个“多数元素”和其他元素两两相互抵消，抵消到最后肯定还剩余<strong>至少<code>1</code>个</strong>“多数元素”。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> candidate=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;num:nums)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(count==<span class="hljs-number">0</span>)<br>                candidate=num;<br>            count+=num==candidate?<span class="hljs-number">1</span>:<span class="hljs-number">-1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> candidate;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Divide-and-Conquer/">Divide and Conquer</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/21/Leetcode%20Notes%E2%80%94%E2%80%94Graph/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Leetcode Notes——Graph</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/05/Leetcode%20Notes%E2%80%94%E2%80%94Search/">
+                        <span class="hidden-mobile">Leetcode Notes——Search</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

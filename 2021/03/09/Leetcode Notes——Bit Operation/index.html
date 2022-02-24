@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Orleans">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一下自己 leetcode 的刷题记录，本部分为位运算篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode Notes——Bit Operation">
+<meta property="og:url" content="https://simpleforever.github.io/2021/03/09/Leetcode%20Notes%E2%80%94%E2%80%94Bit%20Operation/index.html">
+<meta property="og:site_name" content="OrleansのBlog">
+<meta property="og:description" content="记录一下自己 leetcode 的刷题记录，本部分为位运算篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210415161814.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210415221251.jpeg">
+<meta property="article:published_time" content="2021-03-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-30T12:59:41.148Z">
+<meta property="article:author" content="Orleans">
+<meta property="article:tag" content="Bit Operation">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210415161814.jpeg">
+  
+  
+  <title>Leetcode Notes——Bit Operation - OrleansのBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"simpleforever.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Leetcode Notes——Bit Operation">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-09 00:00" pubdate>
+        2021年3月9日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      58 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Leetcode Notes——Bit Operation</h1>
+            
+            <div class="markdown-body">
+              <p>记录一下自己 leetcode 的刷题记录，本部分为<strong>位运算</strong>篇。部分内容搬运自 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problemset/all/">Leetcode-cn</a> 大佬题解。</p>
+<span id="more"></span>
+
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p>0s 表示一串 0，1s 表示一串 1。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">x</span> ^ <span class="hljs-number">0</span>s = x      x &amp; <span class="hljs-number">0</span>s = <span class="hljs-number">0</span>      x | <span class="hljs-number">0</span>s = x<br><span class="hljs-attribute">x</span> ^ <span class="hljs-number">1</span>s = ~x     x &amp; <span class="hljs-number">1</span>s = x      x | <span class="hljs-number">1</span>s = <span class="hljs-number">1</span>s<br><span class="hljs-attribute">x</span> ^ x = <span class="hljs-number">0</span>       x &amp; x = x       x | x = x<br></code></pre></td></tr></table></figure>
+
+<p>利用 x ^ 1s &#x3D; ~x 的特点，可以将一个数的位级表示翻转；利用 x ^ x &#x3D; 0 的特点，可以将三个数中重复的两个数去除，只留下另一个数。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>^<span class="hljs-number">1</span>^<span class="hljs-number">2</span> = <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p>利用 x &amp; 0s &#x3D; 0 和 x &amp; 1s &#x3D; x 的特点，可以实现掩码操作。一个数 num 与 mask：00111100 进行位与操作，只保留 num 中与 mask 的 1 部分相对应的位。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">01011011 &amp;<br><span class="hljs-section">00111100</span><br><span class="hljs-section">--------</span><br>00011000<br></code></pre></td></tr></table></figure>
+
+<p>利用 x | 0s &#x3D; x 和 x | 1s &#x3D; 1s 的特点，可以实现设值操作。一个数 num 与 mask：00111100 进行位或操作，将 num 中与 mask 的 1 部分相对应的位都设置为 1。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">01011011 |<br><span class="hljs-section">00111100</span><br><span class="hljs-section">--------</span><br>01111111<br></code></pre></td></tr></table></figure>
+
+<h2 id="位与运算技巧"><a href="#位与运算技巧" class="headerlink" title="位与运算技巧"></a>位与运算技巧</h2><p>n&amp;(n-1) 去除 n 的位级表示中最低的那一位 1。例如对于二进制表示 01011011，减去 1 得到 01011010，这两个数相与得到 01011010。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">01011011 &amp;<br><span class="hljs-section">01011010</span><br><span class="hljs-section">--------</span><br>01011010<br></code></pre></td></tr></table></figure>
+
+<p>n&amp;(-n) 得到 n 的位级表示中最低的那一位 1。-n 得到 n 的反码加 1，也就是 -n&#x3D;~n+1。例如对于二进制表示 10110100，-n 得到 01001100，相与得到 00000100。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">10110100 &amp;<br><span class="hljs-section">01001100</span><br><span class="hljs-section">--------</span><br>00000100<br></code></pre></td></tr></table></figure>
+
+<p>n-(n&amp;(-n)) 则可以去除 n 的位级表示中最低的那一位 1，和 n&amp;(n-1) 效果一样。</p>
+<h2 id="mask-计算"><a href="#mask-计算" class="headerlink" title="mask 计算"></a>mask 计算</h2><p>要获取 111111111，将 0 取反即可，~0。</p>
+<p>要得到只有第 i 位为 1 的 mask，将 1 向左移动 i-1 位即可，1&lt;&lt;(i-1) 。例如 1&lt;&lt;4 得到只有第 5 位为 1 的 mask ：00010000。</p>
+<p>要得到 1 到 i 位为 1 的 mask，(1&lt;&lt;i)-1 即可，例如将 (1&lt;&lt;4)-1 &#x3D; 00010000-1 &#x3D; 00001111。</p>
+<p>要得到 1 到 i 位为 0 的 mask，只需将 1 到 i 位为 1 的 mask 取反，即 ~((1&lt;&lt;i)-1)。</p>
+<h1 id="136-只出现一次的数字-easy"><a href="#136-只出现一次的数字-easy" class="headerlink" title="136. 只出现一次的数字[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a>[easy]</h1><h2 id="解法一：哈希表"><a href="#解法一：哈希表" class="headerlink" title="解法一：哈希表"></a>解法一：哈希表</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; cnt;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;num:nums)<br>            ++cnt[num];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> &amp;elem:cnt)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(elem.second==<span class="hljs-number">1</span>)<br>                <span class="hljs-keyword">return</span> elem.first;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：异或"><a href="#解法二：异或" class="headerlink" title="解法二：异或"></a>解法二：异或</h2><p>思路参考 <a href="https://simpleforever.github.io/2020/07/18/2020%E7%89%9B%E5%AE%A2%E5%B7%A6%E7%A5%9E%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8/#%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97%E7%9A%84%E6%80%A7%E8%B4%A8%E4%B8%8E%E6%89%A9%E5%B1%95">牛客左神算法课笔记—算法入门异或运算的性质与扩展</a>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> eor=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;num:nums)<br>            eor^=num;<br>        <span class="hljs-keyword">return</span> eor;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="137-只出现一次的数字-II-medium"><a href="#137-只出现一次的数字-II-medium" class="headerlink" title="137. 只出现一次的数字 II[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number-ii/">137. 只出现一次的数字 II</a>[medium]</h1><h2 id="解法一：哈希表-1"><a href="#解法一：哈希表-1" class="headerlink" title="解法一：哈希表"></a>解法一：哈希表</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; m;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num:nums)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(m.<span class="hljs-built_in">count</span>(num)!=<span class="hljs-number">0</span>)<br>                m[num]++;<br>            <span class="hljs-keyword">else</span><br>                m[num]=<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> elem:m)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(elem.second==<span class="hljs-number">1</span>)<br>                <span class="hljs-keyword">return</span> elem.first;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：位运算"><a href="#解法二：位运算" class="headerlink" title="解法二：位运算"></a>解法二：位运算</h2><blockquote>
+<p>参考 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number-ii/solution/single-number-ii-mo-ni-san-jin-zhi-fa-by-jin407891/">Krahets</a> 题解。</p>
+</blockquote>
+<h1 id="260-只出现一次的数字-III-medium"><a href="#260-只出现一次的数字-III-medium" class="headerlink" title="260. 只出现一次的数字 III[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number-iii/">260. 只出现一次的数字 III</a>[medium]</h1><h2 id="解法：异或"><a href="#解法：异或" class="headerlink" title="解法：异或"></a>解法：异或</h2><ul>
+<li>把所有的元素进行异或操作，最终得到一个异或值。因为是不同的两个数字，所以这个值必定不为 0。</li>
+<li>取异或值最后一个二进制位为 1 的数字作为 mask，如果是 1 则表示两个数字在这一位上不同。</li>
+<li>通过与这个 mask 进行与操作，如果为 0 的分为一个数组，为 1 的分为另一个数组。这样就把问题降低成了：“有一个数组每个数字都出现两次，有一个数字只出现了一次，求出该数字”。对这两个子问题分别进行全异或就可以得到两个解。也就是最终的数组了。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] singleNumber(<span class="hljs-type">int</span>[] nums) &#123;<br>        <span class="hljs-type">int</span> eor=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num:nums)<br>            eor^=num;<br>        <span class="hljs-type">int</span> rightOne=eor&amp;(~eor+<span class="hljs-number">1</span>);<br>        <span class="hljs-comment">// int rightOne=eor&amp;(-eor);</span><br>        <span class="hljs-type">int</span> res[]=<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">2</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num:nums)<br>        &#123;<br>            <span class="hljs-keyword">if</span>((num&amp;rightOne)==<span class="hljs-number">0</span>)<br>                res[<span class="hljs-number">0</span>]^=num;<br>            <span class="hljs-keyword">else</span><br>                res[<span class="hljs-number">1</span>]^=num;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="191-位1的个数-easy"><a href="#191-位1的个数-easy" class="headerlink" title="191. 位1的个数[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-1-bits/">191. 位1的个数</a>[easy]</h1><h2 id="解法一：移位"><a href="#解法一：移位" class="headerlink" title="解法一：移位"></a>解法一：移位</h2><p>统计二进制中每一位是否为 <code>1</code>：</p>
+<ul>
+<li>使用 <code>n &amp; 1</code> 得到二进制末尾是否为 1</li>
+<li>把 <code>n</code> 右移 1 位，直至结束</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">hammingWeight</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(n!=<span class="hljs-number">0</span>)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(n&amp;<span class="hljs-number">1</span>==<span class="hljs-number">1</span>)<br>                ++count;<br>            n&gt;&gt;=<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：n-amp-n-1"><a href="#解法二：n-amp-n-1" class="headerlink" title="解法二：n&amp;(n-1)"></a>解法二：n&amp;(n-1)</h2><p>消除二进制末尾的 1。执行 <code>n &amp; (n - 1)</code> 使得 n 变成 0 的操作次数，就是 n 的二进制中 1 的个数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">hammingWeight</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(n!=<span class="hljs-number">0</span>)<br>        &#123;<br>            ++count;<br>            n&amp;=n<span class="hljs-number">-1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="461-汉明距离-easy"><a href="#461-汉明距离-easy" class="headerlink" title="461. 汉明距离[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/hamming-distance/">461. 汉明距离</a>[easy]</h1><h2 id="解法一：异或-移位"><a href="#解法一：异或-移位" class="headerlink" title="解法一：异或+移位"></a>解法一：异或+移位</h2><p>对两个数进行异或操作，位级表示不同的那一位为 1，统计有多少个 1 即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">hammingDistance</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span> </span>&#123;<br>        <span class="hljs-type">int</span> num=x^y;<br>        <span class="hljs-type">int</span> cnt=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(num!=<span class="hljs-number">0</span>)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(num&amp;<span class="hljs-number">1</span>==<span class="hljs-number">1</span>)<br>                cnt++;<br>            num=num&gt;&gt;<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> cnt;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：异或-n-amp-n-1"><a href="#解法二：异或-n-amp-n-1" class="headerlink" title="解法二：异或+n&amp;(n-1)"></a>解法二：异或+n&amp;(n-1)</h2><p>使用 n&amp;(n-1) 去除 n 位级表示最低的那一位。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">hammingDistance</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span> </span>&#123;<br>        <span class="hljs-type">int</span> num=x^y;<br>        <span class="hljs-type">int</span> cnt=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(num!=<span class="hljs-number">0</span>)<br>        &#123;<br>            num&amp;=num<span class="hljs-number">-1</span>;<br>            cnt++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> cnt;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="268-丢失的数字-easy"><a href="#268-丢失的数字-easy" class="headerlink" title="268. 丢失的数字[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/missing-number/">268. 丢失的数字</a>[easy]</h1><h2 id="解法一：哈希表-2"><a href="#解法一：哈希表-2" class="headerlink" title="解法一：哈希表"></a>解法一：哈希表</h2><p>直接查询每个数是否在数组中出现过来找出缺失的数字。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">missingNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        unordered_set&lt;<span class="hljs-type">int</span>&gt; s;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num:nums)<br>            s.<span class="hljs-built_in">insert</span>(num);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>()+<span class="hljs-number">1</span>;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(s.<span class="hljs-built_in">count</span>(i)==<span class="hljs-number">0</span>)<br>                <span class="hljs-keyword">return</span> i;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：位运算-1"><a href="#解法二：位运算-1" class="headerlink" title="解法二：位运算"></a>解法二：位运算</h2><p>数组中有 n 个数，并且缺失的数在 [0..n] 中。因此可以先得到 [0..n] 的异或值，再将结果对数组中的每一个数进行一次异或运算。未缺失的数在 [0..n] 和数组中各出现一次，因此异或后得到 0。而缺失的数字只在 [0..n] 中出现了一次，在数组中没有出现，因此最终的异或结果即为这个缺失的数字。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">missingNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>();++i)<br>            res=res^i^nums[i];<br>        <span class="hljs-keyword">return</span> res^nums.<span class="hljs-built_in">size</span>();<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法三：数学"><a href="#解法三：数学" class="headerlink" title="解法三：数学"></a>解法三：数学</h2><p>求出 [0..n] 的和，减去数组中所有数的和，就得到了缺失的数字。只需要遍历一遍数组，在把 0-n 这 n 个自然数全加起来的同时也减去 nums[i]，这样不但效率高，也防止了数据溢出。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">missingNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> sum=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            sum+=i;<br>            sum-=nums[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> sum;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="231-2的幂-easy"><a href="#231-2的幂-easy" class="headerlink" title="231. 2的幂[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-two/">231. 2的幂</a>[easy]</h1><h2 id="解法：n-amp-n-1"><a href="#解法：n-amp-n-1" class="headerlink" title="解法：n&amp;(n-1)"></a>解法：n&amp;(n-1)</h2><ul>
+<li>2 的幂二进制表示只含有一个 1。</li>
+<li>x &amp; (x - 1) 操作会去除 x 的位级表示中最低的那一位 1，因此判断是否为 2 的幂：判断 x &amp; (x - 1)是否为 0。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210415161814.jpeg" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPowerOfTwo</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> n&gt;<span class="hljs-number">0</span> &amp;&amp; (n&amp;(n<span class="hljs-number">-1</span>))==<span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="342-4的幂-easy"><a href="#342-4的幂-easy" class="headerlink" title="342. 4的幂[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-four/">342. 4的幂</a>[easy]</h1><h2 id="解法一：暴力循环"><a href="#解法一：暴力循环" class="headerlink" title="解法一：暴力循环"></a>解法一：暴力循环</h2><p>不停的去除以 4 ，看最终结果是否为 1。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPowerOfFour</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">while</span>(n%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)<br>            n/=<span class="hljs-number">4</span>;<br>        <span class="hljs-keyword">return</span> n==<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：位运算-2"><a href="#解法二：位运算-2" class="headerlink" title="解法二：位运算"></a>解法二：位运算</h2><ul>
+<li><p>首先检查 num 是否为 2 的幂：x &gt; 0 and x &amp; (x - 1) &#x3D;&#x3D; 0。</p>
+</li>
+<li><p>现在的问题是区分 2 的偶数幂（当 x 是 4 的幂时）和 2 的奇数幂（当 x 不是 4 的幂时）。在二进制表示中，这两种情况都只有一位为 1，其余为 0。</p>
+</li>
+<li><p>有什么区别？在第一种情况下（4 的幂），1 处于偶数位置：第 0 位、第 2 位、第 4 位等；在第二种情况下，1 处于奇数位置。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Simpleforever/imgbed/pic2/20210415221251.jpeg" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>因此 4 的幂与数字 (101010…10)(2) 相与会得到 0。用十六进制表示为：(aaaaaaaa)(16)。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPowerOfFour</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> n&gt;<span class="hljs-number">0</span> &amp;&amp; (n&amp;(n<span class="hljs-number">-1</span>))==<span class="hljs-number">0</span> &amp;&amp; (n&amp;<span class="hljs-number">0xaaaaaaaa</span>)==<span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="476-数字的补数-easy"><a href="#476-数字的补数-easy" class="headerlink" title="476. 数字的补数[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-complement/">476. 数字的补数</a>[easy]</h1><h2 id="解法：位运算"><a href="#解法：位运算" class="headerlink" title="解法：位运算"></a>解法：位运算</h2><p>5的二进制是：0101，7的二进制是： 0111，它们的抑或为：0010，去掉前导零位即为取反。再来一个例子，假设a为1110 0101，b为1111 1111，a^b &#x3D; 0001 1010是a的取反。</p>
+<p>也就是说二进制位数与num相同，且全为1的数tmp与num的异或即为所求。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findComplement</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-type">int</span> tmp=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(tmp&lt;num)<br>        &#123;<br>            tmp&lt;&lt;=<span class="hljs-number">1</span>;<br>            tmp+=<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> tmp^num;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="371-两整数之和-medium"><a href="#371-两整数之和-medium" class="headerlink" title="371. 两整数之和[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sum-of-two-integers/">371. 两整数之和</a>[medium]</h1><h2 id="解法：位运算-1"><a href="#解法：位运算-1" class="headerlink" title="解法：位运算"></a>解法：位运算</h2><p>位运算中的加法等价于异或运算结果：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">0 </span>+ <span class="hljs-number">0</span> = <span class="hljs-number">0</span><br><span class="hljs-symbol">0 </span>+ <span class="hljs-number">1</span> = <span class="hljs-number">1</span><br><span class="hljs-symbol">1 </span>+ <span class="hljs-number">0</span> = <span class="hljs-number">1</span><br><span class="hljs-symbol">1 </span>+ <span class="hljs-number">1</span> = <span class="hljs-number">0</span>（进位 <span class="hljs-number">1</span>）<br></code></pre></td></tr></table></figure>
+
+<p>异或和与运算操作：在位运算操作中，<strong>异或</strong>的一个重要特性是<strong>无进位加法</strong>。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">a = 5 = 0101<br>b = 4 = 0100<br>a ^ b 如下：<br>0 1 0 1<br><span class="hljs-section">0 1 0 0</span><br><span class="hljs-section">-------</span><br>0 0 0 1<br></code></pre></td></tr></table></figure>
+
+<p><code>a ^ b</code> 得到了一个<strong>无进位加法</strong>结果，如果要得到 <code>a + b</code> 的最终值，还要找到<strong>进位</strong>的数，把这二者相加。在位运算中，可以使用<strong>与</strong>操作获得进位：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">a = 5 = 0101<br>b = 4 = 0100<br>a &amp; b 如下：<br>0 1 0 1<br><span class="hljs-section">0 1 0 0</span><br><span class="hljs-section">-------</span><br>0 1 0 0<br></code></pre></td></tr></table></figure>
+
+<p>由计算结果可见，<code>0100</code> 并不是想要的进位，<code>1 + 1</code> 所获得的进位应该要放置在它的更高位，即左侧位上，因此还要把 <code>0100</code> 左移一位，才是所要的进位结果。</p>
+<p>那么问题就容易了，总结一下：</p>
+<ul>
+<li>a + b 的问题拆分为 (a 和 b 的无进位结果) + (a 和 b 的进位结果)</li>
+<li>无进位加法使用<strong>异或运算</strong>计算得出</li>
+<li>进位结果使用<strong>与运算和移位</strong>运算计算得出</li>
+<li>循环此过程，直到进位为 0</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">getSum</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> </span>&#123;<br>        <span class="hljs-type">int</span> sum,carry;<br>        <span class="hljs-keyword">while</span>(carry!=<span class="hljs-number">0</span>)<br>        &#123;<br>            sum=a^b;<br>            carry=((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)a&amp;b)&lt;&lt;<span class="hljs-number">1</span>;<br>            a=sum;<br>            b=carry;<br>        &#125;<br>        <span class="hljs-keyword">return</span> sum;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="338-比特位计数-medium"><a href="#338-比特位计数-medium" class="headerlink" title="338. 比特位计数[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/counting-bits/">338. 比特位计数</a>[medium]</h1><h2 id="解法一：遍历每一个数字"><a href="#解法一：遍历每一个数字" class="headerlink" title="解法一：遍历每一个数字"></a>解法一：遍历每一个数字</h2><p>遍历<code>[0, num]</code>，计算每个数字的<code>bit 1</code>。计算<code>bit 1</code>的方法参考 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-1-bits/">191. 位1的个数</a>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">countBits</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(num+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=num;++i)<br>            res[i]=<span class="hljs-built_in">numbits</span>(i);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">numbits</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(num!=<span class="hljs-number">0</span>)<br>        &#123;<br>            ++count;<br>            num&amp;=num<span class="hljs-number">-1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法二：bitset"><a href="#解法二：bitset" class="headerlink" title="解法二：bitset"></a>解法二：bitset</h2><p>使用<code>bitset</code>计算每个数字的<code>bit 1</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">countBits</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(num+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=num;++i)<br>            res[i]=<span class="hljs-built_in">bitset</span>&lt;<span class="hljs-number">32</span>&gt;(i).<span class="hljs-built_in">count</span>();<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解法三：动态规划"><a href="#解法三：动态规划" class="headerlink" title="解法三：动态规划"></a>解法三：动态规划</h2><p>对于所有的数字，只有两类：</p>
+<ul>
+<li><p>奇数：二进制表示中，奇数一定比前面那个偶数多一个 1，因为多的就是最低位的 1。</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">0 </span>= <span class="hljs-number">0</span>       <span class="hljs-number">1</span> = <span class="hljs-number">1</span><br><span class="hljs-symbol">2 </span>= <span class="hljs-number">10</span>      <span class="hljs-number">3</span> = <span class="hljs-number">11</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>偶数：二进制表示中，偶数中 1 的个数一定和除以 2 之后的那个数一样多。因为最低位是 0，除以 2 就是右移一位，也就是把那个 0 抹掉而已，所以 1 的个数是不变的。</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">2 </span>= <span class="hljs-number">10</span>       <span class="hljs-number">4</span> = <span class="hljs-number">100</span>       <span class="hljs-number">8</span> = <span class="hljs-number">1000</span><br><span class="hljs-symbol">3 </span>= <span class="hljs-number">11</span>       <span class="hljs-number">6</span> = <span class="hljs-number">110</span>       <span class="hljs-number">12</span> = <span class="hljs-number">1100</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>另外，0 的 1 个数为 0，于是就可以根据奇偶性开始遍历计算了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">countBits</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(num+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        res[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=num;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(i%<span class="hljs-number">2</span>==<span class="hljs-number">1</span>)<br>                res[i]=res[i<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                res[i]=res[i/<span class="hljs-number">2</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Bit-Operation/">Bit Operation</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/14/Leetcode%20Notes%E2%80%94%E2%80%94Design/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Leetcode Notes——Design</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/07/%E7%89%9B%E5%AE%A2%E9%A2%98%E9%9C%B8%E2%80%94%E9%AB%98%E9%A2%91TOP200/">
+                        <span class="hidden-mobile">牛客题霸—高频TOP200</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

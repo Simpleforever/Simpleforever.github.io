@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Orleans">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一下自己 leetcode 的刷题记录，本部分为双指针篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode Notes——Two Pointers">
+<meta property="og:url" content="https://simpleforever.github.io/2020/09/29/Leetcode%20Notes%E2%80%94%E2%80%94Two%20Pointers/index.html">
+<meta property="og:site_name" content="OrleansのBlog">
+<meta property="og:description" content="记录一下自己 leetcode 的刷题记录，本部分为双指针篇。部分内容搬运自 Leetcode-cn 大佬题解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101701.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101708.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101724.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101733.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101746.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101758.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101815.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101648.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101630.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200725150214.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200725150229.png">
+<meta property="article:published_time" content="2020-09-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-25T04:13:04.000Z">
+<meta property="article:author" content="Orleans">
+<meta property="article:tag" content="Two Pointers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101701.jpeg">
+  
+  
+  <title>Leetcode Notes——Two Pointers - OrleansのBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"simpleforever.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Leetcode Notes——Two Pointers">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-29 00:00" pubdate>
+        2020年9月29日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      17k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      143 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Leetcode Notes——Two Pointers</h1>
+            
+            <div class="markdown-body">
+              <p>记录一下自己 leetcode 的刷题记录，本部分为<strong>双指针</strong>篇。部分内容搬运自 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problemset/all/">Leetcode-cn</a> 大佬题解。</p>
+<span id="more"></span>
+
+<h1 id="11-盛最多水的容器-medium"><a href="#11-盛最多水的容器-medium" class="headerlink" title="11. 盛最多水的容器[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water/">11. 盛最多水的容器</a>[medium]</h1><h2 id="解法：双指针"><a href="#解法：双指针" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p><strong>算法流程：</strong> </p>
+<p>设置双指针<code>i,j</code>分别位于容器壁两端，根据规则移动指针，并且更新面积最大值 <code>res</code>，直到 <code>i == j</code> 时返回 <code>res</code>。</p>
+<p><strong>指针移动规则：</strong> </p>
+<p>每次选定围成水槽两板高度<code>h[i],h[j]</code>中的短板，向中间收窄 1 格。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=height.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-type">int</span> area=(j-i)*<span class="hljs-built_in">min</span>(height[i],height[j]);<br>            res=<span class="hljs-built_in">max</span>(res,area);<br>            <span class="hljs-keyword">if</span>(height[i]&lt;height[j])<br>                i++;<br>            <span class="hljs-keyword">else</span><br>                j--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N)，空间复杂度 O(1)。</p>
+<p><strong>双指针解法的正确性:</strong></p>
+<p>用一句话概括双指针解法的要点：指针每一次移动，都意味着排除掉了一个柱子。</p>
+<p>如下图所示，在一开始，考虑相距最远的两个柱子所能容纳水的面积。水的宽度是两根柱子之间的距离 d&#x3D;8；水的高度取决于两根柱子之间较短的那个，即左边柱子的高度 h&#x3D;3。水的面积就是 3×8&#x3D;24。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101701.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>如果选择固定一根柱子，另外一根变化，水的面积会有什么变化吗？稍加思考可得：</p>
+<ul>
+<li>当前柱子是最两侧的柱子，水的宽度 d 为最大，其他的组合，水的宽度都比这个小。</li>
+<li>左边柱子较短，决定了水的高度为 3。如果移动左边的柱子，新的水面高度不确定，一定不会超过右边的柱子高度 7。</li>
+<li>如果移动右边的柱子，新的水面高度一定不会超过左边的柱子高度 3，也就是不会超过现在的水面高度。</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101708.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>由此可见，如果固定左边的柱子，移动右边的柱子，那么水的高度一定不会增加，且宽度一定减少，所以水的面积一定减少。这个时候，左边的柱子和任意一个其他柱子的组合，其实都可以排除了。也就是可以排除掉左边的柱子了。</p>
+<p>这个排除掉左边柱子的操作，就是双指针代码里的 <code>i++</code>。<code>i</code> 和 <code>j</code> 两个指针中间的区域都是还未排除掉的区域。随着不断的排除，<code>i</code> 和 <code>j</code> 都会往中间移动。当 <code>i</code> 和 <code>j</code>相遇，算法就结束了。</p>
+<p><strong>图解双指针解法的原理：</strong></p>
+<p>下面用更直观的方法来看看”排除掉一根柱子”，”指针移动”代表着什么。</p>
+<p>在这道题中，假设一共有 n 根柱子，编号 0,1,…,n−1，高度分别为 H_0, H_1 ,…,H_n−1。要寻找的是两根柱子 i, j，它们需要满足的约束条件是：</p>
+<ul>
+<li>i、j 都是合法的柱子下标，即 0≤i&lt;n,0≤j&lt;n；</li>
+<li>i 在 j 的左边，即 i&lt;j。</li>
+</ul>
+<p>而我们希望从中找到容纳水面积最大的柱子 (i, j)。以 n&#x3D;8 为例，这时候全部的搜索空间是：</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101724.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>由于 i、j 的约束条件的限制，搜索空间是白色的倒三角部分。可以看到，搜索空间的大小是 O(n^2) 数量级的。如果用暴力解法求解，一次只检查一个单元格，那么时间复杂度一定是 O(n^2)。要想得到 O(n) 的解法，就需要能够一次排除多个单元格。那么看看双指针解法是如何削减搜索空间的：</p>
+<p>一开始，检查右上方单元格 (0,7)，即考虑最左边的 0 号柱子和最右边的 7 号柱子，计算它们之间容纳水的面积。然后比较一下两根柱子的高度，关注其中较短的一根。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101733.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>假设左边的 0 号柱子较短。根据刚才的推理，0 号柱子目前的水面高度已经到了上限。由于 7 号柱子已经是离 0 号柱子最远的了，水的宽度也最大，如果换其他的柱子和 0 号柱子配对，水的宽度只会更小，高度也不会增加，容纳水的面积只会更小。也就是说，0 号柱子和 6,5,…,1 号柱子的配对都可以排除掉了。记录了(0,7) 这组柱子的结果之后，就可以排除 0 号柱子了。这相当于 i&#x3D;0 的情况全部被排除，即 <code>i++</code>；对应于搜索空间，就是削减了一行的搜索空间。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101746.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>排除掉了搜索空间中的一行之后，再看剩余的搜索空间，仍然是倒三角形状。检查右上方的单元格 (1,7)，即考虑 1 号柱子和 7 号柱子，计算它们之间容纳水的面积。然后，比较两根柱子的高度。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101758.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>假设此时 7 号柱子较短。同理， 7 号柱子已经是离 1 号柱子最远的了，如果换其他的柱子和 1 号柱子配对，水的宽度变小，高度也不会增加，容纳水的面积只会更小。也就是说，7 号柱子和 2,3,…,6 号柱子的配对都可以排除掉了。记录了 (1,7) 这组柱子的结果之后，就可以排除 7 号柱子了。这相当于 j&#x3D;7 的情况全部被排除，即 <code>j--</code>；对应于搜索空间，就是削减了一列的搜索空间。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101815.jpeg" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>可以看到，无论柱子 i 和 j 哪根更长，都可以排除掉一行或者一列的搜索空间。经过 n 步以后，就能排除所有的搜索空间，检查完所有的可能性。搜索空间的减小过程如下面动图所示。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101648.gif" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<h1 id="125-验证回文串-easy"><a href="#125-验证回文串-easy" class="headerlink" title="125. 验证回文串[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-palindrome/">125. 验证回文串</a>[easy]</h1><h2 id="解法：双指针-1"><a href="#解法：双指针-1" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p>使用双指针。初始时，左右指针分别指向 str 的两侧，随后不断地将这两个指针相向移动，每次移动一步，并判断这两个指针指向的字符是否相同。当这两个指针相遇时，就说明 str 是回文串。</p>
+<blockquote>
+<p>几个内置函数：</p>
+<ul>
+<li>islower(char c) 是否为小写字母</li>
+<li>isupper(char c) 是否为大写字母</li>
+<li>isdigit(char c) 是否为数字</li>
+<li>isalpha(char c) 是否为字母</li>
+<li>isalnum(char c) 是否为字母或者数字</li>
+<li>toupper(char c) 字母小转大</li>
+<li>tolower(char c) 字母大转小</li>
+</ul>
+</blockquote>
+<h3 id="筛选-判断"><a href="#筛选-判断" class="headerlink" title="筛选 + 判断"></a>筛选 + 判断</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        string str;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c:s)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isalnum</span>(c))<br>                str+=<span class="hljs-built_in">tolower</span>(c);<br>        &#125;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=str.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(str[i]!=str[j])<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            i++;<br>            j--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(|s|)，其中 |s| 是字符串 s 的长度，空间复杂度 O(|s|)。</p>
+<h3 id="在原字符串上直接判断"><a href="#在原字符串上直接判断" class="headerlink" title="在原字符串上直接判断"></a>在原字符串上直接判断</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=s.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-keyword">while</span>(i&lt;j&amp;&amp;!<span class="hljs-built_in">isalnum</span>(s[i]))<br>                i++;<br>            <span class="hljs-keyword">while</span>(i&lt;j&amp;&amp;!<span class="hljs-built_in">isalnum</span>(s[j]))<br>                j--;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">tolower</span>(s[i])!=<span class="hljs-built_in">tolower</span>(s[j]))<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            i++;<br>            j--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(|s|)，其中 |s| 是字符串 s 的长度，空间复杂度 O(1)。</p>
+<h1 id="680-验证回文字符串-Ⅱ-easy"><a href="#680-验证回文字符串-Ⅱ-easy" class="headerlink" title="680. 验证回文字符串 Ⅱ[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-palindrome-ii/">680. 验证回文字符串 Ⅱ</a>[easy]</h1><h2 id="解法：双指针-2"><a href="#解法：双指针-2" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p>使用双指针可以很容易判断一个字符串是否是回文字符串：令一个指针从左到右遍历，一个指针从右到左遍历，这两个指针同时移动一个位置，每次都判断两个指针指向的字符是否相同，如果都相同，字符串才是具有左右对称性质的回文字符串。</p>
+<p>本题的关键是处理删除一个字符。在使用双指针遍历字符串时，如果出现两个指针指向的字符不相等的情况，就试着删除一个字符，再判断删除完之后的字符串是否是回文字符串。</p>
+<p>在判断删除完之后的字符串是否为回文字符串时，不需要判断整个字符串，因为左指针左边和右指针右边的字符之前已经判断过具有对称性质，所以只需要判断中间的子字符串即可。</p>
+<p>在试着删除字符时，既可以删除左指针指向的字符，也可以删除右指针指向的字符。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">validPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=s.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(s[i]!=s[j])<br>                <span class="hljs-comment">// 分两种情况，一是右边减一，二是左边加一</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">isPalindrome</span>(s,i,j<span class="hljs-number">-1</span>)||<span class="hljs-built_in">isPalindrome</span>(s,i+<span class="hljs-number">1</span>,j);<br>            i++;<br>            j--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(string s,<span class="hljs-type">int</span> i,<span class="hljs-type">int</span> j)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(s[i++]!=s[j--])<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="917-仅仅反转字母-easy"><a href="#917-仅仅反转字母-easy" class="headerlink" title="917. 仅仅反转字母[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-only-letters/">917. 仅仅反转字母</a>[easy]</h1><h2 id="解法一：栈"><a href="#解法一：栈" class="headerlink" title="解法一：栈"></a>解法一：栈</h2><p>将 <code>s</code>中的所有字母单独存入栈中，所以出栈等价于对字母反序操作。然后，遍历 <code>s</code> 的所有字符，如果是字母就选择栈顶元素输出。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">reverseOnlyLetters</span><span class="hljs-params">(string S)</span> </span>&#123;<br>        stack&lt;<span class="hljs-type">char</span>&gt; letters;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c:S)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isalpha</span>(c))<br>                letters.<span class="hljs-built_in">push</span>(c);<br>        &#125;<br>        string res;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c:S)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isalpha</span>(c))<br>            &#123;<br>                res+=letters.<span class="hljs-built_in">top</span>();<br>                letters.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>                res+=c;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N)，空间复杂度 O(N)。</p>
+<h2 id="解法二：双指针"><a href="#解法二：双指针" class="headerlink" title="解法二：双指针"></a>解法二：双指针</h2><p>遇到非字母，i++&#x2F;j–，遇到字母 swap。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">reverseOnlyLetters</span><span class="hljs-params">(string S)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=S.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">isalpha</span>(S[i]))<br>                i++;<br>            <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">isalpha</span>(S[j]))<br>                j--;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isalpha</span>(S[i])&amp;&amp;<span class="hljs-built_in">isalpha</span>(S[j]))<br>                <span class="hljs-built_in">swap</span>(S[i++],S[j--]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> S;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N)，空间复杂度 O(1)。</p>
+<h1 id="345-反转字符串中的元音字母-easy"><a href="#345-反转字符串中的元音字母-easy" class="headerlink" title="345. 反转字符串中的元音字母[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-vowels-of-a-string/">345. 反转字符串中的元音字母</a>[easy]</h1><h2 id="解法：双指针-3"><a href="#解法：双指针-3" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p>使用双指针，一个指针从头向尾遍历，一个指针从尾到头遍历，当两个指针都遍历到元音字符时，交换这两个元音字符。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">reverseVowels</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=s.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-comment">// 从左边查找元音字母</span><br>            <span class="hljs-keyword">while</span>(i&lt;j&amp;&amp;!<span class="hljs-built_in">isVowel</span>(s[i]))<br>                i++;<br>            <span class="hljs-comment">// 从右边查找元音字母</span><br>            <span class="hljs-keyword">while</span>(i&lt;j&amp;&amp;!<span class="hljs-built_in">isVowel</span>(s[j]))<br>                j--;<br>            <span class="hljs-built_in">swap</span>(s[i++],s[j--]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> s;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isVowel</span><span class="hljs-params">(<span class="hljs-type">char</span> c)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> c==<span class="hljs-string">&#x27;a&#x27;</span>||c==<span class="hljs-string">&#x27;e&#x27;</span>||c==<span class="hljs-string">&#x27;i&#x27;</span>||c==<span class="hljs-string">&#x27;o&#x27;</span>||c==<span class="hljs-string">&#x27;u&#x27;</span>||<br>               c==<span class="hljs-string">&#x27;A&#x27;</span>||c==<span class="hljs-string">&#x27;E&#x27;</span>||c==<span class="hljs-string">&#x27;I&#x27;</span>||c==<span class="hljs-string">&#x27;O&#x27;</span>||c==<span class="hljs-string">&#x27;U&#x27;</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>为了快速判断一个字符是不是元音字符，可以将全部元音字符添加到 HashSet 中，从而以 O(1) 的时间复杂度进行该操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">reverseVowels</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        unordered_set&lt;<span class="hljs-type">char</span>&gt; vowelSet&#123;<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;e&#x27;</span>,<span class="hljs-string">&#x27;i&#x27;</span>,<span class="hljs-string">&#x27;o&#x27;</span>,<span class="hljs-string">&#x27;u&#x27;</span>,<span class="hljs-string">&#x27;A&#x27;</span>,<span class="hljs-string">&#x27;E&#x27;</span>,<span class="hljs-string">&#x27;I&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;U&#x27;</span>&#125;;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=s.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-keyword">while</span>(i&lt;j&amp;&amp;vowelSet.<span class="hljs-built_in">count</span>(s[i])==<span class="hljs-number">0</span>)<br>                i++;<br>            <span class="hljs-keyword">while</span>(i&lt;j&amp;&amp;vowelSet.<span class="hljs-built_in">count</span>(s[j])==<span class="hljs-number">0</span>)<br>                j--;<br>            <span class="hljs-built_in">swap</span>(s[i++],s[j--]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> s;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="925-长按键入-easy"><a href="#925-长按键入-easy" class="headerlink" title="925. 长按键入[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/long-pressed-name/">925. 长按键入</a>[easy]</h1><h2 id="解法：双指针-4"><a href="#解法：双指针-4" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isLongPressedName</span><span class="hljs-params">(string name, string typed)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;typed.<span class="hljs-built_in">size</span>();++j)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(i&lt;name.<span class="hljs-built_in">size</span>()&amp;&amp;name[i]==typed[j])<br>                ++i;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!j||typed[j]!=typed[j<span class="hljs-number">-1</span>])<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> i==name.<span class="hljs-built_in">size</span>();<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="986-区间列表的交集-medium"><a href="#986-区间列表的交集-medium" class="headerlink" title="986. 区间列表的交集[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/interval-list-intersections/">986. 区间列表的交集</a>[medium]</h1><h2 id="解法：双指针-5"><a href="#解法：双指针-5" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p>题目说，给定的两个区间列表都是排好序的，因此用两个指针，分别考察A、B数组的子区间。根据子区间的左右边界，求出一个交集区间。移动指针直至遍历完A、B数组，得到由交集区间组成的数组。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200930101630.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<p><strong>怎么求交集区间：</strong></p>
+<ul>
+<li>注意上图的绿色箭头，交集区间的 start 取的是 A、B 子区间中较大的左界。</li>
+<li>注意上图的红色箭头，交集区间的 end 取的是 A、B 子区间中较小的右界。</li>
+<li>只要 start &lt;&#x3D; end，就形成了一个交集区间。</li>
+</ul>
+<p><strong>双指针移动的时机是什么：</strong></p>
+<ul>
+<li>求完一个交集区间后，较早结束的子区间不可能再和别的子区间重叠了，它的指针要移动。</li>
+<li>较长的子区间还有可能和别人重叠，它的指针暂时不动。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">intervalIntersection</span>(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; A, vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; B) &#123;<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; res;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;A.<span class="hljs-built_in">size</span>()&amp;&amp;j&lt;B.<span class="hljs-built_in">size</span>())<br>        &#123;<br>            <span class="hljs-type">int</span> start=<span class="hljs-built_in">max</span>(A[i][<span class="hljs-number">0</span>],B[j][<span class="hljs-number">0</span>]);<br>            <span class="hljs-type">int</span> end=<span class="hljs-built_in">min</span>(A[i][<span class="hljs-number">1</span>],B[j][<span class="hljs-number">1</span>]);<br>            <span class="hljs-keyword">if</span>(start&lt;=end)<br>                res.<span class="hljs-built_in">push_back</span>(&#123;start,end&#125;);<br>            <span class="hljs-keyword">if</span>(A[i][<span class="hljs-number">1</span>]&lt;B[j][<span class="hljs-number">1</span>])<br>                ++i;<br>            <span class="hljs-keyword">else</span><br>                ++j;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="167-两数之和-II-输入有序数组-easy"><a href="#167-两数之和-II-输入有序数组-easy" class="headerlink" title="167. 两数之和 II - 输入有序数组[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a>[easy]</h1><h2 id="解法一：哈希表"><a href="#解法一：哈希表" class="headerlink" title="解法一：哈希表"></a>解法一：哈希表</h2><p>借助哈希表，不考虑数组是否有序。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; numbers, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; mp;<span class="hljs-comment">// &lt;值，索引&gt;</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;numbers.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">int</span> anotherNum=target-numbers[i];<span class="hljs-comment">// 另一个数</span><br>            <span class="hljs-comment">// 存在等于target - numbers[i]的数且不是同一个数</span><br>            <span class="hljs-keyword">if</span>(mp.<span class="hljs-built_in">count</span>(anotherNum)!=<span class="hljs-number">0</span>)<br>                <span class="hljs-comment">// mp[anotherNum]+1 为另一个数的索引，该索引先插入 hashMap中，则其索引比较小，所以先放到结果中</span><br>                <span class="hljs-keyword">return</span> &#123;mp[anotherNum]+<span class="hljs-number">1</span>,i+<span class="hljs-number">1</span>&#125;;<br>            <span class="hljs-comment">// 否则，插入记录到哈希表</span><br>            <span class="hljs-keyword">else</span><br>                mp[numbers[i]]=i;<br>        &#125;<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-number">-1</span>,<span class="hljs-number">-1</span>&#125;;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N)，空间复杂度 O(N)。</p>
+<h2 id="解法二：二分查找"><a href="#解法二：二分查找" class="headerlink" title="解法二：二分查找"></a>解法二：二分查找</h2><p>遍历一遍数组，根据当前遍历的数字，利用数组的有序性质，可以使用二分查找查找当前数字后面，是否存在另一个数字使得两数之和等于 target。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; numbers, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;numbers.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">int</span> anotherNum=target-numbers[i];<br>            <span class="hljs-type">int</span> index=<span class="hljs-built_in">binarySearch</span>(numbers,i+<span class="hljs-number">1</span>,numbers.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>,anotherNum);<br>            <span class="hljs-comment">// 查找成功</span><br>            <span class="hljs-keyword">if</span>(index!=<span class="hljs-number">-1</span>)<br>                <span class="hljs-keyword">return</span> &#123;i+<span class="hljs-number">1</span>,index+<span class="hljs-number">1</span>&#125;;<br>        &#125;<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-number">-1</span>,<span class="hljs-number">-1</span>&#125;;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">// 二分查找，如果查找成功，则返回索引值；否则，返回 -1</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; numbers,<span class="hljs-type">int</span> left,<span class="hljs-type">int</span> right,<span class="hljs-type">int</span> target)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">while</span>(left&lt;right)<br>        &#123;<br>            <span class="hljs-type">int</span> mid=left+(right-left)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(numbers[mid]&lt;target)<br>                left=mid+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                right=mid;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(numbers[left]!=target)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">return</span> left;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(NlogN)，空间复杂度 O(1)。</p>
+<h2 id="解法三：双指针"><a href="#解法三：双指针" class="headerlink" title="解法三：双指针"></a>解法三：双指针</h2><p>初始时两个指针分别指向第一个元素位置和最后一个元素的位置。每次计算两个指针指向的两个元素之和，并和目标值比较。如果两个元素之和等于目标值，则发现了唯一解。如果两个元素之和小于目标值，则将左侧指针右移一位。如果两个元素之和大于目标值，则将右侧指针左移一位。移动指针之后，重复上述操作，直到找到答案。</p>
+<p>使用双指针的实质是<strong>缩减搜索空间</strong>，其原理与 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water/">11. 盛最多水的容器</a> 相似。具体可以查看 @<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/solution/yi-zhang-tu-gao-su-ni-on-de-shuang-zhi-zhen-jie-fa/">nettee</a> 题解。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; numbers, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=numbers.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-type">int</span> sum=numbers[i]+numbers[j];<br>            <span class="hljs-keyword">if</span>(sum==target)<br>                <span class="hljs-keyword">return</span> &#123;i+<span class="hljs-number">1</span>,j+<span class="hljs-number">1</span>&#125;;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum&lt;target)<br>                ++i;<br>            <span class="hljs-keyword">else</span><br>                --j;<br>        &#125;<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-number">-1</span>,<span class="hljs-number">-1</span>&#125;;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N)，空间复杂度 O(1)。</p>
+<h1 id="633-平方数之和-medium"><a href="#633-平方数之和-medium" class="headerlink" title="633. 平方数之和[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sum-of-square-numbers/">633. 平方数之和</a>[medium]</h1><p>本题可以看成是在元素为 0~c 的有序数组中查找两个数，使得这两个数的平方和为 c，如果能找到，则返回 true，表示 c 是两个整数的平方和。思路和 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a> 类似，只有一个明显区别：一个是和为 target，一个是平方和为 target。</p>
+<h2 id="解法一：二分查找"><a href="#解法一：二分查找" class="headerlink" title="解法一：二分查找"></a>解法一：二分查找</h2><p>思路和 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a> 解法二类似。首先枚举 <code>a</code>，随后通过二分查找的方法找出是否存在 <code>b</code>，满足 <code>b^2 = c - a^2</code>。二分查找的范围为 <code>[0, c - a^2]</code>。用 long 防止数据溢出。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgeSquareSum</span><span class="hljs-params">(<span class="hljs-type">int</span> c)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">long</span> a=<span class="hljs-number">0</span>;a*a&lt;=c;++a)<br>        &#123;<br>            <span class="hljs-type">int</span> b=c-a*a;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">binarySearch</span>(<span class="hljs-number">0</span>,b,b))<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">// 二分查找</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-type">long</span> left,<span class="hljs-type">long</span> right,<span class="hljs-type">int</span> target)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">while</span>(left&lt;right)<br>        &#123;<br>            <span class="hljs-type">long</span> mid=left+(right-left)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(mid*mid&lt;target)<br>                left=mid+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                right=mid;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(left*left!=target)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(sqrt(c)logc)，空间复杂度  O(1)。</p>
+<h2 id="解法二：双指针-1"><a href="#解法二：双指针-1" class="headerlink" title="解法二：双指针"></a>解法二：双指针</h2><p>思路和 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a> 解法三类似。本题的关键是右指针的初始化，实现剪枝，从而降低时间复杂度。设右指针为 <code>j</code>，左指针固定为 0，为了使 <code>0^2 + j^2</code> 的值尽可能接近 <code>c</code>，可以将<code>j</code>取为<code>sqrt(c)</code>。用 long 防止数据溢出。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgeSquareSum</span><span class="hljs-params">(<span class="hljs-type">int</span> c)</span> </span>&#123;<br>        <span class="hljs-type">long</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">long</span> j=(<span class="hljs-type">long</span>)<span class="hljs-built_in">sqrt</span>(c);<br>        <span class="hljs-keyword">while</span>(i&lt;=j)<br>        &#123;<br>            <span class="hljs-type">long</span> powSum=i*i+j*j;<br>            <span class="hljs-keyword">if</span>(powSum==c)<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(powSum&lt;c)<br>                i++;<br>            <span class="hljs-keyword">else</span><br>                j--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(sqrt(c))，空间复杂度 O(1)。</p>
+<h2 id="解法三：费马平方和定理"><a href="#解法三：费马平方和定理" class="headerlink" title="解法三：费马平方和定理"></a>解法三：费马平方和定理</h2><blockquote>
+<p>费马平方和定理：</p>
+<p>一个非负整数 c 能够表示为两个整数的平方和，当且仅当 c 的所有形如 4k+3 的质因子的幂次均为偶数。</p>
+</blockquote>
+<p>证明方法可以见 <a target="_blank" rel="noopener" href="http://wstein.org/edu/124/lectures/lecture21/lecture21/node2.html">这里</a>。</p>
+<p>因此对 c 进行质因数分解，再判断形如 4k+3 的质因子的幂次是否均为偶数即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgeSquareSum</span><span class="hljs-params">(<span class="hljs-type">int</span> c)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i * i &lt;= c; i++) <br>        &#123;<br>            <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>            <span class="hljs-comment">// 求c的质因子</span><br>            <span class="hljs-keyword">if</span>(c%i==<span class="hljs-number">0</span>) <br>            &#123;<br>                <span class="hljs-keyword">while</span>(c%i==<span class="hljs-number">0</span>) <br>                &#123;<br>                    <span class="hljs-comment">// 质因子的幂次</span><br>                    count++;<br>                    c/=i;<br>                &#125;<br>                <span class="hljs-keyword">if</span>(i%<span class="hljs-number">4</span>==<span class="hljs-number">3</span>&amp;&amp;count%<span class="hljs-number">2</span>!=<span class="hljs-number">0</span>)<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> c%<span class="hljs-number">4</span>!=<span class="hljs-number">3</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(sqrt(c))，空间复杂度 O(1)。</p>
+<h1 id="15-三数之和-medium"><a href="#15-三数之和-medium" class="headerlink" title="15. 三数之和[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum/">15. 三数之和</a>[medium]</h1><h2 id="解法：排序-双指针"><a href="#解法：排序-双指针" class="headerlink" title="解法：排序+双指针"></a>解法：排序+双指针</h2><p>本题的难点在于如何去除重复解。</p>
+<p><strong>算法流程：</strong></p>
+<ul>
+<li><p>特判，对于数组长度 n，如果数组长度小于 3，返回。</p>
+</li>
+<li><p>对数组进行排序。</p>
+</li>
+<li><p>遍历排序后数组：</p>
+<ul>
+<li><p>若 nums[i]&gt;0：因为已经排序好，所以后面不可能有三个数加和等于 0，直接返回结果。</p>
+</li>
+<li><p>对于重复元素：跳过，避免出现重复解。</p>
+</li>
+<li><p>令左指针 L&#x3D;i+1，右指针 R&#x3D;n-1，当 L&lt;R 时，执行循环：</p>
+<ul>
+<li><p>当 nums[i]+nums[L]+nums[R]&#x3D;&#x3D;0，执行循环，判断左界和右界是否和下一位置重复，去除重复解。并同时将 L,R 移到下一位置，寻找新的解。</p>
+</li>
+<li><p>若和大于 0，说明 nums[R] 太大，R 左移。</p>
+</li>
+<li><p>若和小于 0，说明 nums[L] 太小，L 右移。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">threeSum</span>(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums) &#123;<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; res;<br>        <span class="hljs-type">int</span> length=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(length&lt;<span class="hljs-number">3</span>)<br>            <span class="hljs-keyword">return</span> res;<br>        <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(),nums.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;length<span class="hljs-number">-2</span>;++i)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(nums[i]&gt;<span class="hljs-number">0</span>)<br>                <span class="hljs-keyword">return</span> res;<br>            <span class="hljs-comment">// 注意这边别忘记！！！</span><br>            <span class="hljs-keyword">if</span>(i&gt;<span class="hljs-number">0</span>&amp;&amp;nums[i]==nums[i<span class="hljs-number">-1</span>])<br>                <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-type">int</span> left=i+<span class="hljs-number">1</span>;<br>            <span class="hljs-type">int</span> right=length<span class="hljs-number">-1</span>;<br>            <span class="hljs-keyword">while</span>(left&lt;right)<br>            &#123;<br>                <span class="hljs-type">int</span> sum=nums[i]+nums[left]+nums[right];<br>                <span class="hljs-keyword">if</span>(sum==<span class="hljs-number">0</span>)<br>                &#123;<br>                    res.<span class="hljs-built_in">push_back</span>(&#123;nums[i],nums[left],nums[right]&#125;);<br>                    <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;nums[left+<span class="hljs-number">1</span>]==nums[left])<br>                        ++left;<br>                    <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;nums[right<span class="hljs-number">-1</span>]==nums[right])<br>                        --right;<br>                    ++left;<br>                    --right;<br>                &#125;<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum&gt;<span class="hljs-number">0</span>)<br>                    --right;<br>                <span class="hljs-keyword">else</span>    <br>                    ++left;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度：O(N^2)，数组排序 O(NlogN)，遍历数组 O(N)，双指针遍历 O(N)，总体  O(NlogN)+O(N)∗O(N)，即 O(N^2)。</li>
+<li>空间复杂度：O(logN)，额外的排序的空间复杂度为 O(logN)。</li>
+</ul>
+<h1 id="16-最接近的三数之和-medium"><a href="#16-最接近的三数之和-medium" class="headerlink" title="16. 最接近的三数之和[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum-closest/">16. 最接近的三数之和</a>[medium]</h1><h2 id="解法：排序-双指针-1"><a href="#解法：排序-双指针-1" class="headerlink" title="解法：排序+双指针"></a>解法：排序+双指针</h2><ul>
+<li>首先进行数组排序</li>
+<li>在数组 nums 中，进行遍历，每遍历一个值利用其下标 i，形成一个固定值 nums[i]。</li>
+<li>再使用左指针指向 <code>left = i + 1</code> 处，右指针指向 <code>right = nums.size() - 1</code> 处，也就是结尾处。</li>
+<li>根据 根据 <code>sum = nums[i] + nums[left] + nums[right]</code>的结果，判断 sum 与目标 target 的距离，如果更近则更新结果 res。</li>
+<li>同时判断 sum 与 target 的大小关系，因为数组有序，如果 <code>sum &gt; target</code> 则 <code>--right</code>，如果 如果 <code>sum &lt; target</code> 则 <code>++left</code>，如果 <code>sum == target</code> 则说明距离为 0 直接返回结果。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">threeSumClosest</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(),nums.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> res=nums[<span class="hljs-number">0</span>]+nums[<span class="hljs-number">1</span>]+nums[<span class="hljs-number">2</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-2</span>;++i)<br>        &#123;<br>            <span class="hljs-type">int</span> left=i+<span class="hljs-number">1</span>;<br>            <span class="hljs-type">int</span> right=nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>            <span class="hljs-keyword">while</span>(left&lt;right)<br>            &#123;<br>                <span class="hljs-type">int</span> sum=nums[i]+nums[left]+nums[right];<br>                <span class="hljs-keyword">if</span>(sum==target)<br>                    <span class="hljs-keyword">return</span> sum;<br>                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(target-sum)&lt;<span class="hljs-built_in">abs</span>(target-res))<br>                    res=sum;<br>                <span class="hljs-keyword">if</span>(sum&gt;target)<br>                     --right;<br>                <span class="hljs-keyword">else</span><br>                    ++left; <br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><strong>双指针法的优化</strong></p>
+<p>利用 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum/">15. 三数之和</a> 中去重的思路对本题元素重复的问题进行优化。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">threeSumClosest</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(),nums.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> res=nums[<span class="hljs-number">0</span>]+nums[<span class="hljs-number">1</span>]+nums[<span class="hljs-number">2</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-2</span>;++i)<br>        &#123;<br>            <span class="hljs-comment">// 解决nums[i]重复</span><br>            <span class="hljs-keyword">if</span>(i&gt;<span class="hljs-number">0</span>&amp;&amp;nums[i]==nums[i<span class="hljs-number">-1</span>])<br>                <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-type">int</span> left=i+<span class="hljs-number">1</span>;<br>            <span class="hljs-type">int</span> right=nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>            <span class="hljs-keyword">while</span>(left&lt;right)<br>            &#123;<br>                <span class="hljs-type">int</span> sum=nums[i]+nums[left]+nums[right];<br>                <span class="hljs-keyword">if</span>(sum==target)<br>                    <span class="hljs-keyword">return</span> sum;<br>                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(target-sum)&lt;<span class="hljs-built_in">abs</span>(target-res))<br>                    res=sum;<br>                <span class="hljs-keyword">if</span>(sum&gt;target)<br>                &#123;<br>                    <span class="hljs-comment">// 解决nums[right]重复</span><br>                    <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;nums[right<span class="hljs-number">-1</span>]==nums[right])<br>                        --right;<br>                     --right;<br>                &#125;<br>                <span class="hljs-keyword">else</span> <br>                &#123;<br>                    <span class="hljs-comment">// 解决nums[left]重复</span><br>                    <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;nums[left+<span class="hljs-number">1</span>]==nums[left])<br>                        ++left;<br>                    ++left;<br>                &#125;   <br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度：O(N^2)，数组排序 O(NlogN)，遍历数组 O(N)，双指针遍历 O(N)，总体  O(NlogN)+O(N)∗O(N)，即 O(N^2)。</li>
+<li>空间复杂度：O(logN)，额外的排序的空间复杂度为 O(logN)。</li>
+</ul>
+<h1 id="88-合并两个有序数组-easy"><a href="#88-合并两个有序数组-easy" class="headerlink" title="88. 合并两个有序数组[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-sorted-array/">88. 合并两个有序数组</a>[easy]</h1><h2 id="解法一：合并数组后排序"><a href="#解法一：合并数组后排序" class="headerlink" title="解法一：合并数组后排序"></a>解法一：合并数组后排序</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, <span class="hljs-type">int</span> m, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>    	<span class="hljs-built_in">copy</span>(nums2.<span class="hljs-built_in">begin</span>(),nums2.<span class="hljs-built_in">end</span>(),nums1.<span class="hljs-built_in">begin</span>()+m);<br>    	<span class="hljs-built_in">sort</span>(nums1.<span class="hljs-built_in">begin</span>(),nums1.<span class="hljs-built_in">end</span>());            <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O((n + m)log(n + m)，空间复杂度 O(1)。</p>
+<h2 id="解法二：双指针（从前往后）"><a href="#解法二：双指针（从前往后）" class="headerlink" title="解法二：双指针（从前往后）"></a>解法二：双指针（从前往后）</h2><p>将指针<code>p1</code>置为<code>nums1</code>的开头，<code>p2</code>为<code>nums2</code>的开头，在每一步将最小值放入输出数组中。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200725150214.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, <span class="hljs-type">int</span> m, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2, <span class="hljs-type">int</span> n)</span> </span>&#123;   <br>    	<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(nums1.begin(),nums1.begin()+m)</span></span>;<br>    	<span class="hljs-type">int</span> p1=<span class="hljs-number">0</span>,p2=<span class="hljs-number">0</span>,p=<span class="hljs-number">0</span>;<br>   		<span class="hljs-keyword">while</span>(p1&lt;m &amp;&amp; p2&lt;n)<br>    	&#123;<br>        	<span class="hljs-keyword">if</span>(a[p1]&lt;=nums2[p2])<br>            	nums1[p++]=a[p1++];<br>        	<span class="hljs-keyword">else</span><br>            	nums1[p++]=nums2[p2++];<br>    	&#125;<br>    	<span class="hljs-keyword">while</span>(p1&lt;m)<br>        	nums1[p++]=a[p1++];<br>    	<span class="hljs-keyword">while</span>(p2&lt;n)<br>        	nums1[p++]=nums2[p2++];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n + m)，空间复杂度 O(m)。由于 nums1 是用于输出的数组，需要将 nums1 中的前 m 个元素放在其他地方，也就需要 O(m)的空间复杂度。</p>
+<h2 id="解法三：双指针（从后往前）"><a href="#解法三：双指针（从后往前）" class="headerlink" title="解法三：双指针（从后往前）"></a>解法三：双指针（从后往前）</h2><p>方法二已经取得了最优的时间复杂度O(n + m)，但需要使用额外空间。这是由于在从头改变<code>nums1</code>的值时，需要把<code>nums1</code>中的元素存放在其他位置。从结尾开始改写 <code>nums1</code> 的值不需要额外空间。指针 <code>p</code> 用于追踪添加元素的位置。</p>
+<img src="https://raw.githubusercontent.com/Simpleforever/imgbed/master/pic/20200725150229.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, <span class="hljs-type">int</span> m, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2, <span class="hljs-type">int</span> n)</span> </span>&#123; <br>    	<span class="hljs-type">int</span> p1=m<span class="hljs-number">-1</span>,p2=n<span class="hljs-number">-1</span>,p=m+n<span class="hljs-number">-1</span>;<br>    	<span class="hljs-keyword">while</span>(p1&gt;=<span class="hljs-number">0</span> &amp;&amp; p2&gt;=<span class="hljs-number">0</span>)<br>    	&#123;<br>        	<span class="hljs-keyword">if</span>(nums1[p1]&gt;=nums2[p2])<br>            	nums1[p--]=nums1[p1--];<br>        	<span class="hljs-keyword">else</span><br>            	nums1[p--]=nums2[p2--];<br>    	&#125;<br>    	<span class="hljs-comment">//while(p1&gt;=0)</span><br>        	<span class="hljs-comment">//nums1[p--]=nums1[p1--];</span><br>    	<span class="hljs-keyword">while</span>(p2&gt;=<span class="hljs-number">0</span>)<br>        	nums1[p--]=nums2[p2--];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n + m)，空间复杂度 O(1)。</p>
+<h1 id="977-有序数组的平方-easy"><a href="#977-有序数组的平方-easy" class="headerlink" title="977. 有序数组的平方[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/">977. 有序数组的平方</a>[easy]</h1><h2 id="解法一：平方后排序"><a href="#解法一：平方后排序" class="headerlink" title="解法一：平方后排序"></a>解法一：平方后排序</h2><p>创建一个新的数组，它每个元素是给定数组对应位置元素的平方，然后排序这个数组。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">sortedSquares</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; A)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; res;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;num:A)<br>            res.<span class="hljs-built_in">push_back</span>(num*num);<br>        <span class="hljs-built_in">sort</span>(res.<span class="hljs-built_in">begin</span>(),res.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(NlogN))。</p>
+<h2 id="解法二：双指针-2"><a href="#解法二：双指针-2" class="headerlink" title="解法二：双指针"></a>解法二：双指针</h2><p>因为数组 <code>A</code> 有序， 所以可以说数组中的负数已经按照平方值降序排好了，数组中的非负数已经按照平方值升序排好了。因此使用两个指针分别读取数组的非负部分与负数部分 —— 指针 <code>i</code> 反向读取负数部分，指针 <code>j</code> 正向读取非负数部分。在用两个指针分别读取两个递增的数组（按元素的平方排序）时，合并这两个有序数组。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">sortedSquares</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; A)</span> </span>&#123;<br>        <span class="hljs-type">int</span> length=A.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(j&lt;length&amp;&amp;A[j]&lt;<span class="hljs-number">0</span>)<br>            j++;<br>        <span class="hljs-type">int</span> i=j<span class="hljs-number">-1</span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(length)</span></span>;<br>        <span class="hljs-type">int</span> p=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(i&gt;=<span class="hljs-number">0</span>&amp;&amp;j&lt;length)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(A[i]*A[i]&lt;A[j]*A[j])<br>            &#123;<br>                res[p++]=A[i]*A[i];<br>                i--;<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                res[p++]=A[j]*A[j];<br>                j++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">while</span>(i&gt;=<span class="hljs-number">0</span>)<br>        &#123;<br>            res[p++]=A[i]*A[i];<br>            i--;<br>        &#125;<br>        <span class="hljs-keyword">while</span>(j&lt;length)<br>        &#123;<br>            res[p++]=A[j]*A[j];<br>            j++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(N)。</p>
+<h1 id="26-删除排序数组中的重复项-easy"><a href="#26-删除排序数组中的重复项-easy" class="headerlink" title="26. 删除排序数组中的重复项[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/">26. 删除排序数组中的重复项</a>[easy]</h1><h2 id="解法：双指针-6"><a href="#解法：双指针-6" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p>数组是有序的，那么重复的元素一定会相邻。要求删除重复元素，实际上就是将不重复的元素移到数组的左侧。考虑用 2 个指针，前指针<code>p</code>，后指针 <code>q</code>，</p>
+<ul>
+<li><p>比较<code>p</code>和 <code>q</code> 位置的元素是否相等：</p>
+<ul>
+<li>如果相等，<code>q</code>后移 1 位。</li>
+<li>如果不相等，将<code>q</code>位置的元素复制到<code>p+1</code>位置上，<code>p</code>后移一位，<code>q</code>后移 1 位。</li>
+</ul>
+</li>
+<li><p>重复上述过程，直到<code>q</code>等于数组长度。</p>
+</li>
+<li><p>返回<code>p+1</code>，即为新数组长度。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>()==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> p=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> q=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(q&lt;nums.<span class="hljs-built_in">size</span>())<br>        &#123;<br>            <span class="hljs-keyword">if</span>(nums[q]!=nums[p])<br>            &#123;<br>                nums[p+<span class="hljs-number">1</span>]=nums[q];<br>                p++;<br>            &#125;<br>            q++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> p+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(1)。</p>
+<h1 id="27-移除元素-easy"><a href="#27-移除元素-easy" class="headerlink" title="27. 移除元素[easy]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-element/">27. 移除元素</a>[easy]</h1><h2 id="解法：双指针-7"><a href="#解法：双指针-7" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p>使用两个指针<code>i</code>和<code>j</code>，其中<code>i</code>是慢指针，<code>j</code>是快指针。</p>
+<h3 id="拷贝覆盖"><a href="#拷贝覆盖" class="headerlink" title="拷贝覆盖"></a>拷贝覆盖</h3><p>当<code>nums[j]</code>与给定的值相等时，递增<code>j</code>以跳过该元素。只要<code>nums[j]!=val</code>，就复制<code>nums[j]</code>到<code>nums[i]</code>并同时递增两个索引。重复这一过程，直到<code>j</code>到达数组的末尾，该数组的新长度为<code>i</code>。</p>
+<p>这种思路在移除元素较多时更适合使用，最极端的情况是全部元素都需要移除，遍历一遍结束即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">removeElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> val)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(j&lt;nums.<span class="hljs-built_in">size</span>())<br>        &#123;<br>            <span class="hljs-keyword">if</span>(nums[j]!=val)<br>            &#123;<br>                nums[i]=nums[j];<br>                i++;<br>            &#125;<br>            j++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> i;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="交换移除"><a href="#交换移除" class="headerlink" title="交换移除"></a>交换移除</h3><p>当遇到<code>nums[i]=val</code> 时，可以将当前元素与最后一个元素进行交换，并释放最后一个元素。这实际上使数组的大小减少了 1。被交换的最后一个元素可能是想要移除的值，但是在下一次迭代中，仍然会检查这个元素。</p>
+<p>这种思路在移除元素较少时更适合使用，最极端的情况是没有元素需要移除，遍历一遍结束即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">removeElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> val)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">while</span>(i&lt;j)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(nums[i]==val)<br>            &#123;<br>                nums[i]=nums[j<span class="hljs-number">-1</span>];<br>                <span class="hljs-comment">// 数组长度 -1</span><br>                j--;<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>                i++;               <br>        &#125;<br>        <span class="hljs-keyword">return</span> j;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 O(n)，空间复杂度 O(1)。</p>
+<h1 id="524-通过删除字母匹配到字典里最长单词-medium"><a href="#524-通过删除字母匹配到字典里最长单词-medium" class="headerlink" title="524. 通过删除字母匹配到字典里最长单词[medium]"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/">524. 通过删除字母匹配到字典里最长单词</a>[medium]</h1><h2 id="解法：双指针-8"><a href="#解法：双指针-8" class="headerlink" title="解法：双指针"></a>解法：双指针</h2><p>使用双指针来判断一个字符串是否为另一个字符串的子序列。利用两个指针<code>i</code>和<code>j</code>，一个指向<code>s</code>字符串，一个指向<code>target</code>字符串，每一次查找过程中,<code>i</code>依次后移，若<code>i,j</code>对应的两个字符相等，则<code>j</code>后移，如果<code>j</code>可以移到<code>target.length()</code>，那么说明<code>target</code>中的字符<code>s</code>中都有，即<code>s</code>删除一些字符后，可以得到<code>target</code>字符串。最后一步就是比较当前的结果与找到的<code>target</code>字符串，按照题目的需求来决定是否改变结果字符串。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">findLongestWord</span><span class="hljs-params">(string s, vector&lt;string&gt;&amp; d)</span> </span>&#123;<br>        string res=<span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;d.<span class="hljs-built_in">size</span>();++i)<br>        &#123;<br>            <span class="hljs-type">int</span> l1=res.<span class="hljs-built_in">length</span>();<br>            <span class="hljs-type">int</span> l2=d[i].<span class="hljs-built_in">length</span>();<br>            <span class="hljs-comment">// 若字符串更短或者一样长且字母顺序较大的直接舍去</span><br>            <span class="hljs-keyword">if</span>(l1&gt;l2||(l1==l2&amp;&amp;res.<span class="hljs-built_in">compare</span>(d[i])&lt;<span class="hljs-number">0</span>))<br>                <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isSubStr</span>(s,d[i]))<br>                res=d[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isSubStr</span><span class="hljs-params">(string s,string target)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;s.<span class="hljs-built_in">length</span>()&amp;&amp;j&lt;target.<span class="hljs-built_in">length</span>())<br>        &#123;<br>            <span class="hljs-keyword">if</span>(s[i]==target[j])<br>                j++;<br>            i++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> j==target.<span class="hljs-built_in">length</span>();<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Two-Pointers/">Two Pointers</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/13/Leetcode%20Notes%E2%80%94%E2%80%94Sliding%20Window/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Leetcode Notes——Sliding Window</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/10/Leetcode%20Notes%E2%80%94%E2%80%94Binary%20Search/">
+                        <span class="hidden-mobile">Leetcode Notes——Binary Search</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
